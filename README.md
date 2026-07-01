@@ -15,6 +15,7 @@ Shared utility library used by moonstat, moonclaw, moondesk, moontown, and moonb
 | `rand` | Random bytes | extracted from moonstat, moonclaw |
 | `clock` | Time/clock utilities | extracted from moonstat, moonclaw |
 | `c` | C FFI helpers | extracted from moonstat, moonclaw |
+| `moonsuite` | Shared MoonSuite filesystem contracts | extracted from moondesk migration plan |
 
 ## Usage
 
@@ -31,6 +32,7 @@ Then import in your code:
 ```moonbit
 let path = @pathx.join(home, ".moonsuite")
 let exists = @fsx.exists(path)
+let product_home = @moonsuite.product_dir(home, "moonclaw")
 ```
 
 ## Publishing

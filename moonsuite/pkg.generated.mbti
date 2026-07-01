@@ -1,0 +1,73 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/moonsuite"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn artifact_classes() -> Array[ArtifactClass]
+
+pub fn book_artifact(String, String, String) -> String
+
+pub fn book_root(String, String) -> String
+
+pub fn books_root(String) -> String
+
+pub fn cache_root(String) -> String
+
+pub fn default_product_ids() -> Array[String]
+
+pub fn exports_root(String) -> String
+
+pub fn inbox_root(String) -> String
+
+pub fn product_artifact(String, String, String) -> String
+
+pub fn product_dir(String, String) -> String
+
+pub fn product_display_name(String) -> String
+
+pub fn product_external_tool_home(String, String, String) -> String
+
+pub fn product_registry(String) -> Json
+
+pub fn product_registry_path(String) -> String
+
+pub fn product_service_path(String, String) -> String
+
+pub fn product_tmp_dir(String, String) -> String
+
+pub fn products_root(String) -> String
+
+pub fn services_root(String) -> String
+
+pub fn state_dir(String) -> String
+
+pub fn suite_manifest(String) -> Json
+
+pub fn suite_manifest_path(String) -> String
+
+pub fn suite_root(String) -> String
+
+pub fn tmp_products_root(String) -> String
+
+pub fn tmp_root(String) -> String
+
+// Errors
+
+// Types and methods
+pub enum ArtifactClass {
+  ProductState
+  ProductTemp
+  BookRoot
+  BookEvidence
+  RunLedger
+  ExternalToolHome
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn ArtifactClass::key(Self) -> String
+
+// Type aliases
+
+// Traits
+
