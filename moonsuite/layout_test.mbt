@@ -32,6 +32,28 @@ test "book and product artifact constructors" {
 }
 
 ///|
+test "suite root can be recovered from book root" {
+  inspect(
+    @moonsuite.suite_root_for_book_root("books/research-demo"),
+    content="",
+  )
+  inspect(
+    @moonsuite.suite_root_for_book_root("/tmp/suite/books/research-demo"),
+    content="/tmp/suite",
+  )
+  inspect(
+    @moonsuite.suite_root_for_book_root("/tmp/legacy-book"),
+    content="/tmp",
+  )
+  inspect(
+    @moonsuite.product_artifact_for_book_root(
+      "/tmp/suite/books/research-demo", "moonclaw", "jobs/index/runs.json",
+    ),
+    content="/tmp/suite/.moonsuite/products/moonclaw/jobs/index/runs.json",
+  )
+}
+
+///|
 test "default products include full suite" {
   let ids = @moonsuite.default_product_ids()
   assert_true(ids.contains("moondesk"))

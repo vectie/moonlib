@@ -140,6 +140,43 @@ pub fn book_artifact(
 }
 
 ///|
+pub fn suite_root_for_book_root(book_root : String) -> String {
+  let normalized = @pathx.normalize(book_root)
+  let segments : Array[String] = []
+  for part in @pathx.split(normalized) {
+    if part == "books" {
+      return join_suite_root_segments(segments)
+    }
+    segments.push(part.to_owned())
+  }
+  @pathx.dirname(normalized).to_owned()
+}
+
+///|
+fn join_suite_root_segments(segments : Array[String]) -> String {
+  let mut root = ""
+  for part in segments {
+    if part == "/" {
+      root = "/"
+    } else if root.is_empty() {
+      root = part
+    } else {
+      root = @pathx.join(root, part)
+    }
+  }
+  root
+}
+
+///|
+pub fn product_artifact_for_book_root(
+  book_root : String,
+  product_id : String,
+  relative : String,
+) -> String {
+  product_artifact(suite_root_for_book_root(book_root), product_id, relative)
+}
+
+///|
 pub fn default_product_ids() -> Array[String] {
   [
     "moondesk", "moonbook", "moonwiki", "mooncode", "moonclaw", "moontown", "moonstat",
