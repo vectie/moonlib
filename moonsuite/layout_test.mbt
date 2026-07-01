@@ -54,6 +54,30 @@ test "suite root can be recovered from book root" {
 }
 
 ///|
+test "workspace roots preserve standalone roots and suite book roots" {
+  inspect(
+    @moonsuite.suite_root_for_workspace_root("/tmp/wiki"),
+    content="/tmp/wiki",
+  )
+  inspect(
+    @moonsuite.suite_root_for_workspace_root("/tmp/suite/books/research-wiki"),
+    content="/tmp/suite",
+  )
+  inspect(
+    @moonsuite.product_artifact_for_workspace_root(
+      "/tmp/wiki", "moonclaw", "providers.json",
+    ),
+    content="/tmp/wiki/.moonsuite/products/moonclaw/providers.json",
+  )
+  inspect(
+    @moonsuite.product_artifact_for_workspace_root(
+      "/tmp/suite/books/research-wiki", "moonclaw", "providers.json",
+    ),
+    content="/tmp/suite/.moonsuite/products/moonclaw/providers.json",
+  )
+}
+
+///|
 test "default products include full suite" {
   let ids = @moonsuite.default_product_ids()
   assert_true(ids.contains("moondesk"))

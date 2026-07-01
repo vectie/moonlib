@@ -153,6 +153,17 @@ pub fn suite_root_for_book_root(book_root : String) -> String {
 }
 
 ///|
+pub fn suite_root_for_workspace_root(workspace_root : String) -> String {
+  let normalized = @pathx.normalize(workspace_root)
+  let parent = @pathx.dirname(normalized).to_owned()
+  if @pathx.basename(parent).to_owned() == "books" {
+    @pathx.dirname(parent).to_owned()
+  } else {
+    normalized
+  }
+}
+
+///|
 fn join_suite_root_segments(segments : Array[String]) -> String {
   let mut root = ""
   for part in segments {
@@ -174,6 +185,19 @@ pub fn product_artifact_for_book_root(
   relative : String,
 ) -> String {
   product_artifact(suite_root_for_book_root(book_root), product_id, relative)
+}
+
+///|
+pub fn product_artifact_for_workspace_root(
+  workspace_root : String,
+  product_id : String,
+  relative : String,
+) -> String {
+  product_artifact(
+    suite_root_for_workspace_root(workspace_root),
+    product_id,
+    relative,
+  )
 }
 
 ///|

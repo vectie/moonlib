@@ -26,6 +26,8 @@ pub fn product_artifact(String, String, String) -> String
 
 pub fn product_artifact_for_book_root(String, String, String) -> String
 
+pub fn product_artifact_for_workspace_root(String, String, String) -> String
+
 pub fn product_dir(String, String) -> String
 
 pub fn product_display_name(String) -> String
@@ -53,6 +55,8 @@ pub fn suite_manifest_path(String) -> String
 pub fn suite_root(String) -> String
 
 pub fn suite_root_for_book_root(String) -> String
+
+pub fn suite_root_for_workspace_root(String) -> String
 
 pub fn tmp_products_root(String) -> String
 
