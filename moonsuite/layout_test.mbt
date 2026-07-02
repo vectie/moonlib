@@ -32,6 +32,27 @@ test "book and product artifact constructors" {
 }
 
 ///|
+test "shared product home contract preserves product-owned paths" {
+  let home = @moonsuite.product_home(
+    "/tmp/suite",
+    "moonfish",
+    book_id="trading-lab",
+  )
+  assert_eq(home.product_id, "moonfish")
+  assert_eq(home.state_path, "/tmp/suite/.moonsuite/products/moonfish")
+  assert_eq(
+    home.service_path,
+    "/tmp/suite/.moonsuite/products/moonfish/service.json",
+  )
+  assert_eq(home.cache_path, "/tmp/suite/.moonsuite/products/moonfish/cache")
+  assert_eq(home.tmp_path, "/tmp/suite/.tmp/products/moonfish")
+  assert_eq(
+    home.accepted_output_path,
+    "/tmp/suite/books/trading-lab/outputs/moonfish",
+  )
+}
+
+///|
 test "suite root can be recovered from book root" {
   inspect(
     @moonsuite.suite_root_for_book_root("books/research-demo"),
@@ -75,6 +96,18 @@ test "workspace roots preserve standalone roots and suite book roots" {
     ),
     content="/tmp/suite/.moonsuite/products/moonclaw/providers.json",
   )
+  let home = @moonsuite.product_home_for_workspace_root(
+    "/tmp/suite/books/research-wiki",
+    "moonmoon",
+    book_id="research-wiki",
+  )
+  assert_eq(home.state_path, "/tmp/suite/.moonsuite/products/moonmoon")
+  assert_eq(home.tmp_path, "/tmp/suite/.tmp/products/moonmoon")
+  assert_eq(
+    home.accepted_output_path,
+    "/tmp/suite/books/research-wiki/outputs/moonmoon",
+  )
+  assert_false(home.state_path.contains("books/research-wiki/.moonsuite"))
 }
 
 ///|

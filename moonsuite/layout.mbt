@@ -68,6 +68,16 @@ pub fn product_tmp_dir(root : String, product_id : String) -> String {
 }
 
 ///|
+pub(all) struct ProductHome {
+  product_id : String
+  state_path : String
+  service_path : String
+  cache_path : String
+  tmp_path : String
+  accepted_output_path : String
+} derive(Debug, Eq, ToJson, FromJson)
+
+///|
 pub fn state_dir(root : String) -> String {
   @pathx.join(suite_root(root), ".moonsuite")
 }
@@ -89,6 +99,11 @@ pub fn product_artifact(
   relative : String,
 ) -> String {
   @pathx.join(product_dir(root, product_id), relative)
+}
+
+///|
+pub fn product_cache_path(root : String, product_id : String) -> String {
+  product_artifact(root, product_id, "cache")
 }
 
 ///|
@@ -137,6 +152,15 @@ pub fn book_artifact(
   relative : String,
 ) -> String {
   @pathx.join(book_root(root, book_id), relative)
+}
+
+///|
+pub fn product_accepted_output_path(
+  root : String,
+  product_id : String,
+  book_id : String,
+) -> String {
+  book_artifact(root, book_id, @pathx.join("outputs", product_id))
 }
 
 ///|
@@ -197,6 +221,58 @@ pub fn product_artifact_for_workspace_root(
     suite_root_for_workspace_root(workspace_root),
     product_id,
     relative,
+  )
+}
+
+///|
+pub fn product_cache_path_for_workspace_root(
+  workspace_root : String,
+  product_id : String,
+) -> String {
+  product_artifact_for_workspace_root(workspace_root, product_id, "cache")
+}
+
+///|
+pub fn product_accepted_output_path_for_workspace_root(
+  workspace_root : String,
+  product_id : String,
+  book_id? : String = "<book-id>",
+) -> String {
+  product_accepted_output_path(
+    suite_root_for_workspace_root(workspace_root),
+    product_id,
+    book_id,
+  )
+}
+
+///|
+pub fn product_home(
+  root : String,
+  product_id : String,
+  book_id? : String = "<book-id>",
+) -> ProductHome {
+  {
+    product_id,
+    state_path: product_dir(root, product_id),
+    service_path: product_service_path(root, product_id),
+    cache_path: product_cache_path(root, product_id),
+    tmp_path: product_tmp_dir(root, product_id),
+    accepted_output_path: product_accepted_output_path(
+      root, product_id, book_id,
+    ),
+  }
+}
+
+///|
+pub fn product_home_for_workspace_root(
+  workspace_root : String,
+  product_id : String,
+  book_id? : String = "<book-id>",
+) -> ProductHome {
+  product_home(
+    suite_root_for_workspace_root(workspace_root),
+    product_id,
+    book_id~,
   )
 }
 

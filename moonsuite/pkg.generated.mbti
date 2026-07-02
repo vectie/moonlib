@@ -3,6 +3,7 @@ package "vectie/moonlib/moonsuite"
 
 import {
   "moonbitlang/core/debug",
+  "moonbitlang/core/json",
 }
 
 // Values
@@ -22,17 +23,29 @@ pub fn exports_root(String) -> String
 
 pub fn inbox_root(String) -> String
 
+pub fn product_accepted_output_path(String, String, String) -> String
+
+pub fn product_accepted_output_path_for_workspace_root(String, String, book_id? : String) -> String
+
 pub fn product_artifact(String, String, String) -> String
 
 pub fn product_artifact_for_book_root(String, String, String) -> String
 
 pub fn product_artifact_for_workspace_root(String, String, String) -> String
 
+pub fn product_cache_path(String, String) -> String
+
+pub fn product_cache_path_for_workspace_root(String, String) -> String
+
 pub fn product_dir(String, String) -> String
 
 pub fn product_display_name(String) -> String
 
 pub fn product_external_tool_home(String, String, String) -> String
+
+pub fn product_home(String, String, book_id? : String) -> ProductHome
+
+pub fn product_home_for_workspace_root(String, String, book_id? : String) -> ProductHome
 
 pub fn product_registry(String) -> Json
 
@@ -74,6 +87,15 @@ pub enum ArtifactClass {
   ExternalToolHome
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn ArtifactClass::key(Self) -> String
+
+pub(all) struct ProductHome {
+  product_id : String
+  state_path : String
+  service_path : String
+  cache_path : String
+  tmp_path : String
+  accepted_output_path : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 
 // Type aliases
 
