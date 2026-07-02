@@ -39,6 +39,12 @@ pub fn product_cache_path_for_workspace_root(String, String) -> String
 
 pub fn product_dir(String, String) -> String
 
+pub fn product_display_absolute_artifact(String, String) -> String
+
+pub fn product_display_artifact(String, String) -> String
+
+pub fn product_display_dir(String) -> String
+
 pub fn product_display_name(String) -> String
 
 pub fn product_external_tool_home(String, String, String) -> String

@@ -102,6 +102,31 @@ pub fn product_artifact(
 }
 
 ///|
+pub fn product_display_dir(product_id : String) -> String {
+  ".moonsuite/products/\{product_id}"
+}
+
+///|
+pub fn product_display_artifact(
+  product_id : String,
+  relative : String,
+) -> String {
+  if relative == "" {
+    product_display_dir(product_id)
+  } else {
+    @pathx.join(product_display_dir(product_id), relative)
+  }
+}
+
+///|
+pub fn product_display_absolute_artifact(
+  product_id : String,
+  relative : String,
+) -> String {
+  "/" + product_display_artifact(product_id, relative)
+}
+
+///|
 pub fn product_cache_path(root : String, product_id : String) -> String {
   product_artifact(root, product_id, "cache")
 }
@@ -294,7 +319,8 @@ pub fn product_home_for_workspace_root(
 pub fn default_product_ids() -> Array[String] {
   [
     "moondesk", "moonbook", "moonwiki", "mooncode", "moonclaw", "moontown", "moonstat",
-    "moonfish", "moonmoon", "moonrobo", "bookkeeper", "lepusa", "rabbita",
+    "moonfish", "moonmoon", "moonchat", "moonvis", "moonrobo", "bookkeeper", "lepusa",
+    "rabbita",
   ]
 }
 
@@ -310,6 +336,8 @@ pub fn product_display_name(product_id : String) -> String {
     "moonstat" => "MoonStat"
     "moonfish" => "MoonFish"
     "moonmoon" => "MoonMoon"
+    "moonchat" => "MoonChat"
+    "moonvis" => "MoonVis"
     "moonrobo" => "MoonRobo"
     "bookkeeper" => "Bookkeeper"
     "lepusa" => "Lepusa"
