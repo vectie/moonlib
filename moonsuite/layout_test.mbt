@@ -108,6 +108,21 @@ test "workspace roots preserve standalone roots and suite book roots" {
     "/tmp/suite/books/research-wiki/outputs/moonmoon",
   )
   assert_false(home.state_path.contains("books/research-wiki/.moonsuite"))
+  let inferred_home = @moonsuite.product_home_for_workspace_root(
+    "/tmp/suite/books/research-wiki", "moonfish",
+  )
+  assert_eq(inferred_home.state_path, "/tmp/suite/.moonsuite/products/moonfish")
+  assert_eq(inferred_home.tmp_path, "/tmp/suite/.tmp/products/moonfish")
+  assert_eq(
+    inferred_home.accepted_output_path,
+    "/tmp/suite/books/research-wiki/outputs/moonfish",
+  )
+  inspect(
+    @moonsuite.product_accepted_output_path_for_workspace_root(
+      "/tmp/suite/books/research-wiki", "mooncode",
+    ),
+    content="/tmp/suite/books/research-wiki/outputs/mooncode",
+  )
 }
 
 ///|

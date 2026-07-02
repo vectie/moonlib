@@ -188,6 +188,20 @@ pub fn suite_root_for_workspace_root(workspace_root : String) -> String {
 }
 
 ///|
+fn book_id_for_workspace_root(
+  workspace_root : String,
+  fallback : String,
+) -> String {
+  let normalized = @pathx.normalize(workspace_root)
+  let parent = @pathx.dirname(normalized).to_owned()
+  if fallback == "<book-id>" && @pathx.basename(parent).to_owned() == "books" {
+    @pathx.basename(normalized).to_owned()
+  } else {
+    fallback
+  }
+}
+
+///|
 fn join_suite_root_segments(segments : Array[String]) -> String {
   let mut root = ""
   for part in segments {
@@ -241,7 +255,7 @@ pub fn product_accepted_output_path_for_workspace_root(
   product_accepted_output_path(
     suite_root_for_workspace_root(workspace_root),
     product_id,
-    book_id,
+    book_id_for_workspace_root(workspace_root, book_id),
   )
 }
 
@@ -272,7 +286,7 @@ pub fn product_home_for_workspace_root(
   product_home(
     suite_root_for_workspace_root(workspace_root),
     product_id,
-    book_id~,
+    book_id=book_id_for_workspace_root(workspace_root, book_id),
   )
 }
 
