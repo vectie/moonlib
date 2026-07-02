@@ -32,6 +32,28 @@ test "book and product artifact constructors" {
 }
 
 ///|
+test "product display artifact constructors are root independent" {
+  inspect(
+    @moonsuite.product_display_dir("moonclaw"),
+    content=".moonsuite/products/moonclaw",
+  )
+  inspect(
+    @moonsuite.product_display_artifact("moontown", "watchers/goal.jsonl"),
+    content=".moonsuite/products/moontown/watchers/goal.jsonl",
+  )
+  inspect(
+    @moonsuite.product_display_artifact("moondesk", ""),
+    content=".moonsuite/products/moondesk",
+  )
+  inspect(
+    @moonsuite.product_display_absolute_artifact(
+      "moonrobo", "runtime-health/latest.json",
+    ),
+    content="/.moonsuite/products/moonrobo/runtime-health/latest.json",
+  )
+}
+
+///|
 test "shared product home contract preserves product-owned paths" {
   let home = @moonsuite.product_home(
     "/tmp/suite",

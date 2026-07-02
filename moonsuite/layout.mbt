@@ -102,6 +102,31 @@ pub fn product_artifact(
 }
 
 ///|
+pub fn product_display_dir(product_id : String) -> String {
+  ".moonsuite/products/\{product_id}"
+}
+
+///|
+pub fn product_display_artifact(
+  product_id : String,
+  relative : String,
+) -> String {
+  if relative == "" {
+    product_display_dir(product_id)
+  } else {
+    @pathx.join(product_display_dir(product_id), relative)
+  }
+}
+
+///|
+pub fn product_display_absolute_artifact(
+  product_id : String,
+  relative : String,
+) -> String {
+  "/" + product_display_artifact(product_id, relative)
+}
+
+///|
 pub fn product_cache_path(root : String, product_id : String) -> String {
   product_artifact(root, product_id, "cache")
 }
