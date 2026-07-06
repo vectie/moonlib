@@ -1,0 +1,42 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/spawn"
+
+import {
+  "vectie/moonlib/errno",
+}
+
+// Values
+pub fn getpid() -> Int
+
+pub fn getppid() -> Int
+
+pub fn kill(Int, Int) -> Unit raise @errno.Errno
+
+pub async fn spawn(StringView, Array[StringView], stdin? : String, timeout? : Int, cwd? : StringView, env? : Map[String, String]) -> CompletedProcess
+
+// Errors
+pub suberror Failed {
+  Failed(CompletedProcess)
+} derive(ToJson)
+pub impl Show for Failed
+
+pub suberror TimedOut {
+  TimedOut(timeout~ : Int, stdout~ : String, stderr~ : String)
+}
+
+// Types and methods
+pub struct CompletedProcess {
+  exec : String
+  args : Array[String]
+  status : Int
+  stdout : String
+  stderr : String
+  elapsed : Int
+  timeout : Int?
+} derive(ToJson)
+pub fn CompletedProcess::check(Self) -> Unit raise Failed
+
+// Type aliases
+
+// Traits
+

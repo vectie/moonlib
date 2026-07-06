@@ -8,10 +8,7 @@ import {
   "moonbitlang/core/test",
 }
 
-import {
-  "vectie/moonlib/spawn",
-  "moonbitlang/async",
-} for "test"
+supported_targets = "native"
 
 options(
   "native-stub": [ "os.c" ],

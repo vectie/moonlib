@@ -1,0 +1,70 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/uuid"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+  "moonbitlang/core/random",
+}
+
+// Values
+pub fn[Source : Source] generator(Source) -> Generator
+
+pub let max : Uuid
+
+pub let nil : Uuid
+
+pub fn parse(StringView) -> Uuid raise ParseError
+
+// Errors
+type ParseError derive(ToJson, @debug.Debug)
+
+// Types and methods
+type Generator
+pub fn Generator::v4(Self) -> Uuid
+
+type Uuid derive(Compare, Eq, Hash)
+#as_free_fn
+pub fn Uuid::of_bytes(Bytes) -> Self
+pub fn Uuid::to_bytes(Self) -> Bytes
+pub fn Uuid::to_string(Self) -> String
+pub fn Uuid::variant(Self) -> Variant
+pub fn Uuid::version(Self) -> Version?
+pub impl Show for Uuid
+pub impl ToJson for Uuid
+pub impl @json.FromJson for Uuid
+
+pub enum Variant {
+  ReservedNCS
+  RFC9562(Version)
+  ReservedMicrosoft
+  ReservedFuture
+} derive(ToJson)
+
+pub(all) enum Version {
+  V0
+  V1
+  V2
+  V3
+  V4
+  V5
+  V6
+  V7
+  V8
+  V9
+  V10
+  V11
+  V12
+  V13
+  V14
+  V15
+} derive(ToJson)
+
+// Type aliases
+
+// Traits
+pub(open) trait Source {
+  fn uint64(Self) -> UInt64
+}
+pub impl Source for @random.Rand
+

@@ -12,19 +12,19 @@ pub enum FileKind {
   Pipe
   BlockDevice
   CharDevice
-} derive(Show, Hash, Eq, Compare, ToJson)
+} derive(Debug, Hash, Eq, Compare, ToJson)
 
 ///|
 fn FileKind::of_fs_file_kind(file_kind : @fs.FileKind) -> FileKind {
   match file_kind {
-    @fs.FileKind::Unknown => Unknown
-    @fs.FileKind::Regular => Regular
-    @fs.FileKind::Directory => Directory
-    @fs.FileKind::SymLink => SymLink
-    @fs.FileKind::Socket => Socket
-    @fs.FileKind::Pipe => Pipe
-    @fs.FileKind::BlockDevice => BlockDevice
-    @fs.FileKind::CharDevice => CharDevice
+    Unknown => Unknown
+    Regular => Regular
+    Directory => Directory
+    SymLink => SymLink
+    Socket => Socket
+    Pipe => Pipe
+    BlockDevice => BlockDevice
+    CharDevice => CharDevice
   }
 }
 
@@ -41,7 +41,7 @@ pub struct DirectoryEntry {
   name : String
   /// File-system kind of the entry.
   kind : FileKind
-} derive(Show, Hash, Eq, Compare, ToJson)
+} derive(Debug, Hash, Eq, Compare, ToJson)
 
 ///|
 /// List all entries in the directory at `path`.
@@ -49,7 +49,7 @@ pub struct DirectoryEntry {
 /// The returned entries are sorted by their derived ordering and include
 /// the full path, basename and file kind for each item.
 pub async fn list_directory(path : StringView) -> Array[DirectoryEntry] {
-  let dir : @fs.Directory = @fs.opendir(path.to_string())
+  let dir : @fs.Directory = @fs.opendir(path.to_owned())
   defer dir.close()
   let entries = []
   for basename in dir.read_all() {

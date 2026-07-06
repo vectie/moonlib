@@ -1,7 +1,7 @@
 ///|
 test "Timestamp::to_json" {
   let timestamp = @clock.Timestamp::from_ms(1625079600)
-  assert_eq(timestamp.to_json(), 1625079600)
+  json_inspect(timestamp.to_json(), content=1625079600)
 }
 
 ///|

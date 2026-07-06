@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "vectie/moonstat/internal/c"
+package "vectie/moonlib/c"
 
 // Values
 pub fn[T] exit(Int) -> T
