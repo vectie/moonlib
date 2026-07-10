@@ -36,6 +36,7 @@ not be required just to construct a suite path.
 | `c` | C FFI helpers | extracted from moonstat, moonclaw |
 | `moonsuite` | Shared MoonSuite filesystem contracts | extracted from moondesk migration plan |
 | `conversation` | Shared conversation record contracts | extracted from Moondesk/MoonCode cleanup |
+| `pipeline` | Versioned cross-product run, evidence, messaging, and robot design contracts | Moon Suite pipeline |
 
 ## Implementation Guidance
 
@@ -55,6 +56,11 @@ The `@moonsuite` package is the canonical place for:
 
 When more than one product needs a filesystem path or registry shape, add it
 here first and make product-local helpers thin adapters.
+
+The `@pipeline` package similarly owns versioned JSON contract identifiers,
+required fields, quality dimensions, and compatibility rules exchanged between
+products. Consumers must ignore unknown fields and reject missing required
+fields so contracts can evolve without silently accepting incomplete data.
 
 ## Usage
 
