@@ -10,19 +10,29 @@ pub fn contract_kind() -> String
 
 pub fn conversation_kind(product_id~ : String) -> String
 
+pub fn conversation_required_fields() -> Array[String]
+
 pub fn diagnostics_rule() -> String
 
 pub fn event_identity_rule() -> String
 
 pub fn identity_fields() -> Array[String]
 
-pub fn message_roles() -> Array[String]
+pub fn ordering_rule() -> String
+
+pub fn revision_rule() -> String
+
+pub fn slot_required_fields() -> Array[String]
 
 pub fn turn_kind(product_id~ : String) -> String
 
 pub fn turn_order() -> Array[String]
 
 pub fn turn_required_fields() -> Array[String]
+
+pub fn work_required_fields() -> Array[String]
+
+pub fn work_step_kinds() -> Array[String]
 
 // Errors
 

@@ -1,6 +1,6 @@
 ///|
 test "conversation contract exposes shared schema constants" {
-  assert_eq(@conversation.contract_id(), "moonsuite-conversation.v1")
+  assert_eq(@conversation.contract_id(), "moonsuite-conversation.v2")
   assert_eq(
     @conversation.conversation_kind(product_id="mooncode"),
     "mooncode-conversation",
@@ -9,16 +9,20 @@ test "conversation contract exposes shared schema constants" {
     @conversation.turn_kind(product_id="mooncode"),
     "mooncode-conversation-turn",
   )
-  json_inspect(@conversation.message_roles(), content=[
-    "user", "progress", "assistant",
-  ])
-  json_inspect(@conversation.turn_order(), content=[
-    "user", "progress", "assistant",
-  ])
+  json_inspect(@conversation.turn_order(), content=["user", "work", "assistant"])
   assert_true(@conversation.identity_fields().contains("turn_id"))
   assert_true(@conversation.identity_fields().contains("client_turn_id"))
   assert_true(@conversation.identity_fields().contains("command_id"))
-  assert_true(@conversation.turn_required_fields().contains("items"))
+  assert_true(@conversation.identity_fields().contains("ordinal"))
+  assert_true(@conversation.turn_required_fields().contains("work"))
+  assert_true(@conversation.work_required_fields().contains("steps"))
+  assert_true(@conversation.work_required_fields().contains("live"))
+  assert_true(@conversation.work_step_kinds().contains("thought"))
+  assert_true(@conversation.work_step_kinds().contains("tool"))
+  assert_true(
+    @conversation.ordering_rule().contains("must never move an existing turn"),
+  )
+  assert_true(@conversation.revision_rule().contains("monotonic"))
 }
 
 ///|
@@ -36,7 +40,7 @@ test "conversation contract json binds product owners without owning diagnostics
   )
   assert_eq(
     test_json_string(payload, "contract_id", default=""),
-    "moonsuite-conversation.v1",
+    "moonsuite-conversation.v2",
   )
   assert_eq(test_json_string(payload, "product_id", default=""), "mooncode")
   assert_eq(
@@ -53,6 +57,9 @@ test "conversation contract json binds product owners without owning diagnostics
   assert_true(payload.stringify().contains("\"turn_id\""))
   assert_true(payload.stringify().contains("\"client_turn_id\""))
   assert_true(payload.stringify().contains("\"command_id\""))
+  assert_true(payload.stringify().contains("\"projection_owner\":\"moonclaw\""))
+  assert_true(payload.stringify().contains("\"work_step_kinds\""))
+  assert_true(payload.stringify().contains("\"last_sequence\""))
 }
 
 ///|
