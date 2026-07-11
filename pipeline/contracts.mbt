@@ -5,6 +5,17 @@ pub fn contract_family() -> String {
 
 ///|
 pub(all) enum ContractKind {
+  Identity
+  Authority
+  ArtifactRef
+  ExecutableDocument
+  WorkModel
+  KnowledgeGap
+  BeliefUpdate
+  BookkeeperReflection
+  LearnedProcedure
+  TownCommission
+  TownPromotion
   ModelRoute
   RunReceipt
   BookReadiness
@@ -17,6 +28,17 @@ pub(all) enum ContractKind {
 ///|
 pub fn ContractKind::id(self : ContractKind) -> String {
   match self {
+    Identity => "moonsuite.identity.v1"
+    Authority => "moonsuite.authority.v1"
+    ArtifactRef => "moonsuite.artifact-ref.v1"
+    ExecutableDocument => "moonsuite.executable-document.v1"
+    WorkModel => "moonsuite.work-model.v1"
+    KnowledgeGap => "moonbook.knowledge-gap.v1"
+    BeliefUpdate => "moonbook.belief-update.v1"
+    BookkeeperReflection => "moonbook.bookkeeper-reflection.v1"
+    LearnedProcedure => "moonbook.learned-procedure.v1"
+    TownCommission => "moontown.commission.v1"
+    TownPromotion => "moontown.promotion.v1"
     ModelRoute => "moonsuite.model-route.v1"
     RunReceipt => "moonsuite.run-receipt.v1"
     BookReadiness => "moonsuite.book-readiness.v1"
@@ -30,6 +52,17 @@ pub fn ContractKind::id(self : ContractKind) -> String {
 ///|
 pub fn contract_kinds() -> Array[ContractKind] {
   [
+    Identity,
+    Authority,
+    ArtifactRef,
+    ExecutableDocument,
+    WorkModel,
+    KnowledgeGap,
+    BeliefUpdate,
+    BookkeeperReflection,
+    LearnedProcedure,
+    TownCommission,
+    TownPromotion,
     ModelRoute,
     RunReceipt,
     BookReadiness,
@@ -43,6 +76,60 @@ pub fn contract_kinds() -> Array[ContractKind] {
 ///|
 pub fn required_fields(kind : ContractKind) -> Array[String] {
   match kind {
+    Identity => ["contract_id", "kind", "id", "revision", "recorded_at"]
+    Authority =>
+      [
+        "contract_id", "authority_id", "actor_id", "class", "scope", "granted_by",
+        "recorded_at",
+      ]
+    ArtifactRef =>
+      [
+        "contract_id", "artifact_id", "producer", "digest", "uri", "authority",
+        "recorded_at",
+      ]
+    ExecutableDocument =>
+      [
+        "contract_id", "book_id", "revision", "declarations", "source_digest",
+        "recorded_at",
+      ]
+    WorkModel =>
+      [
+        "contract_id", "graph_id", "book_id", "declaration_revision", "items",
+        "recorded_at",
+      ]
+    KnowledgeGap =>
+      [
+        "contract_id", "gap_id", "book_id", "kind", "question", "required_by",
+        "missing", "resolution_criteria", "status", "recorded_at",
+      ]
+    BeliefUpdate =>
+      [
+        "contract_id", "update_id", "book_id", "belief_id", "statement", "change",
+        "evidence_refs", "confidence", "affected_refs", "recorded_at",
+      ]
+    BookkeeperReflection =>
+      [
+        "contract_id", "reflection_id", "book_id", "trigger", "observations", "gaps",
+        "belief_updates", "proposed_actions", "learned_procedures", "confidence",
+        "requested_authority", "recorded_at",
+      ]
+    LearnedProcedure =>
+      [
+        "contract_id", "procedure_id", "book_id", "title", "applicability", "steps",
+        "verification_criteria", "failure_modes", "evidence_refs", "status",
+        "recorded_at",
+      ]
+    TownCommission =>
+      [
+        "contract_id", "commission_id", "work_item_id", "scope", "perspectives",
+        "evidence_requirements", "budget", "deadline", "requested_output", "recorded_at",
+      ]
+    TownPromotion =>
+      [
+        "contract_id", "promotion_id", "candidate_id", "origin", "contributors",
+        "evidence_refs", "dissent", "expected_value", "success_criteria", "risks",
+        "requested_authority", "draft_graph", "recorded_at",
+      ]
     ModelRoute =>
       [
         "contract_id", "selected_model", "fallback_models", "selection_reason", "probes",

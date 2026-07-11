@@ -318,22 +318,23 @@ pub fn product_home_for_workspace_root(
 ///|
 pub fn default_product_ids() -> Array[String] {
   [
-    "moondesk", "moonbook", "moonwiki", "mooncode", "moonclaw", "moontown", "moonstat",
-    "moonfish", "moonmoon", "moonchat", "moonvis", "moonrobo", "bookkeeper", "lepusa",
-    "rabbita",
+    "moondesk", "moonbook", "moonwiki", "mooncode", "moonclaw", "moonflow", "moontown",
+    "moonstat", "moonfish", "moonmoon", "moonchat", "moonvis", "moonrobo", "bookkeeper",
+    "lepusa", "rabbita",
   ]
 }
 
 ///|
 pub fn product_display_name(product_id : String) -> String {
   match product_id {
-    "moondesk" => "Moondesk"
+    "moondesk" => "MoonDesk"
     "moonbook" => "MoonBook"
     "moonwiki" => "MoonWiki"
     "mooncode" => "MoonCode"
     "moonclaw" => "MoonClaw"
-    "moontown" => "Moontown"
-    "moonstat" => "MoonStat"
+    "moonflow" => "MoonFlow"
+    "moontown" => "MoonTown"
+    "moonstat" => "MoonGate"
     "moonfish" => "MoonFish"
     "moonmoon" => "MoonMoon"
     "moonchat" => "MoonChat"
