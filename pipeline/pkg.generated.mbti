@@ -1,0 +1,42 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/pipeline"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn contract_family() -> String
+
+pub fn contract_kinds() -> Array[ContractKind]
+
+pub fn has_required_fields(ContractKind, Json) -> Bool
+
+pub fn missing_required_fields(ContractKind, Json) -> Array[String]
+
+pub fn quality_dimensions() -> Array[String]
+
+pub fn required_fields(ContractKind) -> Array[String]
+
+pub fn schema_json(ContractKind) -> Json
+
+pub fn terminal_statuses() -> Array[String]
+
+// Errors
+
+// Types and methods
+pub(all) enum ContractKind {
+  ModelRoute
+  RunReceipt
+  BookReadiness
+  EvidenceEnvelope
+  ChangeReceipt
+  BookMessage
+  RobotDesign
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn ContractKind::id(Self) -> String
+
+// Type aliases
+
+// Traits
+
