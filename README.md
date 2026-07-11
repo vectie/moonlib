@@ -1,6 +1,6 @@
 # MoonLib - Shared utilities for the Moon suite
 
-Shared utility library used by moonstat, moonclaw, moondesk, moontown, and moonbook.
+Shared utility library used by moongate, moonclaw, moondesk, moontown, and moonbook.
 
 MoonLib is the low-level contract layer for code that more than one MoonSuite
 product needs. It should stay deterministic, dependency-light, and free of
@@ -18,24 +18,24 @@ MoonLib owns:
 
 MoonLib does not own status reporting, product health, usage analytics,
 daemon supervision, UI behavior, domain workflows, or migration policy.
-MoonStat may validate MoonLib contracts in live workspaces, but MoonStat should
+MoonGate may validate MoonLib contracts in live workspaces, but MoonGate should
 not be required just to construct a suite path.
 
 ## Packages
 
 | Package | Description | Origin |
 |---------|-------------|--------|
-| `fsx` | Filesystem operations | extracted from moonstat, moonclaw, moondesk, moonbook |
-| `pathx` | Path manipulation | extracted from moonstat, moonclaw, moondesk, moonbook |
-| `spawn` | Process spawning | extracted from moonstat, moonclaw |
-| `uuid` | UUID generation | extracted from moonstat, moonclaw |
-| `errno` | Errno constants | extracted from moonstat, moonclaw |
-| `os` | OS utilities | extracted from moonstat, moonclaw |
-| `rand` | Random bytes | extracted from moonstat, moonclaw |
-| `clock` | Time/clock utilities | extracted from moonstat, moonclaw |
-| `c` | C FFI helpers | extracted from moonstat, moonclaw |
+| `fsx` | Filesystem operations | extracted from moongate, moonclaw, moondesk, moonbook |
+| `pathx` | Path manipulation | extracted from moongate, moonclaw, moondesk, moonbook |
+| `spawn` | Process spawning | extracted from moongate, moonclaw |
+| `uuid` | UUID generation | extracted from moongate, moonclaw |
+| `errno` | Errno constants | extracted from moongate, moonclaw |
+| `os` | OS utilities | extracted from moongate, moonclaw |
+| `rand` | Random bytes | extracted from moongate, moonclaw |
+| `clock` | Time/clock utilities | extracted from moongate, moonclaw |
+| `c` | C FFI helpers | extracted from moongate, moonclaw |
 | `moonsuite` | Shared MoonSuite filesystem contracts | extracted from moondesk migration plan |
-| `conversation` | Shared conversation record contracts | extracted from Moondesk/MoonCode cleanup |
+| `conversation` | Shared conversation record contracts | extracted from MoonDesk/MoonCode cleanup |
 | `pipeline` | Versioned cross-product run, evidence, messaging, and robot design contracts | Moon Suite pipeline |
 
 ## Implementation Guidance
@@ -95,12 +95,12 @@ moon fmt
 For `@moonsuite` changes, add focused tests for suite roots, selected
 `books/<book-id>` roots, product homes, temp lanes, accepted output paths, and
 placeholder book ids. After publishing, run at least one consumer smoke in
-Moondesk or MoonStat if the public path contract changed.
+MoonDesk or MoonGate if the public path contract changed.
 
 ## Worth Noticing
 
-- Do not add dependencies from MoonLib back into MoonDesk, MoonStat, MoonClaw,
-  Moontown, or MoonBook.
+- Do not add dependencies from MoonLib back into MoonDesk, MoonGate, MoonClaw,
+  MoonTown, or MoonBook.
 - Prefer explicit string/record helpers over implicit filesystem probing unless
   the contract is specifically a discovery function.
 - `.mbti` diffs are the public API signal. Review them carefully after
@@ -115,7 +115,7 @@ Moondesk or MoonStat if the public path contract changed.
 - Add typed product-registry helpers once all consumers agree on the stable
   schema.
 - Keep conversation contracts small enough for MoonCode, MoonChat, and
-  Moondesk to share without a UI dependency.
+  MoonDesk to share without a UI dependency.
 - Publish only after consumer-facing `.mbti` changes are intentional.
 
 ## Publishing
