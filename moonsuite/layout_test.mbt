@@ -154,7 +154,7 @@ test "default products include full suite" {
   assert_true(ids.contains("moonclaw"))
   assert_true(ids.contains("moonflow"))
   assert_true(ids.contains("moontown"))
-  assert_true(ids.contains("moonstat"))
+  assert_true(ids.contains("moongate"))
   assert_true(ids.contains("moonfish"))
   assert_true(ids.contains("moonmoon"))
   assert_true(ids.contains("moonchat"))
@@ -186,16 +186,16 @@ test "suite manifest and product registry json" {
   })
   let registry = @moonsuite.product_registry(root).stringify()
   assert_true(registry.contains("\"kind\":\"moonsuite-product-registry.v1\""))
-  assert_true(registry.contains("\"id\":\"moonstat\""))
+  assert_true(registry.contains("\"id\":\"moongate\""))
   assert_true(registry.contains("\"id\":\"moonflow\""))
   assert_true(
     registry.contains(
-      "\"state_path\":\"/tmp/suite/.moonsuite/products/moonstat\"",
+      "\"state_path\":\"/tmp/suite/.moonsuite/products/moongate\"",
     ),
   )
   assert_true(
     registry.contains(
-      "\"service_path\":\"/tmp/suite/.moonsuite/products/moonstat/service.json\"",
+      "\"service_path\":\"/tmp/suite/.moonsuite/products/moongate/service.json\"",
     ),
   )
 }

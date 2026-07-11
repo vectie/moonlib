@@ -1,6 +1,6 @@
 # MoonLib - Shared utilities for the Moon suite
 
-Shared utility library used by moonstat, moonclaw, moondesk, moontown, and moonbook.
+Shared utility library used by moongate, moonclaw, moondesk, moontown, and moonbook.
 
 MoonLib is the low-level contract layer for code that more than one MoonSuite
 product needs. It should stay deterministic, dependency-light, and free of
@@ -25,15 +25,15 @@ not be required just to construct a suite path.
 
 | Package | Description | Origin |
 |---------|-------------|--------|
-| `fsx` | Filesystem operations | extracted from moonstat, moonclaw, moondesk, moonbook |
-| `pathx` | Path manipulation | extracted from moonstat, moonclaw, moondesk, moonbook |
-| `spawn` | Process spawning | extracted from moonstat, moonclaw |
-| `uuid` | UUID generation | extracted from moonstat, moonclaw |
-| `errno` | Errno constants | extracted from moonstat, moonclaw |
-| `os` | OS utilities | extracted from moonstat, moonclaw |
-| `rand` | Random bytes | extracted from moonstat, moonclaw |
-| `clock` | Time/clock utilities | extracted from moonstat, moonclaw |
-| `c` | C FFI helpers | extracted from moonstat, moonclaw |
+| `fsx` | Filesystem operations | extracted from moongate, moonclaw, moondesk, moonbook |
+| `pathx` | Path manipulation | extracted from moongate, moonclaw, moondesk, moonbook |
+| `spawn` | Process spawning | extracted from moongate, moonclaw |
+| `uuid` | UUID generation | extracted from moongate, moonclaw |
+| `errno` | Errno constants | extracted from moongate, moonclaw |
+| `os` | OS utilities | extracted from moongate, moonclaw |
+| `rand` | Random bytes | extracted from moongate, moonclaw |
+| `clock` | Time/clock utilities | extracted from moongate, moonclaw |
+| `c` | C FFI helpers | extracted from moongate, moonclaw |
 | `moonsuite` | Shared MoonSuite filesystem contracts | extracted from moondesk migration plan |
 | `conversation` | Shared conversation record contracts | extracted from MoonDesk/MoonCode cleanup |
 | `pipeline` | Versioned cross-product run, evidence, messaging, and robot design contracts | Moon Suite pipeline |
