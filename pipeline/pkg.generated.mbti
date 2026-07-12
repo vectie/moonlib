@@ -12,7 +12,13 @@ pub fn authorize_autonomy_event(AutonomyEnvelope, AutonomyEventRequest, Autonomy
 
 pub fn autonomy_artifact_ref_is_safe(String) -> Bool
 
+pub fn autonomy_budget_usage_json(AutonomyBudgetUsage) -> Json
+
 pub fn autonomy_digest_is_valid(String) -> Bool
+
+pub fn autonomy_envelope_json(AutonomyEnvelope) -> Json
+
+pub fn autonomy_event_request_json(AutonomyEventRequest) -> Json
 
 pub fn autonomy_timestamp_is_canonical(String) -> Bool
 
@@ -23,6 +29,14 @@ pub fn compile_work_graph(String, String, String, Array[ExecutableDeclaration], 
 pub fn contract_family() -> String
 
 pub fn contract_kinds() -> Array[ContractKind]
+
+pub fn decode_autonomy_budget(Json) -> AutonomyBudget raise
+
+pub fn decode_autonomy_budget_usage(Json) -> AutonomyBudgetUsage raise
+
+pub fn decode_autonomy_envelope(Json) -> AutonomyEnvelope raise
+
+pub fn decode_autonomy_event_request(Json) -> AutonomyEventRequest raise
 
 pub fn has_required_fields(ContractKind, Json) -> Bool
 

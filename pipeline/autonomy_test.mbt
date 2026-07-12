@@ -75,6 +75,18 @@ test "unattended envelope authorizes only scoped digital work" {
 }
 
 ///|
+test "autonomy wire round trips canonical authority and claim ids" {
+  let envelope = unattended_envelope()
+  let decoded = decode_autonomy_envelope(autonomy_envelope_json(envelope))
+  assert_true(decoded == envelope)
+  let event = unattended_event()
+  let decoded_event = decode_autonomy_event_request(
+    autonomy_event_request_json(event),
+  )
+  assert_true(decoded_event == event)
+}
+
+///|
 test "unattended envelope fails closed on authority claim path and budget" {
   let event = {
     ..unattended_event(),
