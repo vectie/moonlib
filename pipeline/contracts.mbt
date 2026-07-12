@@ -24,6 +24,9 @@ pub(all) enum ContractKind {
   BookMessage
   RobotDesign
   ConstitutionConformance
+  AutonomyEnvelope
+  AutonomyDecision
+  InterventionScorecard
 } derive(Debug, Eq, Compare, Hash, ToJson)
 
 ///|
@@ -48,6 +51,9 @@ pub fn ContractKind::id(self : ContractKind) -> String {
     BookMessage => "moonsuite.book-message.v1"
     RobotDesign => "moonsuite.robot-design.v1"
     ConstitutionConformance => "moonsuite.constitution-conformance.v1"
+    AutonomyEnvelope => "moongate.autonomy-envelope.v1"
+    AutonomyDecision => "moongate.autonomy-decision.v1"
+    InterventionScorecard => "moonflow.intervention-scorecard.v1"
   }
 }
 
@@ -73,6 +79,9 @@ pub fn contract_kinds() -> Array[ContractKind] {
     BookMessage,
     RobotDesign,
     ConstitutionConformance,
+    AutonomyEnvelope,
+    AutonomyDecision,
+    InterventionScorecard,
   ]
 }
 
@@ -168,6 +177,23 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
       [
         "contract_id", "report_id", "subject_id", "product_id", "accepted", "findings",
         "checked_at",
+      ]
+    AutonomyEnvelope =>
+      [
+        "contract_id", "envelope_id", "mode", "goal_ref", "workspace_root", "grants",
+        "budget", "external_effects_allowed", "physical_effects_allowed", "granted_by",
+        "source_digest", "recorded_at", "expires_at", "revoked",
+      ]
+    AutonomyDecision =>
+      [
+        "contract_id", "decision_id", "envelope_id", "event_id", "accepted", "findings",
+        "remaining_budget", "checked_at",
+      ]
+    InterventionScorecard =>
+      [
+        "contract_id", "run_id", "constitutional_authority_count", "optional_observation_count",
+        "required_intervention_count", "hidden_orchestration_count", "normal_path_intervention_count",
+        "unattended_qualified", "records", "checked_at",
       ]
   }
 }

@@ -6,6 +6,18 @@ import {
 }
 
 // Values
+pub fn authority_class_from_id(String) -> AuthorityClass raise
+
+pub fn authorize_autonomy_event(AutonomyEnvelope, AutonomyEventRequest, AutonomyBudgetUsage, String, String) -> AutonomyDecision
+
+pub fn autonomy_artifact_ref_is_safe(String) -> Bool
+
+pub fn autonomy_digest_is_valid(String) -> Bool
+
+pub fn autonomy_timestamp_is_canonical(String) -> Bool
+
+pub fn claim_class_from_id(String) -> ClaimClass raise
+
 pub fn compile_work_graph(String, String, String, Array[ExecutableDeclaration], String) -> WorkGraph
 
 pub fn contract_family() -> String
@@ -13,6 +25,10 @@ pub fn contract_family() -> String
 pub fn contract_kinds() -> Array[ContractKind]
 
 pub fn has_required_fields(ContractKind, Json) -> Bool
+
+pub fn intervention_category_from_id(String) -> InterventionCategory raise
+
+pub fn intervention_scorecard(String, Array[InterventionRecord], String) -> InterventionScorecard
 
 pub fn missing_required_fields(ContractKind, Json) -> Array[String]
 
@@ -60,6 +76,84 @@ pub(all) struct AuthorityGrant {
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
 pub fn AuthorityGrant::quality_issues(Self) -> Array[String]
+
+pub(all) struct AutonomyBudget {
+  model_tokens : Int
+  tool_calls : Int
+  storage_bytes : Int
+  attempts : Int
+  concurrency : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyBudget::quality_issues(Self) -> Array[String]
+
+pub(all) struct AutonomyBudgetBalance {
+  model_tokens : Int
+  tool_calls : Int
+  storage_bytes : Int
+  attempts : Int
+  concurrency : Int
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct AutonomyBudgetUsage {
+  model_tokens : Int
+  tool_calls : Int
+  storage_bytes : Int
+  attempts : Int
+  concurrency : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyBudgetUsage::quality_issues(Self) -> Array[String]
+
+pub(all) struct AutonomyDecision {
+  contract_id : String
+  decision_id : String
+  envelope_id : String
+  event_id : String
+  accepted : Bool
+  findings : Array[String]
+  remaining_budget : AutonomyBudgetBalance
+  checked_at : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct AutonomyEnvelope {
+  contract_id : String
+  envelope_id : String
+  mode : String
+  goal_ref : String
+  workspace_root : String
+  grants : Array[AutonomyGrant]
+  budget : AutonomyBudget
+  external_effects_allowed : Bool
+  physical_effects_allowed : Bool
+  granted_by : String
+  source_digest : String
+  recorded_at : String
+  expires_at : String
+  revoked : Bool
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyEnvelope::quality_issues(Self) -> Array[String]
+
+pub(all) struct AutonomyEventRequest {
+  contract_id : String
+  event_id : String
+  run_id : String
+  product_id : String
+  operation : String
+  requested_authority : AuthorityClass
+  claim : ClaimClass
+  artifact_paths : Array[String]
+  external_destination : String
+  budget_request : AutonomyBudgetUsage
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct AutonomyGrant {
+  product_id : String
+  operations : Array[String]
+  authority_ceiling : AuthorityClass
+  claim_ceiling : ClaimClass
+  artifact_prefixes : Array[String]
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyGrant::quality_issues(Self) -> Array[String]
 
 pub(all) struct BeliefUpdate {
   update_id : String
@@ -168,6 +262,9 @@ pub(all) enum ContractKind {
   BookMessage
   RobotDesign
   ConstitutionConformance
+  AutonomyEnvelope
+  AutonomyDecision
+  InterventionScorecard
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn ContractKind::id(Self) -> String
 
@@ -203,6 +300,37 @@ pub(all) struct ExecutableDeclaration {
   requested_authority : AuthorityClass
 } derive(Eq, ToJson, @debug.Debug)
 pub fn ExecutableDeclaration::quality_issues(Self) -> Array[String]
+
+pub(all) enum InterventionCategory {
+  ConstitutionalAuthority
+  OptionalObservation
+  RequiredIntervention
+  HiddenOrchestration
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn InterventionCategory::id(Self) -> String
+
+pub(all) struct InterventionRecord {
+  intervention_id : String
+  category : InterventionCategory
+  normal_path : Bool
+  product_id : String
+  reason : String
+  evidence_ref : String
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct InterventionScorecard {
+  contract_id : String
+  run_id : String
+  constitutional_authority_count : Int
+  optional_observation_count : Int
+  required_intervention_count : Int
+  hidden_orchestration_count : Int
+  normal_path_intervention_count : Int
+  unattended_qualified : Bool
+  records : Array[InterventionRecord]
+  checked_at : String
+} derive(Eq, ToJson, @debug.Debug)
 
 pub(all) struct KnowledgeGap {
   gap_id : String

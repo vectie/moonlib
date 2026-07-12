@@ -33,6 +33,25 @@ pub fn ClaimClass::id(self : ClaimClass) -> String {
 }
 
 ///|
+pub fn claim_class_from_id(id : String) -> ClaimClass raise {
+  match id {
+    "observation" => Observation
+    "research-evidence" => ResearchEvidence
+    "execution-result" => ExecutionResult
+    "accepted-knowledge" => AcceptedKnowledge
+    "digital-artifact" => DigitalArtifact
+    "simulation-evidence" => SimulationEvidence
+    "scenario-qualified" => ScenarioQualified
+    "calibrated-digital-twin" => CalibratedDigitalTwin
+    "hardware-in-loop-qualified" => HardwareInLoopQualified
+    "engineering-unit-qualified" => EngineeringUnitQualified
+    "physical-readiness" => PhysicalReadiness
+    "physical-effect-claim" => PhysicalEffectClaim
+    _ => fail("unsupported claim class: \{id}")
+  }
+}
+
+///|
 fn ClaimClass::rank(self : ClaimClass) -> Int {
   match self {
     Observation => 0

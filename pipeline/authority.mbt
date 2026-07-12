@@ -21,6 +21,19 @@ pub fn AuthorityClass::id(self : AuthorityClass) -> String {
 }
 
 ///|
+pub fn authority_class_from_id(id : String) -> AuthorityClass raise {
+  match id {
+    "observe" => Observe
+    "cognitive-maintenance" => CognitiveMaintenance
+    "sandbox-execution" => SandboxExecution
+    "workspace-mutation" => WorkspaceMutation
+    "external-effect" => ExternalEffect
+    "physical-effect" => PhysicalEffect
+    _ => fail("unsupported authority class: \{id}")
+  }
+}
+
+///|
 fn AuthorityClass::rank(self : AuthorityClass) -> Int {
   match self {
     Observe => 0
