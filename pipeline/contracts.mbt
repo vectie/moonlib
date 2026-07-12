@@ -209,15 +209,17 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
       ]
     BrowserSession =>
       [
-        "contract_id", "session_id", "book_id", "run_id", "artifact_id", "origin_class",
+        "contract_id", "session_id", "book_id", "book_revision", "code_revision",
+        "run_id", "artifact_id", "authority_envelope_id", "origin_class", "network_policy",
         "allowed_origins", "allowed_operations", "upload_artifact_refs", "download_root",
-        "profile_lifetime", "capability_digest", "expires_at",
+        "storage_lifetime", "capability_digest", "expires_at",
       ]
     BrowserActionReceiptContract =>
       [
-        "contract_id", "receipt_id", "session_id", "action_id", "actor_id", "operation",
-        "semantic_target", "redacted_arguments", "authority_decision_ref", "before_digest",
-        "after_digest", "status", "evidence_refs", "recorded_at",
+        "contract_id", "receipt_id", "session_id", "action_id", "actor_kind", "actor_id",
+        "operation", "semantic_target", "redacted_arguments", "expected_observation",
+        "authority_decision_ref", "before_digest", "after_digest", "outcome", "observations",
+        "evidence_refs", "completed_at",
       ]
     SpatialArtifact =>
       [

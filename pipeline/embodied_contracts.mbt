@@ -88,18 +88,38 @@ pub fn browser_operation_from_id(id : String) -> BrowserOperation raise {
 }
 
 ///|
+pub(all) enum BrowserActor {
+  HumanUser
+  Agent
+  Replay
+} derive(Debug, Eq, Compare, Hash, ToJson)
+
+///|
+pub fn BrowserActor::id(self : BrowserActor) -> String {
+  match self {
+    HumanUser => "user"
+    Agent => "agent"
+    Replay => "replay"
+  }
+}
+
+///|
 pub(all) struct BrowserSessionScope {
   contract_id : String
   session_id : String
   book_id : String
+  book_revision : String
+  code_revision : String
   run_id : String
   artifact_id : String
+  authority_envelope_id : String
   origin_class : String
+  network_policy : String
   allowed_origins : Array[String]
   allowed_operations : Array[BrowserOperation]
   upload_artifact_refs : Array[String]
   download_root : String
-  profile_lifetime : String
+  storage_lifetime : String
   capability_digest : String
   expires_at : String
 } derive(Debug, Eq, ToJson)
@@ -126,11 +146,26 @@ pub fn BrowserSessionScope::quality_issues(
   if self.book_id.trim().is_empty() {
     issues.push("book_id is required")
   }
+  if self.book_revision.trim().is_empty() ||
+    self.code_revision.trim().is_empty() {
+    issues.push("book_revision and code_revision are required")
+  }
   if self.artifact_id.trim().is_empty() {
     issues.push("artifact_id is required")
   }
+  if self.authority_envelope_id.trim().is_empty() {
+    issues.push("authority_envelope_id is required")
+  }
   if self.origin_class != "book-local" && self.origin_class != "external" {
     issues.push("origin_class must be book-local or external")
+  }
+  if self.network_policy != "offline" && self.network_policy != "allowlisted" {
+    issues.push("network_policy must be offline or allowlisted")
+  }
+  if self.storage_lifetime != "ephemeral" &&
+    self.storage_lifetime != "run" &&
+    self.storage_lifetime != "book" {
+    issues.push("storage_lifetime must be ephemeral, run, or book")
   }
   if self.allowed_operations.is_empty() {
     issues.push("at least one browser operation is required")
@@ -164,16 +199,19 @@ pub(all) struct BrowserActionReceipt {
   receipt_id : String
   session_id : String
   action_id : String
+  actor_kind : BrowserActor
   actor_id : String
   operation : BrowserOperation
   semantic_target : String
   redacted_arguments : Array[String]
+  expected_observation : String
   authority_decision_ref : String
   before_digest : String
   after_digest : String
-  status : String
+  outcome : String
+  observations : Array[String]
   evidence_refs : Array[String]
-  recorded_at : String
+  completed_at : String
 } derive(Debug, Eq, ToJson)
 
 ///|
@@ -193,15 +231,18 @@ pub fn BrowserActionReceipt::quality_issues(
   if self.semantic_target.trim().is_empty() {
     issues.push("semantic_target is required")
   }
+  if self.expected_observation.trim().is_empty() {
+    issues.push("expected_observation is required")
+  }
   if !autonomy_digest_is_valid(self.before_digest) ||
     !autonomy_digest_is_valid(self.after_digest) {
     issues.push("before_digest and after_digest must be sha256 digests")
   }
-  if self.status != "accepted" &&
-    self.status != "rejected" &&
-    self.status != "failed" &&
-    self.status != "no-op" {
-    issues.push("status must be accepted, rejected, failed, or no-op")
+  if self.outcome != "accepted" &&
+    self.outcome != "rejected" &&
+    self.outcome != "failed" &&
+    self.outcome != "no-op" {
+    issues.push("outcome must be accepted, rejected, failed, or no-op")
   }
   if self.operation.required_authority().requires_explicit_human() &&
     self.authority_decision_ref.trim().is_empty() {
@@ -209,8 +250,8 @@ pub fn BrowserActionReceipt::quality_issues(
       "consequential browser operations require an authority decision",
     )
   }
-  if !autonomy_timestamp_is_canonical(self.recorded_at) {
-    issues.push("recorded_at must be a canonical UTC timestamp")
+  if !autonomy_timestamp_is_canonical(self.completed_at) {
+    issues.push("completed_at must be a canonical UTC timestamp")
   }
   for evidence_ref in self.evidence_refs {
     if !embodied_relative_path_is_safe(evidence_ref) {

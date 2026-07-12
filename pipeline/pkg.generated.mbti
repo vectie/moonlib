@@ -211,18 +211,28 @@ pub(all) struct BrowserActionReceipt {
   receipt_id : String
   session_id : String
   action_id : String
+  actor_kind : BrowserActor
   actor_id : String
   operation : BrowserOperation
   semantic_target : String
   redacted_arguments : Array[String]
+  expected_observation : String
   authority_decision_ref : String
   before_digest : String
   after_digest : String
-  status : String
+  outcome : String
+  observations : Array[String]
   evidence_refs : Array[String]
-  recorded_at : String
+  completed_at : String
 } derive(Eq, ToJson, @debug.Debug)
 pub fn BrowserActionReceipt::quality_issues(Self) -> Array[String]
+
+pub(all) enum BrowserActor {
+  HumanUser
+  Agent
+  Replay
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn BrowserActor::id(Self) -> String
 
 pub(all) enum BrowserOperation {
   RenderLocal
@@ -242,14 +252,18 @@ pub(all) struct BrowserSessionScope {
   contract_id : String
   session_id : String
   book_id : String
+  book_revision : String
+  code_revision : String
   run_id : String
   artifact_id : String
+  authority_envelope_id : String
   origin_class : String
+  network_policy : String
   allowed_origins : Array[String]
   allowed_operations : Array[BrowserOperation]
   upload_artifact_refs : Array[String]
   download_root : String
-  profile_lifetime : String
+  storage_lifetime : String
   capability_digest : String
   expires_at : String
 } derive(Eq, ToJson, @debug.Debug)
