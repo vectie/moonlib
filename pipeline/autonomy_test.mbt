@@ -132,6 +132,36 @@ test "unattended envelope fails closed on authority claim path and budget" {
 }
 
 ///|
+test "revoked and expired unattended envelopes fail closed" {
+  let event = unattended_event()
+  let usage : AutonomyBudgetUsage = {
+    model_tokens: 0,
+    tool_calls: 0,
+    storage_bytes: 0,
+    attempts: 0,
+    concurrency: 0,
+  }
+  let revoked = authorize_autonomy_event(
+    { ..unattended_envelope(), revoked: true },
+    event,
+    usage,
+    "decision-revoked",
+    "2026-07-12T04:01:00Z",
+  )
+  assert_false(revoked.accepted)
+  assert_true(revoked.findings.contains("autonomy envelope is revoked"))
+  let expired = authorize_autonomy_event(
+    unattended_envelope(),
+    event,
+    usage,
+    "decision-expired",
+    "2026-07-13T04:00:00Z",
+  )
+  assert_false(expired.accepted)
+  assert_true(expired.findings.contains("autonomy envelope is expired"))
+}
+
+///|
 test "intervention scorecard separates constitutional observation and hidden work" {
   let clean = intervention_scorecard(
     "run-clean",
