@@ -8,13 +8,14 @@ test "pipeline contract ids are unique and versioned" {
       id.has_prefix("moonbook.") ||
       id.has_prefix("moontown.") ||
       id.has_prefix("moongate.") ||
-      id.has_prefix("moonflow."),
+      id.has_prefix("moonflow.") ||
+      id.has_prefix("moonmold."),
     )
     assert_true(id.has_suffix(".v1"))
     assert_false(ids.contains(id))
     ids.push(id)
   }
-  assert_eq(ids.length(), 22)
+  assert_eq(ids.length(), 26)
 }
 
 ///|

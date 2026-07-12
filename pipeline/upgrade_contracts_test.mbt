@@ -7,7 +7,7 @@ test "constitutional contract ids are unique and versioned" {
     assert_true(id.has_suffix(".v1"))
     ids.push(id)
   }
-  assert_eq(ids.length(), 22)
+  assert_eq(ids.length(), 26)
 }
 
 ///|

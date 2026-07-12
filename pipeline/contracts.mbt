@@ -27,6 +27,10 @@ pub(all) enum ContractKind {
   AutonomyEnvelope
   AutonomyDecision
   InterventionScorecard
+  BrowserSession
+  BrowserActionReceiptContract
+  SpatialArtifact
+  RepresentationTransformContract
 } derive(Debug, Eq, Compare, Hash, ToJson)
 
 ///|
@@ -54,6 +58,10 @@ pub fn ContractKind::id(self : ContractKind) -> String {
     AutonomyEnvelope => "moongate.autonomy-envelope.v1"
     AutonomyDecision => "moongate.autonomy-decision.v1"
     InterventionScorecard => "moonflow.intervention-scorecard.v1"
+    BrowserSession => "moonsuite.browser-session.v1"
+    BrowserActionReceiptContract => "moonsuite.browser-action-receipt.v1"
+    SpatialArtifact => "moonmold.spatial-artifact.v1"
+    RepresentationTransformContract => "moonmold.representation-transform.v1"
   }
 }
 
@@ -82,6 +90,10 @@ pub fn contract_kinds() -> Array[ContractKind] {
     AutonomyEnvelope,
     AutonomyDecision,
     InterventionScorecard,
+    BrowserSession,
+    BrowserActionReceiptContract,
+    SpatialArtifact,
+    RepresentationTransformContract,
   ]
 }
 
@@ -194,6 +206,33 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
         "contract_id", "run_id", "constitutional_authority_count", "optional_observation_count",
         "required_intervention_count", "hidden_orchestration_count", "normal_path_intervention_count",
         "unattended_qualified", "records", "checked_at",
+      ]
+    BrowserSession =>
+      [
+        "contract_id", "session_id", "book_id", "run_id", "artifact_id", "origin_class",
+        "allowed_origins", "allowed_operations", "upload_artifact_refs", "download_root",
+        "profile_lifetime", "capability_digest", "expires_at",
+      ]
+    BrowserActionReceiptContract =>
+      [
+        "contract_id", "receipt_id", "session_id", "action_id", "actor_id", "operation",
+        "semantic_target", "redacted_arguments", "authority_decision_ref", "before_digest",
+        "after_digest", "status", "evidence_refs", "recorded_at",
+      ]
+    SpatialArtifact =>
+      [
+        "contract_id", "artifact_id", "project_id", "representation", "parent_artifact_ids",
+        "digest", "payload_ref", "units", "coordinate_system", "up_axis", "handedness",
+        "source_refs", "backend_id", "backend_version", "procedure_ref", "assumptions",
+        "unresolved_gaps", "validation_refs", "intended_consumers", "forbidden_consumers",
+        "claim_ceiling", "recorded_at",
+      ]
+    RepresentationTransformContract =>
+      [
+        "contract_id", "transform_id", "parent_artifact_id", "parent_digest", "parent_representation",
+        "child_artifact_id", "child_digest", "child_representation", "operation",
+        "parameters_digest", "tool_id", "tool_version", "authority_ref", "declared_losses",
+        "validation_refs", "recorded_at",
       ]
   }
 }

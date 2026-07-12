@@ -22,6 +22,8 @@ pub fn autonomy_event_request_json(AutonomyEventRequest) -> Json
 
 pub fn autonomy_timestamp_is_canonical(String) -> Bool
 
+pub fn browser_operation_from_id(String) -> BrowserOperation raise
+
 pub fn claim_class_from_id(String) -> ClaimClass raise
 
 pub fn compile_work_graph(String, String, String, Array[ExecutableDeclaration], String) -> WorkGraph
@@ -38,6 +40,8 @@ pub fn decode_autonomy_envelope(Json) -> AutonomyEnvelope raise
 
 pub fn decode_autonomy_event_request(Json) -> AutonomyEventRequest raise
 
+pub fn disclosure_level_from_id(String) -> DisclosureLevel raise
+
 pub fn has_required_fields(ContractKind, Json) -> Bool
 
 pub fn intervention_category_from_id(String) -> InterventionCategory raise
@@ -47,6 +51,10 @@ pub fn intervention_scorecard(String, Array[InterventionRecord], String) -> Inte
 pub fn missing_required_fields(ContractKind, Json) -> Array[String]
 
 pub fn quality_dimensions() -> Array[String]
+
+pub fn representation_class_from_id(String) -> RepresentationClass raise
+
+pub fn representation_transition_issues(RepresentationClass, RepresentationClass) -> Array[String]
 
 pub fn required_fields(ContractKind) -> Array[String]
 
@@ -198,6 +206,55 @@ pub(all) struct BookkeeperReflection {
 } derive(Eq, ToJson, @debug.Debug)
 pub fn BookkeeperReflection::quality_issues(Self) -> Array[String]
 
+pub(all) struct BrowserActionReceipt {
+  contract_id : String
+  receipt_id : String
+  session_id : String
+  action_id : String
+  actor_id : String
+  operation : BrowserOperation
+  semantic_target : String
+  redacted_arguments : Array[String]
+  authority_decision_ref : String
+  before_digest : String
+  after_digest : String
+  status : String
+  evidence_refs : Array[String]
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn BrowserActionReceipt::quality_issues(Self) -> Array[String]
+
+pub(all) enum BrowserOperation {
+  RenderLocal
+  InspectPage
+  InteractLocal
+  SaveWorkspace
+  NavigateExternal
+  UploadExternal
+  DownloadExternal
+  SubmitExternal
+  ControlPhysicalDevice
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn BrowserOperation::id(Self) -> String
+pub fn BrowserOperation::required_authority(Self) -> AuthorityClass
+
+pub(all) struct BrowserSessionScope {
+  contract_id : String
+  session_id : String
+  book_id : String
+  run_id : String
+  artifact_id : String
+  origin_class : String
+  allowed_origins : Array[String]
+  allowed_operations : Array[BrowserOperation]
+  upload_artifact_refs : Array[String]
+  download_root : String
+  profile_lifetime : String
+  capability_digest : String
+  expires_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn BrowserSessionScope::quality_issues(Self) -> Array[String]
+
 pub(all) enum ClaimClass {
   Observation
   ResearchEvidence
@@ -279,6 +336,10 @@ pub(all) enum ContractKind {
   AutonomyEnvelope
   AutonomyDecision
   InterventionScorecard
+  BrowserSession
+  BrowserActionReceiptContract
+  SpatialArtifact
+  RepresentationTransformContract
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn ContractKind::id(Self) -> String
 
@@ -300,6 +361,13 @@ pub(all) enum DeclarationKind {
   Acceptance
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn DeclarationKind::id(Self) -> String
+
+pub(all) enum DisclosureLevel {
+  User
+  Operator
+  Developer
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn DisclosureLevel::id(Self) -> String
 
 pub(all) struct ExecutableDeclaration {
   declaration_id : String
@@ -387,6 +455,65 @@ pub(all) struct ProductBoundary {
   prohibited_claims : Array[ClaimClass]
 } derive(Eq, ToJson, @debug.Debug)
 pub fn ProductBoundary::quality_issues(Self) -> Array[String]
+
+pub(all) enum RepresentationClass {
+  ReferenceBundle
+  SpatialIntent
+  EditableAuthoringModel
+  VisualStyledModel
+  EngineeringModel
+  SimulationModel
+  ManufacturingCandidate
+  FabricationJob
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn RepresentationClass::id(Self) -> String
+pub fn RepresentationClass::is_engineering_input(Self) -> Bool
+
+pub(all) struct RepresentationTransform {
+  contract_id : String
+  transform_id : String
+  parent_artifact_id : String
+  parent_digest : String
+  parent_representation : RepresentationClass
+  child_artifact_id : String
+  child_digest : String
+  child_representation : RepresentationClass
+  operation : String
+  parameters_digest : String
+  tool_id : String
+  tool_version : String
+  authority_ref : String
+  declared_losses : Array[String]
+  validation_refs : Array[String]
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn RepresentationTransform::quality_issues(Self) -> Array[String]
+
+pub(all) struct SpatialArtifactManifest {
+  contract_id : String
+  artifact_id : String
+  project_id : String
+  representation : RepresentationClass
+  parent_artifact_ids : Array[String]
+  digest : String
+  payload_ref : String
+  units : String
+  coordinate_system : String
+  up_axis : String
+  handedness : String
+  source_refs : Array[String]
+  backend_id : String
+  backend_version : String
+  procedure_ref : String
+  assumptions : Array[String]
+  unresolved_gaps : Array[String]
+  validation_refs : Array[String]
+  intended_consumers : Array[String]
+  forbidden_consumers : Array[String]
+  claim_ceiling : ClaimClass
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn SpatialArtifactManifest::quality_issues(Self) -> Array[String]
 
 pub(all) struct WorkGraph {
   graph_id : String
