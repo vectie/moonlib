@@ -160,6 +160,7 @@ test "default products include full suite" {
   assert_true(ids.contains("moonchat"))
   assert_true(ids.contains("moonvis"))
   assert_true(ids.contains("moonrobo"))
+  assert_true(ids.contains("moonmold"))
   assert_true(ids.contains("lepusa"))
   assert_true(ids.contains("rabbita"))
 }
