@@ -67,6 +67,37 @@ shape, authority, operation ownership, contract ownership, criterion owner,
 negative-path evidence, acceptance review, claim ceiling, and workspace-local
 artifact references without becoming the owner of product policy.
 
+### Embodied workspace contracts
+
+The `@pipeline` package defines policy-free portable shapes for the fourth
+Moon Suite update:
+
+- `DisclosureLevel` selects user, operator, or developer presentation without
+  changing canonical state or authority.
+- `BrowserSessionScope` binds a visible browser session to book and code
+  revisions, a run, an authority envelope, an origin/network policy, scoped
+  uploads/downloads, a storage lifetime, and an expiring capability digest.
+- `BrowserActionReceipt` attributes an observed action to a human, agent, or
+  replay and preserves its effect class, redacted arguments, expected and
+  observed result, authority decision, state digests, and evidence.
+- `SpatialArtifactManifest` identifies the purpose, lineage, coordinate
+  conventions, backend, procedure, assumptions, validation, consumers, and
+  claim ceiling of a digital spatial representation.
+- `RepresentationTransform` records immutable parent/child hashes, tool and
+  parameters, declared losses, authority, and validation.
+
+These types encode no product policy. MoonGate decides which products may
+perform an operation. MoonDesk decides how to present it. MoonClaw executes
+authorized browser/modeling tools. MoonMold owns spatial authoring semantics.
+MoonRobo and MoonMoon decide whether a declared engineering or simulation
+representation meets their own input requirements.
+
+The portable rules deliberately reject a styled representation as an
+engineering input and reject a manufacturing candidate that does not descend
+from an engineering representation. A manufacturing candidate remains a
+digital artifact; it is not permission to operate a printer or other physical
+device.
+
 ## Usage
 
 Add to your `moon.mod`:
