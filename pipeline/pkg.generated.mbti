@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn compile_work_graph(String, String, String, Array[ExecutableDeclaration], String) -> WorkGraph
+
 pub fn contract_family() -> String
 
 pub fn contract_kinds() -> Array[ContractKind]
@@ -22,10 +24,142 @@ pub fn schema_json(ContractKind) -> Json
 
 pub fn terminal_statuses() -> Array[String]
 
+pub fn validate_constitutional_conformance(Array[ProductBoundary], ConformanceSubject, String, String) -> ConstitutionConformanceReport
+
 // Errors
 
 // Types and methods
+pub(all) struct ArtifactRef {
+  artifact_id : String
+  producer : String
+  digest : String
+  uri : String
+  authority : String
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn ArtifactRef::quality_issues(Self) -> Array[String]
+
+pub(all) enum AuthorityClass {
+  Observe
+  CognitiveMaintenance
+  SandboxExecution
+  WorkspaceMutation
+  ExternalEffect
+  PhysicalEffect
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn AuthorityClass::allows(Self, Self) -> Bool
+pub fn AuthorityClass::id(Self) -> String
+pub fn AuthorityClass::requires_explicit_human(Self) -> Bool
+
+pub(all) struct AuthorityGrant {
+  authority_id : String
+  actor_id : String
+  class : AuthorityClass
+  scope : Array[String]
+  granted_by : String
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn AuthorityGrant::quality_issues(Self) -> Array[String]
+
+pub(all) struct BeliefUpdate {
+  update_id : String
+  book_id : String
+  belief_id : String
+  statement : String
+  change : String
+  evidence_refs : Array[String]
+  confidence : Double
+  affected_refs : Array[String]
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn BeliefUpdate::quality_issues(Self) -> Array[String]
+
+pub(all) struct BookkeeperReflection {
+  reflection_id : String
+  book_id : String
+  trigger : String
+  observations : Array[String]
+  gaps : Array[KnowledgeGap]
+  belief_updates : Array[BeliefUpdate]
+  proposed_actions : Array[ExecutableDeclaration]
+  learned_procedures : Array[LearnedProcedure]
+  confidence : Double
+  uncertainty : Array[String]
+  requested_authority : AuthorityClass
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn BookkeeperReflection::quality_issues(Self) -> Array[String]
+
+pub(all) enum ClaimClass {
+  Observation
+  ResearchEvidence
+  ExecutionResult
+  AcceptedKnowledge
+  DigitalArtifact
+  SimulationEvidence
+  ScenarioQualified
+  CalibratedDigitalTwin
+  HardwareInLoopQualified
+  EngineeringUnitQualified
+  PhysicalReadiness
+  PhysicalEffectClaim
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn ClaimClass::allows(Self, Self) -> Bool
+pub fn ClaimClass::id(Self) -> String
+
+pub(all) enum CognitionGapKind {
+  InformationGap
+  CognitionGap
+  ExecutionGap
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn CognitionGapKind::id(Self) -> String
+
+pub(all) struct ConformanceFinding {
+  code : String
+  path : String
+  message : String
+  severity : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct ConformanceSubject {
+  subject_id : String
+  product_id : String
+  operation : String
+  requested_authority : AuthorityClass
+  input_contracts : Array[String]
+  output_contracts : Array[String]
+  claim : ClaimClass
+  criteria : Array[CriterionOwnership]
+  negative_path_count : Int
+  execution_succeeded : Bool
+  accepted : Bool
+  acceptance_review_ref : String
+  workspace_root : String
+  artifact_paths : Array[String]
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct ConstitutionConformanceReport {
+  contract_id : String
+  report_id : String
+  subject_id : String
+  product_id : String
+  accepted : Bool
+  findings : Array[ConformanceFinding]
+  checked_at : String
+} derive(Eq, ToJson, @debug.Debug)
+
 pub(all) enum ContractKind {
+  Identity
+  Authority
+  ArtifactRef
+  ExecutableDocument
+  WorkModel
+  KnowledgeGap
+  BeliefUpdate
+  BookkeeperReflection
+  LearnedProcedure
+  TownCommission
+  TownPromotion
   ModelRoute
   RunReceipt
   BookReadiness
@@ -33,8 +167,122 @@ pub(all) enum ContractKind {
   ChangeReceipt
   BookMessage
   RobotDesign
+  ConstitutionConformance
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn ContractKind::id(Self) -> String
+
+pub(all) struct CriterionOwnership {
+  criterion_id : String
+  owner_product_id : String
+  required_claim : ClaimClass
+  negative_path_required : Bool
+  evidence_refs : Array[String]
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum DeclarationKind {
+  Goal
+  Research
+  Build
+  Decision
+  Experiment
+  Validation
+  Acceptance
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn DeclarationKind::id(Self) -> String
+
+pub(all) struct ExecutableDeclaration {
+  declaration_id : String
+  book_id : String
+  revision : String
+  kind : DeclarationKind
+  title : String
+  statement : String
+  executor_product : String
+  requires : Array[String]
+  acceptance_criteria : Array[String]
+  requested_authority : AuthorityClass
+} derive(Eq, ToJson, @debug.Debug)
+pub fn ExecutableDeclaration::quality_issues(Self) -> Array[String]
+
+pub(all) struct KnowledgeGap {
+  gap_id : String
+  book_id : String
+  kind : CognitionGapKind
+  question : String
+  required_by : Array[String]
+  current_evidence : Array[String]
+  missing : String
+  urgency : String
+  resolution_criteria : Array[String]
+  status : String
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn KnowledgeGap::quality_issues(Self) -> Array[String]
+
+pub(all) struct LearnedProcedure {
+  procedure_id : String
+  book_id : String
+  title : String
+  applicability : Array[String]
+  steps : Array[String]
+  verification_criteria : Array[String]
+  failure_modes : Array[String]
+  counterexamples : Array[String]
+  evidence_refs : Array[String]
+  status : String
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn LearnedProcedure::quality_issues(Self) -> Array[String]
+
+pub(all) struct ProductBoundary {
+  product_id : String
+  owner : String
+  operations : Array[String]
+  allowed_authorities : Array[AuthorityClass]
+  input_contracts : Array[String]
+  output_contracts : Array[String]
+  claim_ceiling : ClaimClass
+  prohibited_claims : Array[ClaimClass]
+} derive(Eq, ToJson, @debug.Debug)
+pub fn ProductBoundary::quality_issues(Self) -> Array[String]
+
+pub(all) struct WorkGraph {
+  graph_id : String
+  book_id : String
+  declaration_revision : String
+  items : Array[WorkItem]
+  recorded_at : String
+} derive(Eq, ToJson, @debug.Debug)
+pub fn WorkGraph::quality_issues(Self) -> Array[String]
+pub fn WorkGraph::runnable_item_ids(Self) -> Array[String]
+
+pub(all) struct WorkItem {
+  work_item_id : String
+  declaration_id : String
+  product_id : String
+  status : WorkStatus
+  depends_on : Array[String]
+  input_artifacts : Array[ArtifactRef]
+  output_artifacts : Array[ArtifactRef]
+  requested_authority : AuthorityClass
+  attempt_count : Int
+  blocker : String
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) enum WorkStatus {
+  Proposed
+  Ready
+  Active
+  Waiting
+  Blocked
+  Review
+  Accepted
+  Failed
+  Cancelled
+  Superseded
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn WorkStatus::id(Self) -> String
+pub fn WorkStatus::is_terminal(Self) -> Bool
 
 // Type aliases
 

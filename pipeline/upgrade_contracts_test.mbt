@@ -7,22 +7,16 @@ test "constitutional contract ids are unique and versioned" {
     assert_true(id.has_suffix(".v1"))
     ids.push(id)
   }
-  assert_eq(ids.length(), 18)
+  assert_eq(ids.length(), 19)
 }
 
 ///|
 test "authority ordering is explicit and physical effects require a human" {
-  assert_true(
-    AuthorityClass::WorkspaceMutation.allows(SandboxExecution),
-  )
-  assert_false(
-    AuthorityClass::SandboxExecution.allows(WorkspaceMutation),
-  )
+  assert_true(AuthorityClass::WorkspaceMutation.allows(SandboxExecution))
+  assert_false(AuthorityClass::SandboxExecution.allows(WorkspaceMutation))
   assert_true(AuthorityClass::ExternalEffect.requires_explicit_human())
   assert_true(AuthorityClass::PhysicalEffect.requires_explicit_human())
-  assert_false(
-    AuthorityClass::CognitiveMaintenance.requires_explicit_human(),
-  )
+  assert_false(AuthorityClass::CognitiveMaintenance.requires_explicit_human())
 }
 
 ///|
@@ -77,7 +71,12 @@ test "work graph rejects missing dependencies and cycles" {
     attempt_count: 0,
     blocker: "",
   }
-  let cycle = WorkItem::{ ..base, work_item_id: "work-b", declaration_id: "b", depends_on: ["work-a"] }
+  let cycle = WorkItem::{
+    ..base,
+    work_item_id: "work-b",
+    declaration_id: "b",
+    depends_on: ["work-a"],
+  }
   let graph = WorkGraph::{
     graph_id: "cycle",
     book_id: "book",
@@ -85,7 +84,9 @@ test "work graph rejects missing dependencies and cycles" {
     items: [base, cycle],
     recorded_at: "2026-07-11T00:00:00Z",
   }
-  assert_true(graph.quality_issues().contains("work graph contains a dependency cycle"))
+  assert_true(
+    graph.quality_issues().contains("work graph contains a dependency cycle"),
+  )
 }
 
 ///|
@@ -99,7 +100,9 @@ test "Bookkeeper reflection requires action for an execution gap" {
     current_evidence: ["terrain-edge-17"],
     missing: "A connected safe-path candidate and independent revalidation.",
     urgency: "blocking",
-    resolution_criteria: ["candidate path is connected", "all edges are recomputed"],
+    resolution_criteria: [
+      "candidate path is connected", "all edges are recomputed",
+    ],
     status: "open",
     recorded_at: "2026-07-11T00:00:00Z",
   }
@@ -131,7 +134,9 @@ test "learned procedures reject overfit memories without applicability" {
     book_id: "selene-crater-service-rover",
     title: "Qualify a mission-specific route",
     applicability: [],
-    steps: ["preserve the failed global claim", "recompute every candidate edge"],
+    steps: [
+      "preserve the failed global claim", "recompute every candidate edge",
+    ],
     verification_criteria: ["all declared gates are evaluated"],
     failure_modes: ["copying a previous route without recomputation"],
     counterexamples: [],

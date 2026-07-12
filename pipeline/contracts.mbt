@@ -23,6 +23,7 @@ pub(all) enum ContractKind {
   ChangeReceipt
   BookMessage
   RobotDesign
+  ConstitutionConformance
 } derive(Debug, Eq, Compare, Hash, ToJson)
 
 ///|
@@ -46,6 +47,7 @@ pub fn ContractKind::id(self : ContractKind) -> String {
     ChangeReceipt => "moonsuite.change-receipt.v1"
     BookMessage => "moonsuite.book-message.v1"
     RobotDesign => "moonsuite.robot-design.v1"
+    ConstitutionConformance => "moonsuite.constitution-conformance.v1"
   }
 }
 
@@ -70,6 +72,7 @@ pub fn contract_kinds() -> Array[ContractKind] {
     ChangeReceipt,
     BookMessage,
     RobotDesign,
+    ConstitutionConformance,
   ]
 }
 
@@ -84,23 +87,20 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
       ]
     ArtifactRef =>
       [
-        "contract_id", "artifact_id", "producer", "digest", "uri", "authority",
-        "recorded_at",
+        "contract_id", "artifact_id", "producer", "digest", "uri", "authority", "recorded_at",
       ]
     ExecutableDocument =>
       [
-        "contract_id", "book_id", "revision", "declarations", "source_digest",
-        "recorded_at",
+        "contract_id", "book_id", "revision", "declarations", "source_digest", "recorded_at",
       ]
     WorkModel =>
       [
-        "contract_id", "graph_id", "book_id", "declaration_revision", "items",
-        "recorded_at",
+        "contract_id", "graph_id", "book_id", "declaration_revision", "items", "recorded_at",
       ]
     KnowledgeGap =>
       [
-        "contract_id", "gap_id", "book_id", "kind", "question", "required_by",
-        "missing", "resolution_criteria", "status", "recorded_at",
+        "contract_id", "gap_id", "book_id", "kind", "question", "required_by", "missing",
+        "resolution_criteria", "status", "recorded_at",
       ]
     BeliefUpdate =>
       [
@@ -116,8 +116,7 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
     LearnedProcedure =>
       [
         "contract_id", "procedure_id", "book_id", "title", "applicability", "steps",
-        "verification_criteria", "failure_modes", "evidence_refs", "status",
-        "recorded_at",
+        "verification_criteria", "failure_modes", "evidence_refs", "status", "recorded_at",
       ]
     TownCommission =>
       [
@@ -164,6 +163,11 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
       [
         "contract_id", "design_id", "revision", "mission", "environment", "subsystems",
         "interfaces", "constraints", "verification_criteria", "evidence_refs", "limitations",
+      ]
+    ConstitutionConformance =>
+      [
+        "contract_id", "report_id", "subject_id", "product_id", "accepted", "findings",
+        "checked_at",
       ]
   }
 }

@@ -4,14 +4,15 @@ test "pipeline contract ids are unique and versioned" {
   for kind in @pipeline.contract_kinds() {
     let id = kind.id()
     assert_true(
-      id.has_prefix("moonsuite.") || id.has_prefix("moonbook.") ||
+      id.has_prefix("moonsuite.") ||
+      id.has_prefix("moonbook.") ||
       id.has_prefix("moontown."),
     )
     assert_true(id.has_suffix(".v1"))
     assert_false(ids.contains(id))
     ids.push(id)
   }
-  assert_eq(ids.length(), 18)
+  assert_eq(ids.length(), 19)
 }
 
 ///|

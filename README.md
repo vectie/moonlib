@@ -61,6 +61,11 @@ The `@pipeline` package similarly owns versioned JSON contract identifiers,
 required fields, quality dimensions, and compatibility rules exchanged between
 products. Consumers must ignore unknown fields and reject missing required
 fields so contracts can evolve without silently accepting incomplete data.
+It also provides a deterministic constitutional-conformance contract and
+validator. Products supply their own boundary registry; MoonLib validates the
+shape, authority, operation ownership, contract ownership, criterion owner,
+negative-path evidence, acceptance review, claim ceiling, and workspace-local
+artifact references without becoming the owner of product policy.
 
 ## Usage
 

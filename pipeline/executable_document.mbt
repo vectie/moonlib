@@ -79,7 +79,11 @@ pub fn compile_work_graph(
       work_item_id: "work-\{declaration.declaration_id}",
       declaration_id: declaration.declaration_id,
       product_id: declaration.executor_product,
-      status: if dependencies.is_empty() { Ready } else { Waiting },
+      status: if dependencies.is_empty() {
+        Ready
+      } else {
+        Waiting
+      },
       depends_on: dependencies,
       input_artifacts: [],
       output_artifacts: [],
