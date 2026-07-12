@@ -225,16 +225,16 @@ pub fn required_fields(kind : ContractKind) -> Array[String] {
       [
         "contract_id", "artifact_id", "project_id", "representation", "parent_artifact_ids",
         "digest", "payload_ref", "units", "coordinate_system", "up_axis", "handedness",
-        "source_refs", "backend_id", "backend_version", "procedure_ref", "assumptions",
-        "unresolved_gaps", "validation_refs", "intended_consumers", "forbidden_consumers",
-        "claim_ceiling", "recorded_at",
+        "source_refs", "backend_id", "backend_version", "procedure_ref", "authority_envelope_id",
+        "assumptions", "unresolved_gaps", "validation_refs", "intended_consumers",
+        "forbidden_consumers", "claim_ceiling", "recorded_at",
       ]
     RepresentationTransformContract =>
       [
         "contract_id", "transform_id", "parent_artifact_id", "parent_digest", "parent_representation",
-        "child_artifact_id", "child_digest", "child_representation", "operation",
-        "parameters_digest", "tool_id", "tool_version", "authority_ref", "declared_losses",
-        "validation_refs", "recorded_at",
+        "child_artifact_id", "child_digest", "child_representation", "lineage_relation",
+        "operation", "parameters_digest", "tool_id", "tool_version", "authority_ref",
+        "declared_losses", "validation_refs", "recorded_at",
       ]
   }
 }

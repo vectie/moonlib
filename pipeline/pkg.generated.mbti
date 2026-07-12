@@ -60,6 +60,8 @@ pub fn required_fields(ContractKind) -> Array[String]
 
 pub fn schema_json(ContractKind) -> Json
 
+pub fn spatial_lineage_relation_from_id(String) -> SpatialLineageRelation raise
+
 pub fn terminal_statuses() -> Array[String]
 
 pub fn validate_constitutional_conformance(Array[ProductBoundary], ConformanceSubject, String, String) -> ConstitutionConformanceReport
@@ -492,6 +494,7 @@ pub(all) struct RepresentationTransform {
   child_artifact_id : String
   child_digest : String
   child_representation : RepresentationClass
+  lineage_relation : SpatialLineageRelation
   operation : String
   parameters_digest : String
   tool_id : String
@@ -519,6 +522,7 @@ pub(all) struct SpatialArtifactManifest {
   backend_id : String
   backend_version : String
   procedure_ref : String
+  authority_envelope_id : String
   assumptions : Array[String]
   unresolved_gaps : Array[String]
   validation_refs : Array[String]
@@ -528,6 +532,23 @@ pub(all) struct SpatialArtifactManifest {
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
 pub fn SpatialArtifactManifest::quality_issues(Self) -> Array[String]
+
+pub(all) enum SpatialLineageRelation {
+  InterpretedFrom
+  ModeledFrom
+  DimensionedBy
+  StyledFrom
+  OptimizedFrom
+  CollisionDerivedFrom
+  PhysicsDerivedFrom
+  ManufacturingDerivedFrom
+  ValidatedBy
+  RejectedBy
+  SupersededBy
+  PlacedAs
+  SimulatedAs
+} derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn SpatialLineageRelation::id(Self) -> String
 
 pub(all) struct WorkGraph {
   graph_id : String

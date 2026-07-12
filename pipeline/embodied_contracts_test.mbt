@@ -122,6 +122,7 @@ test "visual artifact rejects engineering consumers and physical claims" {
     backend_id: "blender",
     backend_version: "4",
     procedure_ref: "books/building/procedures/style-v1.json",
+    authority_envelope_id: "envelope-building-r1",
     assumptions: [],
     unresolved_gaps: [],
     validation_refs: ["books/building/evidence/visual-r1.json"],
@@ -152,6 +153,7 @@ test "accepted engineering transform has immutable lineage fields" {
     child_artifact_id: "building-manufacturing-r1",
     child_digest: digest("f"),
     child_representation: ManufacturingCandidate,
+    lineage_relation: ManufacturingDerivedFrom,
     operation: "prepare-manufacturing-candidate",
     parameters_digest: digest("1"),
     tool_id: "moonmold-fixture",
@@ -162,4 +164,36 @@ test "accepted engineering transform has immutable lineage fields" {
     recorded_at: "2026-07-13T12:03:00Z",
   }
   assert_true(transform.quality_issues().is_empty())
+}
+
+///|
+test "styled and simulation lineage cannot silently change representation lanes" {
+  let invalid : RepresentationTransform = {
+    contract_id: "moonmold.representation-transform.v1",
+    transform_id: "transform-invalid-style-to-simulation",
+    parent_artifact_id: "building-style-r1",
+    parent_digest: digest("2"),
+    parent_representation: VisualStyledModel,
+    child_artifact_id: "building-simulation-r1",
+    child_digest: digest("3"),
+    child_representation: SimulationModel,
+    lineage_relation: SimulatedAs,
+    operation: "derive-collision",
+    parameters_digest: digest("4"),
+    tool_id: "moonmold-fixture",
+    tool_version: "0.1.0",
+    authority_ref: "authority-workspace-r1",
+    declared_losses: ["ornament omitted"],
+    validation_refs: [],
+    recorded_at: "2026-07-13T12:04:00Z",
+  }
+  let issues = invalid.quality_issues()
+  assert_true(
+    issues.contains("styled geometry cannot become an engineering input"),
+  )
+  assert_true(
+    issues.contains(
+      "simulation lineage must derive a simulation child from engineering geometry",
+    ),
+  )
 }

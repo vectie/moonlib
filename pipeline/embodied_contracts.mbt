@@ -314,6 +314,64 @@ pub fn RepresentationClass::is_engineering_input(
 }
 
 ///|
+pub(all) enum SpatialLineageRelation {
+  InterpretedFrom
+  ModeledFrom
+  DimensionedBy
+  StyledFrom
+  OptimizedFrom
+  CollisionDerivedFrom
+  PhysicsDerivedFrom
+  ManufacturingDerivedFrom
+  ValidatedBy
+  RejectedBy
+  SupersededBy
+  PlacedAs
+  SimulatedAs
+} derive(Debug, Eq, Compare, Hash, ToJson)
+
+///|
+pub fn SpatialLineageRelation::id(self : SpatialLineageRelation) -> String {
+  match self {
+    InterpretedFrom => "interpreted-from"
+    ModeledFrom => "modeled-from"
+    DimensionedBy => "dimensioned-by"
+    StyledFrom => "styled-from"
+    OptimizedFrom => "optimized-from"
+    CollisionDerivedFrom => "collision-derived-from"
+    PhysicsDerivedFrom => "physics-derived-from"
+    ManufacturingDerivedFrom => "manufacturing-derived-from"
+    ValidatedBy => "validated-by"
+    RejectedBy => "rejected-by"
+    SupersededBy => "superseded-by"
+    PlacedAs => "placed-as"
+    SimulatedAs => "simulated-as"
+  }
+}
+
+///|
+pub fn spatial_lineage_relation_from_id(
+  id : String,
+) -> SpatialLineageRelation raise {
+  match id {
+    "interpreted-from" => InterpretedFrom
+    "modeled-from" => ModeledFrom
+    "dimensioned-by" => DimensionedBy
+    "styled-from" => StyledFrom
+    "optimized-from" => OptimizedFrom
+    "collision-derived-from" => CollisionDerivedFrom
+    "physics-derived-from" => PhysicsDerivedFrom
+    "manufacturing-derived-from" => ManufacturingDerivedFrom
+    "validated-by" => ValidatedBy
+    "rejected-by" => RejectedBy
+    "superseded-by" => SupersededBy
+    "placed-as" => PlacedAs
+    "simulated-as" => SimulatedAs
+    _ => fail("unsupported spatial lineage relation: \{id}")
+  }
+}
+
+///|
 pub fn representation_transition_issues(
   parent : RepresentationClass,
   child : RepresentationClass,
@@ -348,6 +406,7 @@ pub(all) struct SpatialArtifactManifest {
   backend_id : String
   backend_version : String
   procedure_ref : String
+  authority_envelope_id : String
   assumptions : Array[String]
   unresolved_gaps : Array[String]
   validation_refs : Array[String]
@@ -386,6 +445,9 @@ pub fn SpatialArtifactManifest::quality_issues(
   if self.procedure_ref.trim().is_empty() {
     issues.push("procedure_ref is required")
   }
+  if self.authority_envelope_id.trim().is_empty() {
+    issues.push("authority_envelope_id is required")
+  }
   if self.intended_consumers.is_empty() {
     issues.push("at least one intended consumer is required")
   }
@@ -420,6 +482,7 @@ pub(all) struct RepresentationTransform {
   child_artifact_id : String
   child_digest : String
   child_representation : RepresentationClass
+  lineage_relation : SpatialLineageRelation
   operation : String
   parameters_digest : String
   tool_id : String
@@ -438,6 +501,27 @@ pub fn RepresentationTransform::quality_issues(
     self.parent_representation,
     self.child_representation,
   )
+  match self.lineage_relation {
+    StyledFrom | OptimizedFrom | PlacedAs =>
+      if self.child_representation != VisualStyledModel {
+        issues.push("visual lineage relations require a styled child")
+      }
+    CollisionDerivedFrom | PhysicsDerivedFrom | SimulatedAs =>
+      if self.parent_representation != EngineeringModel ||
+        self.child_representation != SimulationModel {
+        issues.push(
+          "simulation lineage must derive a simulation child from engineering geometry",
+        )
+      }
+    ManufacturingDerivedFrom =>
+      if self.parent_representation != EngineeringModel ||
+        self.child_representation != ManufacturingCandidate {
+        issues.push(
+          "manufacturing lineage must derive a candidate from engineering geometry",
+        )
+      }
+    _ => ()
+  }
   if self.contract_id != "moonmold.representation-transform.v1" {
     issues.push("contract_id must be moonmold.representation-transform.v1")
   }
