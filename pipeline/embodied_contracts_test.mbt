@@ -168,7 +168,45 @@ test "visual artifact rejects engineering consumers and physical claims" {
     ),
   )
   assert_true(
-    issues.contains("digital spatial artifacts cannot claim physical effects"),
+    issues.contains(
+      "digital spatial artifacts cannot claim simulation outcomes or physical effects",
+    ),
+  )
+}
+
+///|
+test "simulation model remains an input artifact until MoonMoon executes it" {
+  let manifest : SpatialArtifactManifest = {
+    contract_id: "moonmold.spatial-artifact.v1",
+    artifact_id: "building-simulation-r1",
+    project_id: "building-1",
+    representation: SimulationModel,
+    parent_artifact_ids: ["building-engineering-r1"],
+    digest: digest("8"),
+    payload_ref: "books/building/models/simulation-r1.glb",
+    units: "m",
+    coordinate_system: "right-handed-z-up",
+    up_axis: "z",
+    handedness: "right",
+    source_refs: [],
+    backend_id: "blender",
+    backend_version: "4.5.11",
+    procedure_ref: "books/building/procedures/simulation-input-v1.json",
+    authority_envelope_id: "envelope-building-r1",
+    assumptions: ["mass properties are estimated"],
+    unresolved_gaps: ["physical calibration absent"],
+    validation_refs: ["books/building/evidence/simulation-input-r1.json"],
+    intended_consumers: ["moonmoon"],
+    forbidden_consumers: ["fabrication"],
+    claim_ceiling: SimulationEvidence,
+    recorded_at: "2026-07-13T12:02:00Z",
+  }
+  assert_true(
+    manifest
+    .quality_issues()
+    .contains(
+      "digital spatial artifacts cannot claim simulation outcomes or physical effects",
+    ),
   )
 }
 

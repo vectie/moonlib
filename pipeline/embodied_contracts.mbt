@@ -480,8 +480,10 @@ pub fn SpatialArtifactManifest::quality_issues(
     issues.push("fabrication jobs require a physical-effect claim ceiling")
   }
   if self.representation != FabricationJob &&
-    self.claim_ceiling.allows(PhysicalEffectClaim) {
-    issues.push("digital spatial artifacts cannot claim physical effects")
+    self.claim_ceiling.allows(SimulationEvidence) {
+    issues.push(
+      "digital spatial artifacts cannot claim simulation outcomes or physical effects",
+    )
   }
   if !autonomy_timestamp_is_canonical(self.recorded_at) {
     issues.push("recorded_at must be a canonical UTC timestamp")
