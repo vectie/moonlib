@@ -84,7 +84,10 @@ Moon Suite update:
   conventions, backend, procedure, assumptions, validation, consumers, and
   claim ceiling of a digital spatial representation.
 - `RepresentationTransform` records immutable parent/child hashes, tool and
-  parameters, declared losses, authority, and validation.
+  parameters, a typed lineage relation, declared losses, authority, and
+  validation. Relations distinguish modeling, styling, optimization,
+  collision/physics derivation, manufacturing preparation, validation,
+  rejection, supersession, placement, and simulation.
 
 These types encode no product policy. MoonGate decides which products may
 perform an operation. MoonDesk decides how to present it. MoonClaw executes
