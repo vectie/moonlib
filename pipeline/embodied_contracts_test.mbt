@@ -29,7 +29,7 @@ test "browser operations map to constitutional authority" {
 }
 
 ///|
-test "book-local browser scope rejects ambient network and path escape" {
+test "opaque-local browser scope rejects ambient network and path escape" {
   let scope : BrowserSessionScope = {
     contract_id: "moonsuite.browser-session.v1",
     session_id: "session-1",
@@ -39,7 +39,7 @@ test "book-local browser scope rejects ambient network and path escape" {
     run_id: "run-1",
     artifact_id: "app-1",
     authority_envelope_id: "envelope-1",
-    origin_class: "book-local",
+    origin_class: "opaque-local",
     network_policy: "offline",
     allowed_origins: ["https://example.com"],
     allowed_operations: [RenderLocal],
@@ -51,12 +51,42 @@ test "book-local browser scope rejects ambient network and path escape" {
   }
   let issues = scope.quality_issues()
   assert_true(
-    issues.contains("book-local sessions cannot allow network origins"),
+    issues.contains("opaque-local sessions cannot allow network origins"),
   )
   assert_true(
     issues.contains("upload artifact refs must be workspace-relative"),
   )
   assert_true(issues.contains("download_root must be workspace-relative"))
+}
+
+///|
+test "isolated loopback scope accepts only explicit loopback origins" {
+  let valid : BrowserSessionScope = {
+    contract_id: "moonsuite.browser-session.v1",
+    session_id: "session-loopback",
+    book_id: "book-1",
+    book_revision: "r1",
+    code_revision: "sha256:code-r1",
+    run_id: "run-1",
+    artifact_id: "app-1",
+    authority_envelope_id: "envelope-1",
+    origin_class: "isolated-loopback",
+    network_policy: "offline",
+    allowed_origins: ["http://127.0.0.1:4388"],
+    allowed_operations: [RenderLocal, InteractLocal],
+    upload_artifact_refs: [],
+    download_root: ".moonsuite/products/moondesk/browser/downloads",
+    storage_lifetime: "run",
+    capability_digest: digest("9"),
+    expires_at: "2026-07-13T12:00:00Z",
+  }
+  assert_true(valid.quality_issues().is_empty())
+  let invalid = { ..valid, allowed_origins: ["https://example.com"] }
+  assert_true(
+    invalid
+    .quality_issues()
+    .contains("isolated-loopback sessions allow only explicit loopback origins"),
+  )
 }
 
 ///|

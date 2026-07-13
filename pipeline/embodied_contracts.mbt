@@ -133,6 +133,13 @@ fn embodied_relative_path_is_safe(path : String) -> Bool {
 }
 
 ///|
+fn embodied_origin_is_loopback(origin : String) -> Bool {
+  origin.has_prefix("http://127.0.0.1:") ||
+  origin.has_prefix("http://[::1]:") ||
+  origin.has_prefix("http://localhost:")
+}
+
+///|
 pub fn BrowserSessionScope::quality_issues(
   self : BrowserSessionScope,
 ) -> Array[String] {
@@ -156,8 +163,12 @@ pub fn BrowserSessionScope::quality_issues(
   if self.authority_envelope_id.trim().is_empty() {
     issues.push("authority_envelope_id is required")
   }
-  if self.origin_class != "book-local" && self.origin_class != "external" {
-    issues.push("origin_class must be book-local or external")
+  if self.origin_class != "opaque-local" &&
+    self.origin_class != "isolated-loopback" &&
+    self.origin_class != "external" {
+    issues.push(
+      "origin_class must be opaque-local, isolated-loopback, or external",
+    )
   }
   if self.network_policy != "offline" && self.network_policy != "allowlisted" {
     issues.push("network_policy must be offline or allowlisted")
@@ -184,11 +195,17 @@ pub fn BrowserSessionScope::quality_issues(
   if !autonomy_timestamp_is_canonical(self.expires_at) {
     issues.push("expires_at must be a canonical UTC timestamp")
   }
-  if self.origin_class == "book-local" &&
-    self.allowed_origins.any(origin => {
-      origin.has_prefix("http://") || origin.has_prefix("https://")
-    }) {
-    issues.push("book-local sessions cannot allow network origins")
+  if self.origin_class == "opaque-local" && !self.allowed_origins.is_empty() {
+    issues.push("opaque-local sessions cannot allow network origins")
+  }
+  if self.origin_class == "isolated-loopback" &&
+    self.allowed_origins.any(origin => !embodied_origin_is_loopback(origin)) {
+    issues.push(
+      "isolated-loopback sessions allow only explicit loopback origins",
+    )
+  }
+  if self.origin_class != "external" && self.network_policy != "offline" {
+    issues.push("local sessions must use the offline network policy")
   }
   issues
 }
