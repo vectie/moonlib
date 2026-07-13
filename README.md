@@ -99,7 +99,9 @@ The portable rules deliberately reject a styled representation as an
 engineering input and reject a manufacturing candidate that does not descend
 from an engineering representation. A manufacturing candidate remains a
 digital artifact; it is not permission to operate a printer or other physical
-device.
+device. Likewise, a simulation representation is an input model, not
+simulation evidence; only the simulator's executed result may make that later
+claim.
 
 ## Usage
 
