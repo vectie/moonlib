@@ -18,6 +18,20 @@ pub fn event_identity_rule() -> String
 
 pub fn identity_fields() -> Array[String]
 
+pub fn journal_contract_id() -> String
+
+pub fn journal_contract_json() -> Json
+
+pub fn journal_record(session_id~ : String, sequence~ : Int, record_id~ : String, record_kind~ : String, command_id~ : String, client_turn_id~ : String, recorded_at~ : Json, payload~ : Json) -> Json
+
+pub fn journal_record_issues(Json) -> Array[String]
+
+pub fn journal_record_kind() -> String
+
+pub fn journal_record_kinds() -> Array[String]
+
+pub fn journal_required_fields() -> Array[String]
+
 pub fn ordering_rule() -> String
 
 pub fn revision_rule() -> String
