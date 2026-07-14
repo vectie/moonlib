@@ -30,6 +30,18 @@ pub fn turn_order() -> Array[String]
 
 pub fn turn_required_fields() -> Array[String]
 
+pub fn watch_contract_id() -> String
+
+pub fn watch_contract_json() -> Json
+
+pub fn watch_kind() -> String
+
+pub fn watch_required_fields() -> Array[String]
+
+pub fn watch_response(session_id~ : String, revision~ : Int, next_sequence~ : Int, changed~ : Bool, heartbeat~ : Bool, terminal~ : Bool, retry_after_ms~ : Int, snapshot~ : Json) -> Json
+
+pub fn watch_retry_after_ms_value(Int) -> Int
+
 pub fn work_required_fields() -> Array[String]
 
 pub fn work_step_kinds() -> Array[String]
