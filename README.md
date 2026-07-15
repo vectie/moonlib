@@ -35,7 +35,7 @@ not be required just to construct a suite path.
 | `clock` | Time/clock utilities | extracted from moongate, moonclaw |
 | `c` | C FFI helpers | extracted from moongate, moonclaw |
 | `moonsuite` | Shared MoonSuite filesystem contracts | extracted from moondesk migration plan |
-| `conversation` | Shared conversation record contracts | extracted from MoonDesk/MoonCode cleanup |
+| `conversation` | Shared journal, watch, and durable control contracts | extracted from MoonDesk/MoonCode cleanup |
 | `pipeline` | Versioned cross-product run, evidence, messaging, and robot design contracts | Moon Suite pipeline |
 
 ## Implementation Guidance
@@ -66,6 +66,13 @@ validator. Products supply their own boundary registry; MoonLib validates the
 shape, authority, operation ownership, contract ownership, criterion owner,
 negative-path evidence, acceptance review, claim ceiling, and workspace-local
 artifact references without becoming the owner of product policy.
+
+The `@conversation` package owns the portable conversation boundaries shared by
+runtime and clients: totally ordered journal records, resumable watch rules, and
+`moonsuite-conversation-control.v1`. The control contract defines approval and
+cancellation vocabulary, required stable identifiers, ordering, and resume
+semantics. It does not decide which tools are risky, execute a control, or
+render UI; those remain product responsibilities.
 
 ### Embodied workspace contracts
 
@@ -137,6 +144,11 @@ For `@moonsuite` changes, add focused tests for suite roots, selected
 `books/<book-id>` roots, product homes, temp lanes, accepted output paths, and
 placeholder book ids. After publishing, run at least one consumer smoke in
 MoonDesk or MoonGate if the public path contract changed.
+
+For `@conversation` changes, test unknown-field tolerance, missing required
+fields, stable owner identifiers, total order, reconnect cursors, approval state
+transitions, and cancellation settlement. Run at least one runtime consumer and
+one UI consumer before publishing a public contract revision.
 
 ## Worth Noticing
 
