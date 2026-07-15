@@ -1,0 +1,114 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/pack"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn app_entrypoint(String, String, String) -> AppEntrypoint
+
+pub fn artifact_contracts(MoonPackManifest) -> Array[ContractRef]
+
+pub fn contract_ref(String, String, String) -> ContractRef
+
+pub fn decode_manifest(String) -> MoonPackManifest raise
+
+pub fn encode_manifest(MoonPackManifest) -> String
+
+pub fn has_authority(MoonPackManifest, AuthorityClass) -> Bool
+
+pub fn safe_artifact_path(String) -> Bool
+
+pub fn safe_identifier(String) -> Bool
+
+pub fn schedule_declaration(String, String, String, String) -> ScheduleDeclaration
+
+pub fn tool_declaration(String, String, String, String, AuthorityClass, idempotent? : Bool, evidence_outputs? : Array[String], review_required? : Bool) -> ToolDeclaration
+
+pub fn validate_manifest(MoonPackManifest) -> ValidationReport
+
+// Errors
+
+// Types and methods
+pub(all) struct AppEntrypoint {
+  id : String
+  path : String
+  audience : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum AuthorityClass {
+  Observe
+  CognitiveMaintenance
+  SandboxExecution
+  WorkspaceMutation
+  ExternalEffect
+  PhysicalEffect
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ContractRef {
+  id : String
+  version : String
+  path : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct MoonPackManifest {
+  id : String
+  version : String
+  display_name : String
+  product_id : String
+  kind : PackKind
+  required_runtime_extensions : Array[String]
+  book_templates : Array[ContractRef]
+  schemas : Array[ContractRef]
+  tools : Array[ToolDeclaration]
+  workflows : Array[ContractRef]
+  skills : Array[ContractRef]
+  policies : Array[ContractRef]
+  provider_ports : Array[ContractRef]
+  schedules : Array[ScheduleDeclaration]
+  app_entrypoints : Array[AppEntrypoint]
+  migrations : Array[ContractRef]
+  evaluations : Array[ContractRef]
+  uninstall_contract : ContractRef?
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum PackKind {
+  DomainPack
+  RuntimeExtension
+  AppToolBundle
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ScheduleDeclaration {
+  id : String
+  cadence : String
+  timezone : String
+  workflow_id : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ToolDeclaration {
+  id : String
+  owner_product : String
+  input_schema_id : String
+  output_schema_id : String
+  authority : AuthorityClass
+  idempotent : Bool
+  evidence_outputs : Array[String]
+  review_required : Bool
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ValidationIssue {
+  path : String
+  message : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ValidationReport {
+  ok : Bool
+  issues : Array[ValidationIssue]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+// Type aliases
+
+// Traits
+

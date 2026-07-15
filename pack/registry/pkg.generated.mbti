@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/pack/registry"
+
+import {
+  "moonbitlang/core/debug",
+  "vectie/moonlib/pack",
+}
+
+// Values
+pub fn empty() -> PackRegistry
+
+pub fn find(PackRegistry, String, String) -> @pack.MoonPackManifest?
+
+pub fn register(PackRegistry, @pack.MoonPackManifest) -> Result[PackRegistry, String]
+
+pub fn remove(PackRegistry, String, String) -> PackRegistry
+
+// Errors
+
+// Types and methods
+pub(all) struct PackRegistry {
+  manifests : Array[@pack.MoonPackManifest]
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
+

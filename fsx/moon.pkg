@@ -10,8 +10,19 @@ import {
   "moonbitlang/core/test",
 }
 
+import {
+  "moonbitlang/async",
+} for "test"
+
 supported_targets = "native"
 
 options(
-  "native-stub": [ "stat.c", "mkdtemp.c", "readlink.c", "lock.c", "truncate.c" ],
+  "native-stub": [
+    "stat.c",
+    "mkdtemp.c",
+    "readlink.c",
+    "lock.c",
+    "truncate.c",
+    "rename.c",
+  ],
 )

@@ -1,0 +1,105 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/pack/installer"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+  "vectie/moonlib/pack",
+}
+
+// Values
+pub async fn activate_version(String, String, String) -> ActivePackPointer
+
+pub async fn active_manifest(String, String) -> @pack.MoonPackManifest?
+
+pub async fn active_pack(String, String) -> ActivePackPointer?
+
+pub fn authorization_issues(@pack.MoonPackManifest, HostProfile) -> Array[String]
+
+pub async fn deactivate(String, String) -> Bool
+
+pub fn empty_host_profile() -> HostProfile
+
+pub async fn inspect_source(String) -> SourceInspection
+
+pub async fn install(String, String) -> InstallationReceipt
+
+pub async fn install_authorized(String, String, HostProfile) -> InstallationReceipt
+
+pub async fn list_active(String) -> Array[ActivePackPointer]
+
+pub async fn load_host_profile(String) -> HostProfile
+
+pub async fn load_source_manifest(String) -> @pack.MoonPackManifest
+
+pub fn plan_install(@pack.MoonPackManifest) -> InstallPlan
+
+pub async fn validate_source_tree(String, @pack.MoonPackManifest) -> Array[String]
+
+pub async fn verify_installed(String, String, String) -> InstalledVerification
+
+// Errors
+
+// Types and methods
+pub(all) struct ActivePackPointer {
+  contract : String
+  pack_id : String
+  version : String
+  manifest_sha256 : String
+  installed_root : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ArtifactReceipt {
+  path : String
+  sha256 : String
+  size : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct HostProfile {
+  contract : String
+  runtime_extensions : Array[String]
+  granted_authorities : Array[@pack.AuthorityClass]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct InstallPlan {
+  pack_id : String
+  version : String
+  state : InstallState
+  validation : @pack.ValidationReport
+  authorities : Array[@pack.AuthorityClass]
+  owned_namespaces : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum InstallState {
+  Rejected
+  ReadyToStage
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct InstallationReceipt {
+  contract : String
+  pack_id : String
+  product_id : String
+  version : String
+  manifest_sha256 : String
+  installed_root : String
+  artifacts : Array[ArtifactReceipt]
+  authorities : Array[@pack.AuthorityClass]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct InstalledVerification {
+  ok : Bool
+  pack_id : String
+  version : String
+  issues : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct SourceInspection {
+  manifest : @pack.MoonPackManifest
+  plan : InstallPlan
+  issues : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+// Type aliases
+
+// Traits
+
