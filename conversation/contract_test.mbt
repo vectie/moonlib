@@ -19,6 +19,7 @@ test "conversation contract exposes shared schema constants" {
   assert_true(@conversation.work_required_fields().contains("live"))
   assert_true(@conversation.work_step_kinds().contains("thought"))
   assert_true(@conversation.work_step_kinds().contains("tool"))
+  assert_true(@conversation.work_step_kinds().contains("approval"))
   assert_true(
     @conversation.ordering_rule().contains("must never move an existing turn"),
   )

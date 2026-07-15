@@ -2,11 +2,37 @@
 package "vectie/moonlib/conversation"
 
 // Values
+pub fn approval_decisions() -> Array[String]
+
+pub fn approval_event_kind(String) -> String
+
+pub fn approval_required_fields() -> Array[String]
+
+pub fn approval_resume_rule() -> String
+
+pub fn cancellation_event_kind() -> String
+
+pub fn cancellation_rule() -> String
+
 pub fn contract_id() -> String
 
 pub fn contract_json(product_id~ : String, protocol~ : String, durable_owner~ : String, runtime_owner~ : String, ui_owner~ : String) -> Json
 
 pub fn contract_kind() -> String
+
+pub fn control_contract_id() -> String
+
+pub fn control_contract_json() -> Json
+
+pub fn control_kinds() -> Array[String]
+
+pub fn control_ordering_rule() -> String
+
+pub fn control_record_kind() -> String
+
+pub fn control_required_fields() -> Array[String]
+
+pub fn control_states() -> Array[String]
 
 pub fn conversation_kind(product_id~ : String) -> String
 

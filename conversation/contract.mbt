@@ -53,7 +53,9 @@ pub fn work_required_fields() -> Array[String] {
 
 ///|
 pub fn work_step_kinds() -> Array[String] {
-  ["thought", "context", "tool", "edit", "test", "artifact", "status"]
+  [
+    "thought", "context", "tool", "approval", "edit", "test", "artifact", "status",
+  ]
 }
 
 ///|
