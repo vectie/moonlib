@@ -23,3 +23,6 @@ The native installer uses per-pack file locks, immutable version directories,
 SHA-256 receipts, and atomic same-filesystem pointer replacement. Deactivation
 removes only the active pointer; installed artifacts and user evidence remain
 available for audit and rollback.
+
+See `ROADMAP.md` for the remaining runtime, trust, migration, and operations
+work required before unattended or third-party deployment.
