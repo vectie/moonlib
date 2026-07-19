@@ -1,0 +1,15 @@
+import {
+  "moonbitlang/async/fs",
+  "moonbitlang/core/encoding/utf8" @encoding/utf8,
+  "moonbitlang/core/json",
+  "moonbitlang/x/crypto",
+  "moonbitlang/x/path",
+  "vectie/moonlib/fsx",
+  "vectie/moonlib/pack",
+}
+
+import {
+  "moonbitlang/async",
+} for "test"
+
+supported_targets = "native"

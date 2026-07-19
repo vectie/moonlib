@@ -1,0 +1,45 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/pack/host"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+  "vectie/moonlib/pack",
+  "vectie/moonlib/pack/installer",
+}
+
+// Values
+pub fn activation_projection(@pack.MoonPackManifest, @installer.ActivePackPointer) -> HostActivationProjection raise
+
+pub fn deactivation_projection(@pack.MoonPackManifest) -> HostDeactivationProjection
+
+// Errors
+
+// Types and methods
+pub(all) struct HostActivationProjection {
+  contract : String
+  pack_id : String
+  product_id : String
+  version : String
+  required_runtime_extensions : Array[String]
+  book_templates : Array[@pack.ContractRef]
+  tools : Array[@pack.ToolDeclaration]
+  schedules : Array[@pack.ScheduleDeclaration]
+  app_entrypoints : Array[@pack.AppEntrypoint]
+  provider_ports : Array[@pack.ContractRef]
+  policies : Array[@pack.ContractRef]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct HostDeactivationProjection {
+  contract : String
+  pack_id : String
+  tool_ids : Array[String]
+  schedule_ids : Array[String]
+  app_entrypoint_ids : Array[String]
+  preserve_namespaces : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+// Type aliases
+
+// Traits
+
