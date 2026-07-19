@@ -1,0 +1,60 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "vectie/moonlib/i18n"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn default_language_preferences() -> LanguagePreferences
+
+pub fn fallback_locales(Locale) -> Array[Locale]
+
+pub fn parse_locale(StringView) -> Locale?
+
+pub fn parse_preference(StringView) -> LocalePreference?
+
+pub fn resolve_locale(LocalePreference, StringView) -> Locale
+
+// Errors
+
+// Types and methods
+pub(all) struct Catalog {
+  product_id : String
+  en_us : Map[String, String]
+  zh_hans : Map[String, String]
+}
+pub fn Catalog::format(Self, Locale, StringView, Map[String, String]) -> String
+pub fn Catalog::message(Self, Locale, StringView) -> String
+pub fn Catalog::missing_keys(Self, Locale) -> Array[String]
+pub fn Catalog::new(String, Map[String, String], Map[String, String]) -> Self
+pub fn Catalog::product_id(Self) -> String
+
+pub(all) struct LanguagePreferences {
+  interface_locale : String
+  assistant_language : String
+  default_document_language : String
+  product_locale_overrides : Map[String, String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn LanguagePreferences::interface_preference(Self, StringView) -> LocalePreference
+pub fn LanguagePreferences::resolve_interface_locale(Self, StringView, StringView) -> Locale
+
+pub(all) enum Locale {
+  EnUs
+  ZhHans
+} derive(Compare, Eq, Hash, @debug.Debug)
+pub fn Locale::direction(Self) -> String
+pub fn Locale::html_lang(Self) -> String
+pub fn Locale::is_chinese(Self) -> Bool
+pub fn Locale::tag(Self) -> String
+
+pub(all) enum LocalePreference {
+  System
+  Explicit(Locale)
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
+
