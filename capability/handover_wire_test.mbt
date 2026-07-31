@@ -43,10 +43,7 @@ test "handover bundles are deterministic and exclude secret artifacts" {
     "revision-two",
     handover_test_digest("b"),
   )
-  let contract = @capability.contract_ref_v1(
-    "moonsuite.test-artifact",
-    "1.0.0",
-  )
+  let contract = @capability.contract_ref_v1("moonsuite.test-artifact", "1.0.0")
   let entry = @capability.handover_bundle_entry_v1(
     "artifacts/result.json",
     handover_test_digest("c"),

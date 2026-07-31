@@ -140,8 +140,7 @@ fn decode_handover_bundle_entry_v1(
   value : Json,
 ) -> HandoverBundleEntryV1 raise CapabilityContractError {
   let wire : HandoverBundleEntryWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-bundle-entry.v1",
+    value, "moonsuite.handover-bundle-entry.v1",
   )
   handover_bundle_entry_v1(
     wire.artifact_ref,
@@ -221,7 +220,9 @@ fn validate_handover_bundle_inputs_v1(
   if !identifier_component_is_canonical(bundle_id) ||
     !wire_timestamp_is_canonical(created_at) ||
     entries.is_empty() {
-    raise InvalidReference("handover bundle identity, timestamp, and entries are required")
+    raise InvalidReference(
+      "handover bundle identity, timestamp, and entries are required",
+    )
   }
   let artifact_refs : Array[String] = []
   for entry in entries {
@@ -236,7 +237,9 @@ fn validate_handover_bundle_inputs_v1(
   }
   if has_duplicate(excluded_secret_refs) ||
     excluded_secret_refs.any(value => value.trim().is_empty()) {
-    raise InvalidReference("excluded secret references must be unique non-empty labels")
+    raise InvalidReference(
+      "excluded secret references must be unique non-empty labels",
+    )
   }
 }
 
@@ -250,18 +253,10 @@ pub fn handover_bundle_v1(
   created_at~ : String,
 ) -> HandoverBundleV1 raise CapabilityContractError {
   validate_handover_bundle_inputs_v1(
-    bundle_id,
-    entries,
-    excluded_secret_refs,
-    created_at,
+    bundle_id, entries, excluded_secret_refs, created_at,
   )
   let payload = handover_bundle_payload_wire_v1(
-    bundle_id,
-    workspace,
-    created_by,
-    entries,
-    excluded_secret_refs,
-    created_at,
+    bundle_id, workspace, created_by, entries, excluded_secret_refs, created_at,
   )
   let content_digest = sha256_digest_ref_v1(
     @utf8.encode(payload.to_json().stringify()),
@@ -323,9 +318,10 @@ pub fn encode_handover_bundle_v1(bundle : HandoverBundleV1) -> Json {
     bundle_id: bundle.bundle_id,
     workspace_ref: encode_workspace_ref_v1(bundle.workspace),
     created_by: encode_principal_ref_v1(bundle.created_by),
-    entries: bundle.entries.iter().to_array().map(entry =>
-      handover_bundle_entry_wire_v1(entry)
-    ),
+    entries: bundle.entries
+    .iter()
+    .to_array()
+    .map(entry => handover_bundle_entry_wire_v1(entry)),
     excluded_secret_refs: bundle.excluded_secret_refs.iter().to_array(),
     created_at: bundle.created_at,
     content_digest: bundle.content_digest.text(),
@@ -333,10 +329,11 @@ pub fn encode_handover_bundle_v1(bundle : HandoverBundleV1) -> Json {
 }
 
 ///|
-pub fn decode_handover_bundle_v1(value : Json) -> HandoverBundleV1 raise CapabilityContractError {
+pub fn decode_handover_bundle_v1(
+  value : Json,
+) -> HandoverBundleV1 raise CapabilityContractError {
   let wire : HandoverBundleWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-bundle.v1",
+    value, "moonsuite.handover-bundle.v1",
   )
   if wire.contract_id != "moonsuite.handover-bundle.v1" {
     raise InvalidReference("unsupported handover bundle contract")
@@ -374,7 +371,9 @@ pub fn QuarantineStatusV1::id(self : QuarantineStatusV1) -> String {
 }
 
 ///|
-fn quarantine_status_v1_from_id(value : String) -> QuarantineStatusV1 raise CapabilityContractError {
+fn quarantine_status_v1_from_id(
+  value : String,
+) -> QuarantineStatusV1 raise CapabilityContractError {
   match value {
     "not-required" => NotRequired
     "pending" => Pending
@@ -407,7 +406,9 @@ pub fn quarantine_metadata_v1(
 }
 
 ///|
-pub fn QuarantineMetadataV1::status(self : QuarantineMetadataV1) -> QuarantineStatusV1 {
+pub fn QuarantineMetadataV1::status(
+  self : QuarantineMetadataV1,
+) -> QuarantineStatusV1 {
   self.status
 }
 
@@ -429,7 +430,10 @@ priv struct QuarantineMetadataWireV1 {
 pub fn encode_quarantine_metadata_v1(metadata : QuarantineMetadataV1) -> Json {
   QuarantineMetadataWireV1::{
     status: metadata.status.id(),
-    evidence_refs: metadata.evidence_refs.iter().to_array().map(reference => {
+    evidence_refs: metadata.evidence_refs
+    .iter()
+    .to_array()
+    .map(reference => {
       "evidence_ref": reference.evidence_ref(),
       "evidence_digest": reference.evidence_digest(),
     }),
@@ -442,16 +446,16 @@ pub fn decode_quarantine_metadata_v1(
   value : Json,
 ) -> QuarantineMetadataV1 raise CapabilityContractError {
   let wire : QuarantineMetadataWireV1 = decode_wire(
-    value,
-    "moonsuite.quarantine-metadata.v1",
+    value, "moonsuite.quarantine-metadata.v1",
   )
   let evidence : Array[ContentAddressedEvidenceRefV1] = []
   for item in wire.evidence_refs {
-    guard item is {
-      "evidence_ref": String(reference),
-      "evidence_digest": String(digest),
-      ..
-    } else {
+    guard item
+      is {
+        "evidence_ref": String(reference),
+        "evidence_digest": String(digest),
+        ..
+      } else {
       raise InvalidReference("invalid quarantine evidence reference")
     }
     evidence.push(content_addressed_evidence_ref(reference, digest))
@@ -480,8 +484,10 @@ pub fn handover_budget_ceilings_v1(
   max_tokens? : Int64,
   max_artifacts? : Int,
 ) -> HandoverBudgetCeilingsV1 raise CapabilityContractError {
-  if max_cost_micro_usd is None && max_runtime_ms is None &&
-    max_tokens is None && max_artifacts is None {
+  if max_cost_micro_usd is None &&
+    max_runtime_ms is None &&
+    max_tokens is None &&
+    max_artifacts is None {
     raise InvalidReference("handover budget must declare at least one ceiling")
   }
   if (max_cost_micro_usd is Some(value) && value <= 0L) ||
@@ -546,8 +552,7 @@ fn decode_handover_budget_ceilings_v1(
   value : Json,
 ) -> HandoverBudgetCeilingsV1 raise CapabilityContractError {
   let wire : HandoverBudgetCeilingsWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-budget-ceilings.v1",
+    value, "moonsuite.handover-budget-ceilings.v1",
   )
   handover_budget_ceilings_v1(
     max_cost_micro_usd?=wire.max_cost_micro_usd,
@@ -608,8 +613,7 @@ fn decode_previous_handover_ref_v1(
   value : Json,
 ) -> PreviousHandoverRefV1 raise CapabilityContractError {
   let wire : PreviousHandoverWireV1 = decode_wire(
-    value,
-    "moonsuite.previous-handover-ref.v1",
+    value, "moonsuite.previous-handover-ref.v1",
   )
   previous_handover_ref_v1(wire.handover_id, wire.envelope_digest)
 }
@@ -641,7 +645,8 @@ pub fn handover_continuation_context_v1(
   budget_ceilings? : HandoverBudgetCeilingsV1,
   previous_handover? : PreviousHandoverRefV1,
 ) -> HandoverContinuationContextV1 raise CapabilityContractError {
-  if purpose.trim().is_empty() || purpose.length() > 1024 ||
+  if purpose.trim().is_empty() ||
+    purpose.length() > 1024 ||
     !portable_correlation_token(run_ref) ||
     !portable_correlation_token(work_ref) ||
     (stage_ref is Some(value) && !portable_correlation_token(value)) ||
@@ -652,7 +657,9 @@ pub fn handover_continuation_context_v1(
   for requirement in compatibility_requirements {
     let formatted = requirement.format()
     if contracts.contains(formatted) {
-      raise InvalidReference("duplicate compatibility requirement: \{formatted}")
+      raise InvalidReference(
+        "duplicate compatibility requirement: \{formatted}",
+      )
     }
     contracts.push(formatted)
   }
@@ -760,16 +767,16 @@ fn encode_handover_continuation_context_v1(
     attempt_ref: context.attempt_ref,
     checkpoint_ref: context.checkpoint.map(value => value.evidence_ref()),
     checkpoint_digest: context.checkpoint.map(value => value.evidence_digest()),
-    budget_ceilings: context.budget_ceilings.map(value =>
+    budget_ceilings: context.budget_ceilings.map(value => {
       encode_handover_budget_ceilings_v1(value)
-    ),
+    }),
     compatibility_requirements: context.compatibility_requirements
     .iter()
     .to_array()
     .map(value => encode_contract_ref_v1(value)),
-    previous_handover: context.previous_handover.map(value =>
+    previous_handover: context.previous_handover.map(value => {
       encode_previous_handover_ref_v1(value)
-    ),
+    }),
   }.to_json()
 }
 
@@ -778,11 +785,12 @@ fn decode_handover_continuation_context_v1(
   value : Json,
 ) -> HandoverContinuationContextV1 raise CapabilityContractError {
   let wire : HandoverContinuationContextWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-continuation-context.v1",
+    value, "moonsuite.handover-continuation-context.v1",
   )
   if (wire.checkpoint_ref is Some(_)) != (wire.checkpoint_digest is Some(_)) {
-    raise InvalidReference("checkpoint reference and digest must appear together")
+    raise InvalidReference(
+      "checkpoint reference and digest must appear together",
+    )
   }
   let checkpoint = match (wire.checkpoint_ref, wire.checkpoint_digest) {
     (Some(reference), Some(digest)) =>
@@ -796,13 +804,13 @@ fn decode_handover_continuation_context_v1(
     wire.compatibility_requirements.map(value => decode_contract_ref_v1(value)),
     stage_ref?=wire.stage_ref,
     attempt_ref?=wire.attempt_ref,
-    checkpoint?=checkpoint,
-    budget_ceilings?=wire.budget_ceilings.map(value =>
+    checkpoint?,
+    budget_ceilings?=wire.budget_ceilings.map(value => {
       decode_handover_budget_ceilings_v1(value)
-    ),
-    previous_handover?=wire.previous_handover.map(value =>
+    }),
+    previous_handover?=wire.previous_handover.map(value => {
       decode_previous_handover_ref_v1(value)
-    ),
+    }),
   )
 }
 
@@ -890,11 +898,12 @@ fn decode_handover_signature_metadata_v1(
   value : Json,
 ) -> HandoverSignatureMetadataV1 raise CapabilityContractError {
   let wire : HandoverSignatureMetadataWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-signature-metadata.v1",
+    value, "moonsuite.handover-signature-metadata.v1",
   )
   if wire.signed_subject != "bundle-content-digest" {
-    raise InvalidReference("handover signature subject must be the bundle digest")
+    raise InvalidReference(
+      "handover signature subject must be the bundle digest",
+    )
   }
   handover_signature_metadata_v1(
     decode_principal_ref_v1(wire.signer),
@@ -1039,15 +1048,15 @@ fn handover_control_payload_wire_v1(
     target_product_id,
     source_operation_ref: encode_operation_ref_v1(source_operation),
     target_operation_ref: encode_operation_ref_v1(target_operation),
-    source_output_schema_refs: source_output_schemas.map(schema =>
+    source_output_schema_refs: source_output_schemas.map(schema => {
       encode_schema_ref_v1(schema)
-    ),
-    target_input_schema_refs: target_input_schemas.map(schema =>
+    }),
+    target_input_schema_refs: target_input_schemas.map(schema => {
       encode_schema_ref_v1(schema)
-    ),
-    target_output_schema_refs: target_output_schemas.map(schema =>
+    }),
+    target_output_schema_refs: target_output_schemas.map(schema => {
       encode_schema_ref_v1(schema)
-    ),
+    }),
     continuation_context: encode_handover_continuation_context_v1(continuation),
     open_items,
     blockers,
@@ -1057,9 +1066,9 @@ fn handover_control_payload_wire_v1(
     review_required,
     return_destination,
     quarantine: encode_quarantine_metadata_v1(quarantine),
-    signature_metadata: signature_metadata.map(value =>
+    signature_metadata: signature_metadata.map(value => {
       encode_handover_signature_metadata_v1(value)
-    ),
+    }),
     created_at,
     expires_at,
   }
@@ -1150,20 +1159,26 @@ pub fn handover_control_envelope_v1(
     raise InvalidReference("handover control envelope is not canonical")
   }
   if bundle.requires_quarantine() && quarantine.status == NotRequired {
-    raise InvalidReference("untrusted or executable content requires quarantine")
+    raise InvalidReference(
+      "untrusted or executable content requires quarantine",
+    )
   }
   if continuation.checkpoint is Some(checkpoint) &&
     !bundle.entries.any(entry => entry.artifact == checkpoint) {
-    raise InvalidReference("continuation checkpoint must be present in the bundle")
+    raise InvalidReference(
+      "continuation checkpoint must be present in the bundle",
+    )
   }
   if continuation.previous_handover is Some(previous) &&
     previous.handover_id == handover_id {
     raise InvalidReference("handover cannot cite itself as its predecessor")
   }
   if signature_metadata is Some(signature) &&
-    (signature.signer != source_principal ||
-    signature.signed_at > created_at ||
-    signature.signed_bundle_digest != bundle.content_digest) {
+    (
+      signature.signer != source_principal ||
+      signature.signed_at > created_at ||
+      signature.signed_bundle_digest != bundle.content_digest
+    ) {
     raise InvalidReference(
       "handover signature must bind the source and exact bundle before creation",
     )
@@ -1479,8 +1494,7 @@ pub fn decode_handover_control_envelope_v1(
   bundle : HandoverBundleV1,
 ) -> HandoverControlEnvelopeV1 raise CapabilityContractError {
   let wire : HandoverControlWireV1 = decode_wire(
-    value,
-    "moonsuite.handover-control.v1",
+    value, "moonsuite.handover-control.v1",
   )
   if wire.contract_id != "moonsuite.handover-control.v1" ||
     !wire.fresh_authority_required {
@@ -1494,15 +1508,15 @@ pub fn decode_handover_control_envelope_v1(
     decode_correlation_ref_v1(wire.correlation_ref),
     source_operation=decode_operation_ref_v1(wire.source_operation_ref),
     target_operation=decode_operation_ref_v1(wire.target_operation_ref),
-    source_output_schemas=wire.source_output_schema_refs.map(value =>
+    source_output_schemas=wire.source_output_schema_refs.map(value => {
       decode_schema_ref_v1(value)
-    ),
-    target_input_schemas=wire.target_input_schema_refs.map(value =>
+    }),
+    target_input_schemas=wire.target_input_schema_refs.map(value => {
       decode_schema_ref_v1(value)
-    ),
-    target_output_schemas=wire.target_output_schema_refs.map(value =>
+    }),
+    target_output_schemas=wire.target_output_schema_refs.map(value => {
       decode_schema_ref_v1(value)
-    ),
+    }),
     continuation=decode_handover_continuation_context_v1(
       wire.continuation_context,
     ),
@@ -1513,9 +1527,9 @@ pub fn decode_handover_control_envelope_v1(
     review_required=wire.review_required,
     return_destination=wire.return_destination,
     quarantine=decode_quarantine_metadata_v1(wire.quarantine),
-    signature_metadata?=wire.signature_metadata.map(value =>
+    signature_metadata?=wire.signature_metadata.map(value => {
       decode_handover_signature_metadata_v1(value)
-    ),
+    }),
     created_at=wire.created_at,
     expires_at=wire.expires_at,
   )

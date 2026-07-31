@@ -13,9 +13,15 @@ pub fn adapter_health_contract_v1() -> String
 
 pub fn adapter_result_contract_v1() -> String
 
+pub fn authority_decision_ref_v1(String, PrincipalRefV1, String, String, String) -> AuthorityDecisionRefV1 raise CapabilityContractError
+
 pub fn capability_catalog_contract_v1() -> String
 
 pub fn content_addressed_evidence_ref(String, String) -> ContentAddressedEvidenceRefV1 raise CapabilityContractError
+
+pub fn contract_ref_v1(String, String) -> ContractRefV1 raise CapabilityContractError
+
+pub fn correlation_ref_v1(String, String, request_id? : String, attempt_id? : String, idempotency_key? : String) -> CorrelationRefV1 raise CapabilityContractError
 
 pub fn decode_adapter_declaration_v1(Json) -> AdapterDeclarationV1 raise CapabilityContractError
 
@@ -27,9 +33,37 @@ pub fn decode_adapter_request_wire_v1(Json) -> AdapterRequestWireV1 raise Capabi
 
 pub fn decode_adapter_result_v1(Json) -> AdapterResultV1 raise CapabilityContractError
 
+pub fn decode_authority_decision_ref_v1(Json) -> AuthorityDecisionRefV1 raise CapabilityContractError
+
 pub fn decode_capability_catalog_projection_v1(Json) -> CapabilityCatalogProjectionV1 raise CapabilityContractError
 
+pub fn decode_contract_ref_v1(Json) -> ContractRefV1 raise CapabilityContractError
+
+pub fn decode_correlation_ref_v1(Json) -> CorrelationRefV1 raise CapabilityContractError
+
+pub fn decode_delegation_ref_v1(Json) -> DelegationRefV1 raise CapabilityContractError
+
+pub fn decode_digest_ref_v1(Json) -> DigestRefV1 raise CapabilityContractError
+
+pub fn decode_handover_bundle_v1(Json) -> HandoverBundleV1 raise CapabilityContractError
+
+pub fn decode_handover_control_envelope_v1(Json, HandoverBundleV1) -> HandoverControlEnvelopeV1 raise CapabilityContractError
+
+pub fn decode_operation_ref_v1(Json) -> OperationRef raise CapabilityContractError
+
 pub fn decode_pack_manifest_projection_v1(Json) -> PackManifestProjectionV1 raise CapabilityContractError
+
+pub fn decode_principal_ref_v1(Json) -> PrincipalRefV1 raise CapabilityContractError
+
+pub fn decode_quarantine_metadata_v1(Json) -> QuarantineMetadataV1 raise CapabilityContractError
+
+pub fn decode_schema_ref_v1(Json) -> SchemaRef raise CapabilityContractError
+
+pub fn decode_workspace_ref_v1(Json) -> WorkspaceRefV1 raise CapabilityContractError
+
+pub fn delegation_ref_v1(String, PrincipalRefV1, PrincipalRefV1, String, parent_digest? : String) -> DelegationRefV1 raise CapabilityContractError
+
+pub fn digest_ref_v1(String) -> DigestRefV1 raise CapabilityContractError
 
 pub fn encode_adapter_declaration_v1(AdapterDeclarationV1) -> Json raise CapabilityContractError
 
@@ -41,11 +75,47 @@ pub fn encode_adapter_request_wire_v1(AdapterRequestWireV1) -> Json raise Capabi
 
 pub fn encode_adapter_result_v1(AdapterResultV1) -> Json raise CapabilityContractError
 
+pub fn encode_authority_decision_ref_v1(AuthorityDecisionRefV1) -> Json
+
 pub fn encode_capability_catalog_projection_v1(CapabilityCatalogProjectionV1) -> Json raise CapabilityContractError
+
+pub fn encode_contract_ref_v1(ContractRefV1) -> Json
+
+pub fn encode_correlation_ref_v1(CorrelationRefV1) -> Json
+
+pub fn encode_delegation_ref_v1(DelegationRefV1) -> Json
+
+pub fn encode_digest_ref_v1(DigestRefV1) -> Json
+
+pub fn encode_handover_bundle_v1(HandoverBundleV1) -> Json
+
+pub fn encode_handover_control_envelope_v1(HandoverControlEnvelopeV1) -> Json
+
+pub fn encode_operation_ref_v1(OperationRef) -> Json
 
 pub fn encode_pack_manifest_projection_v1(PackManifestProjectionV1) -> Json raise CapabilityContractError
 
+pub fn encode_principal_ref_v1(PrincipalRefV1) -> Json
+
+pub fn encode_quarantine_metadata_v1(QuarantineMetadataV1) -> Json
+
+pub fn encode_schema_ref_v1(SchemaRef) -> Json
+
+pub fn encode_workspace_ref_v1(WorkspaceRefV1) -> Json
+
 pub fn evidence_artifact_ref_is_canonical(String) -> Bool
+
+pub fn handover_budget_ceilings_v1(max_cost_micro_usd? : Int64, max_runtime_ms? : Int64, max_tokens? : Int64, max_artifacts? : Int) -> HandoverBudgetCeilingsV1 raise CapabilityContractError
+
+pub fn handover_bundle_entry_v1(String, String, ContractRefV1, String, ExportClassificationV1, String, untrusted_document? : Bool, executable_content? : Bool) -> HandoverBundleEntryV1 raise CapabilityContractError
+
+pub fn handover_bundle_v1(String, WorkspaceRefV1, PrincipalRefV1, Array[HandoverBundleEntryV1], excluded_secret_refs? : Array[String], created_at~ : String) -> HandoverBundleV1 raise CapabilityContractError
+
+pub fn handover_continuation_context_v1(String, String, String, Array[ContractRefV1], stage_ref? : String, attempt_ref? : String, checkpoint? : ContentAddressedEvidenceRefV1, budget_ceilings? : HandoverBudgetCeilingsV1, previous_handover? : PreviousHandoverRefV1) -> HandoverContinuationContextV1 raise CapabilityContractError
+
+pub fn handover_control_envelope_v1(String, HandoverBundleV1, PrincipalRefV1, PrincipalRefV1, CorrelationRefV1, source_operation~ : OperationRef, target_operation~ : OperationRef, source_output_schemas~ : Array[SchemaRef], target_input_schemas~ : Array[SchemaRef], target_output_schemas~ : Array[SchemaRef], continuation~ : HandoverContinuationContextV1, open_items? : Array[String], blockers? : Array[String], acceptance_criteria~ : Array[String], requested_authority~ : String, review_required? : Bool, return_destination~ : String, quarantine~ : QuarantineMetadataV1, signature_metadata? : HandoverSignatureMetadataV1, created_at~ : String, expires_at~ : String) -> HandoverControlEnvelopeV1 raise CapabilityContractError
+
+pub fn handover_signature_metadata_v1(PrincipalRefV1, String, String, String, String, String, String) -> HandoverSignatureMetadataV1 raise CapabilityContractError
 
 pub fn identifier_component_is_canonical(String) -> Bool
 
@@ -57,6 +127,12 @@ pub fn parse_operation_ref(String) -> OperationRef raise CapabilityContractError
 
 pub fn parse_schema_ref(String) -> SchemaRef raise CapabilityContractError
 
+pub fn previous_handover_ref_v1(String, String) -> PreviousHandoverRefV1 raise CapabilityContractError
+
+pub fn principal_ref_v1(String, PrincipalKindV1, String, String) -> PrincipalRefV1 raise CapabilityContractError
+
+pub fn quarantine_metadata_v1(QuarantineStatusV1, evidence_refs? : Array[ContentAddressedEvidenceRefV1], reason? : String) -> QuarantineMetadataV1 raise CapabilityContractError
+
 pub fn schema_ref(String, String, String) -> SchemaRef raise CapabilityContractError
 
 pub fn schema_ref_is_canonical(String) -> Bool
@@ -65,7 +141,11 @@ pub fn semantic_version_is_canonical(String) -> Bool
 
 pub fn sha256_digest_is_canonical(String) -> Bool
 
+pub fn sha256_digest_ref_v1(Bytes) -> DigestRefV1
+
 pub fn wire_timestamp_is_canonical(String) -> Bool
+
+pub fn workspace_ref_v1(String, String, String) -> WorkspaceRefV1 raise CapabilityContractError
 
 // Errors
 pub(all) suberror CapabilityContractError {
@@ -161,6 +241,20 @@ pub(all) struct AdapterResultV1 {
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterResultV1::conformance_issues(Self) -> Array[ContractIssueV1]
 
+pub struct AuthorityDecisionRefV1 {
+  decision_id : String
+  principal : PrincipalRefV1
+  digest : DigestRefV1
+  decided_at : String
+  expires_at : String
+} derive(Eq, @debug.Debug)
+pub fn AuthorityDecisionRefV1::decided_at(Self) -> String
+pub fn AuthorityDecisionRefV1::decision_id(Self) -> String
+pub fn AuthorityDecisionRefV1::digest(Self) -> DigestRefV1
+pub fn AuthorityDecisionRefV1::expires_at(Self) -> String
+pub fn AuthorityDecisionRefV1::is_fresh_for(Self, PrincipalRefV1, String) -> Bool
+pub fn AuthorityDecisionRefV1::principal(Self) -> PrincipalRefV1
+
 pub(all) struct CapabilityCatalogProjectionV1 {
   contract_id : String
   catalog_id : String
@@ -209,24 +303,206 @@ pub(all) struct CatalogProductProjectionV1 {
   pack_version : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 
-pub(all) struct ContentAddressedEvidenceRefV1 {
+pub struct ContentAddressedEvidenceRefV1 {
   evidence_ref : String
   evidence_digest : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn ContentAddressedEvidenceRefV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn ContentAddressedEvidenceRefV1::evidence_digest(Self) -> String
+pub fn ContentAddressedEvidenceRefV1::evidence_ref(Self) -> String
 
 pub(all) struct ContractIssueV1 {
   field : String
   message : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 
-pub(all) struct OperationRef {
+pub struct ContractRefV1 {
+  contract_id : String
+  contract_version : String
+} derive(Eq, @debug.Debug)
+pub fn ContractRefV1::contract_id(Self) -> String
+pub fn ContractRefV1::contract_version(Self) -> String
+pub fn ContractRefV1::format(Self) -> String
+
+pub struct CorrelationRefV1 {
+  run_id : String
+  work_item_id : String
+  request_id : String?
+  attempt_id : String?
+  idempotency_key : String?
+} derive(Eq, @debug.Debug)
+pub fn CorrelationRefV1::attempt_id(Self) -> String?
+pub fn CorrelationRefV1::canonical_text(Self) -> String
+pub fn CorrelationRefV1::idempotency_key(Self) -> String?
+pub fn CorrelationRefV1::request_id(Self) -> String?
+pub fn CorrelationRefV1::run_id(Self) -> String
+pub fn CorrelationRefV1::work_item_id(Self) -> String
+
+pub struct DelegationRefV1 {
+  delegation_id : String
+  delegator : PrincipalRefV1
+  delegate : PrincipalRefV1
+  digest : DigestRefV1
+  parent_digest : DigestRefV1?
+} derive(Eq, @debug.Debug)
+pub fn DelegationRefV1::delegate(Self) -> PrincipalRefV1
+pub fn DelegationRefV1::delegation_id(Self) -> String
+pub fn DelegationRefV1::delegator(Self) -> PrincipalRefV1
+pub fn DelegationRefV1::digest(Self) -> DigestRefV1
+pub fn DelegationRefV1::parent_digest(Self) -> DigestRefV1?
+
+pub struct DigestRefV1 {
+  text : String
+} derive(Compare, Eq, Hash, @debug.Debug)
+pub fn DigestRefV1::text(Self) -> String
+
+pub(all) enum ExportClassificationV1 {
+  Public
+  Internal
+  Confidential
+  Secret
+} derive(Eq, @debug.Debug)
+pub fn ExportClassificationV1::id(Self) -> String
+
+pub struct HandoverBudgetCeilingsV1 {
+  max_cost_micro_usd : Int64?
+  max_runtime_ms : Int64?
+  max_tokens : Int64?
+  max_artifacts : Int?
+} derive(Eq, @debug.Debug)
+pub fn HandoverBudgetCeilingsV1::max_artifacts(Self) -> Int?
+pub fn HandoverBudgetCeilingsV1::max_cost_micro_usd(Self) -> Int64?
+pub fn HandoverBudgetCeilingsV1::max_runtime_ms(Self) -> Int64?
+pub fn HandoverBudgetCeilingsV1::max_tokens(Self) -> Int64?
+
+pub struct HandoverBundleEntryV1 {
+  artifact : ContentAddressedEvidenceRefV1
+  contract : ContractRefV1
+  media_type : String
+  classification : ExportClassificationV1
+  provenance_digest : DigestRefV1
+  untrusted_document : Bool
+  executable_content : Bool
+} derive(Eq, @debug.Debug)
+pub fn HandoverBundleEntryV1::artifact(Self) -> ContentAddressedEvidenceRefV1
+pub fn HandoverBundleEntryV1::classification(Self) -> ExportClassificationV1
+pub fn HandoverBundleEntryV1::contract(Self) -> ContractRefV1
+pub fn HandoverBundleEntryV1::executable_content(Self) -> Bool
+pub fn HandoverBundleEntryV1::untrusted_document(Self) -> Bool
+
+pub struct HandoverBundleV1 {
+  bundle_id : String
+  workspace : WorkspaceRefV1
+  created_by : PrincipalRefV1
+  entries : ReadOnlyArray[HandoverBundleEntryV1]
+  excluded_secret_refs : ReadOnlyArray[String]
+  created_at : String
+  content_digest : DigestRefV1
+} derive(Eq, @debug.Debug)
+pub fn HandoverBundleV1::bundle_id(Self) -> String
+pub fn HandoverBundleV1::content_digest(Self) -> DigestRefV1
+pub fn HandoverBundleV1::created_by(Self) -> PrincipalRefV1
+pub fn HandoverBundleV1::entries(Self) -> ReadOnlyArray[HandoverBundleEntryV1]
+pub fn HandoverBundleV1::excluded_secret_refs(Self) -> ReadOnlyArray[String]
+pub fn HandoverBundleV1::requires_quarantine(Self) -> Bool
+pub fn HandoverBundleV1::workspace(Self) -> WorkspaceRefV1
+
+pub struct HandoverContinuationContextV1 {
+  purpose : String
+  run_ref : String
+  work_ref : String
+  stage_ref : String?
+  attempt_ref : String?
+  checkpoint : ContentAddressedEvidenceRefV1?
+  budget_ceilings : HandoverBudgetCeilingsV1?
+  compatibility_requirements : ReadOnlyArray[ContractRefV1]
+  previous_handover : PreviousHandoverRefV1?
+} derive(Eq, @debug.Debug)
+pub fn HandoverContinuationContextV1::attempt_ref(Self) -> String?
+pub fn HandoverContinuationContextV1::budget_ceilings(Self) -> HandoverBudgetCeilingsV1?
+pub fn HandoverContinuationContextV1::checkpoint(Self) -> ContentAddressedEvidenceRefV1?
+pub fn HandoverContinuationContextV1::compatibility_requirements(Self) -> ReadOnlyArray[ContractRefV1]
+pub fn HandoverContinuationContextV1::previous_handover(Self) -> PreviousHandoverRefV1?
+pub fn HandoverContinuationContextV1::purpose(Self) -> String
+pub fn HandoverContinuationContextV1::run_ref(Self) -> String
+pub fn HandoverContinuationContextV1::stage_ref(Self) -> String?
+pub fn HandoverContinuationContextV1::work_ref(Self) -> String
+
+pub struct HandoverControlEnvelopeV1 {
+  handover_id : String
+  bundle_digest : DigestRefV1
+  source_principal : PrincipalRefV1
+  recipient_principal : PrincipalRefV1
+  workspace : WorkspaceRefV1
+  correlation : CorrelationRefV1
+  source_product_id : String
+  target_product_id : String
+  source_operation : OperationRef
+  target_operation : OperationRef
+  source_output_schemas : ReadOnlyArray[SchemaRef]
+  target_input_schemas : ReadOnlyArray[SchemaRef]
+  target_output_schemas : ReadOnlyArray[SchemaRef]
+  continuation : HandoverContinuationContextV1
+  open_items : ReadOnlyArray[String]
+  blockers : ReadOnlyArray[String]
+  acceptance_criteria : ReadOnlyArray[String]
+  requested_authority : String
+  review_required : Bool
+  return_destination : String
+  quarantine : QuarantineMetadataV1
+  signature_metadata : HandoverSignatureMetadataV1?
+  created_at : String
+  expires_at : String
+  envelope_digest : DigestRefV1
+} derive(Eq, @debug.Debug)
+pub fn HandoverControlEnvelopeV1::acceptance_criteria(Self) -> ReadOnlyArray[String]
+pub fn HandoverControlEnvelopeV1::blockers(Self) -> ReadOnlyArray[String]
+pub fn HandoverControlEnvelopeV1::bundle_digest(Self) -> DigestRefV1
+pub fn HandoverControlEnvelopeV1::continuation(Self) -> HandoverContinuationContextV1
+pub fn HandoverControlEnvelopeV1::correlation(Self) -> CorrelationRefV1
+pub fn HandoverControlEnvelopeV1::created_at(Self) -> String
+pub fn HandoverControlEnvelopeV1::envelope_digest(Self) -> DigestRefV1
+pub fn HandoverControlEnvelopeV1::expires_at(Self) -> String
+pub fn HandoverControlEnvelopeV1::handover_id(Self) -> String
+pub fn HandoverControlEnvelopeV1::open_items(Self) -> ReadOnlyArray[String]
+pub fn HandoverControlEnvelopeV1::operation(Self) -> OperationRef
+pub fn HandoverControlEnvelopeV1::quarantine(Self) -> QuarantineMetadataV1
+pub fn HandoverControlEnvelopeV1::recipient_principal(Self) -> PrincipalRefV1
+pub fn HandoverControlEnvelopeV1::requested_authority(Self) -> String
+pub fn HandoverControlEnvelopeV1::return_destination(Self) -> String
+pub fn HandoverControlEnvelopeV1::review_required(Self) -> Bool
+pub fn HandoverControlEnvelopeV1::signature_metadata(Self) -> HandoverSignatureMetadataV1?
+pub fn HandoverControlEnvelopeV1::source_operation(Self) -> OperationRef
+pub fn HandoverControlEnvelopeV1::source_output_schemas(Self) -> ReadOnlyArray[SchemaRef]
+pub fn HandoverControlEnvelopeV1::source_principal(Self) -> PrincipalRefV1
+pub fn HandoverControlEnvelopeV1::source_product_id(Self) -> String
+pub fn HandoverControlEnvelopeV1::target_input_schemas(Self) -> ReadOnlyArray[SchemaRef]
+pub fn HandoverControlEnvelopeV1::target_operation(Self) -> OperationRef
+pub fn HandoverControlEnvelopeV1::target_output_schemas(Self) -> ReadOnlyArray[SchemaRef]
+pub fn HandoverControlEnvelopeV1::target_product_id(Self) -> String
+pub fn HandoverControlEnvelopeV1::workspace(Self) -> WorkspaceRefV1
+
+pub struct HandoverSignatureMetadataV1 {
+  signer : PrincipalRefV1
+  algorithm : String
+  key_id : String
+  signed_bundle_digest : DigestRefV1
+  signature : ContentAddressedEvidenceRefV1
+  signed_at : String
+} derive(Eq, @debug.Debug)
+pub fn HandoverSignatureMetadataV1::signed_bundle_digest(Self) -> DigestRefV1
+pub fn HandoverSignatureMetadataV1::signer(Self) -> PrincipalRefV1
+
+pub struct OperationRef {
   product_id : String
   tool_id : String
   pack_version : String
 } derive(Eq, @debug.Debug)
 pub fn OperationRef::format(Self) -> String
 pub fn OperationRef::is_canonical(Self) -> Bool
+pub fn OperationRef::pack_version(Self) -> String
+pub fn OperationRef::product_id(Self) -> String
+pub fn OperationRef::tool_id(Self) -> String
 
 pub(all) struct PackManifestProjectionV1 {
   id : String
@@ -254,13 +530,68 @@ pub(all) struct PackSchemaProjectionV1 {
   path : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 
-pub(all) struct SchemaRef {
+pub struct PreviousHandoverRefV1 {
+  handover_id : String
+  envelope_digest : DigestRefV1
+} derive(Eq, @debug.Debug)
+pub fn PreviousHandoverRefV1::envelope_digest(Self) -> DigestRefV1
+pub fn PreviousHandoverRefV1::handover_id(Self) -> String
+
+pub(all) enum PrincipalKindV1 {
+  Human
+  Agent
+  Service
+} derive(Eq, @debug.Debug)
+pub fn PrincipalKindV1::id(Self) -> String
+
+pub struct PrincipalRefV1 {
+  principal_id : String
+  kind : PrincipalKindV1
+  issuer : String
+  subject : String
+} derive(Eq, @debug.Debug)
+pub fn PrincipalRefV1::canonical_text(Self) -> String
+pub fn PrincipalRefV1::issuer(Self) -> String
+pub fn PrincipalRefV1::kind(Self) -> PrincipalKindV1
+pub fn PrincipalRefV1::principal_id(Self) -> String
+pub fn PrincipalRefV1::subject(Self) -> String
+
+pub struct QuarantineMetadataV1 {
+  status : QuarantineStatusV1
+  evidence_refs : ReadOnlyArray[ContentAddressedEvidenceRefV1]
+  reason : String
+} derive(Eq, @debug.Debug)
+pub fn QuarantineMetadataV1::evidence_refs(Self) -> ReadOnlyArray[ContentAddressedEvidenceRefV1]
+pub fn QuarantineMetadataV1::status(Self) -> QuarantineStatusV1
+
+pub(all) enum QuarantineStatusV1 {
+  NotRequired
+  Pending
+  Cleared
+  Rejected
+} derive(Eq, @debug.Debug)
+pub fn QuarantineStatusV1::id(Self) -> String
+
+pub struct SchemaRef {
   product_id : String
   schema_id : String
   schema_version : String
 } derive(Eq, @debug.Debug)
 pub fn SchemaRef::format(Self) -> String
 pub fn SchemaRef::is_canonical(Self) -> Bool
+pub fn SchemaRef::product_id(Self) -> String
+pub fn SchemaRef::schema_id(Self) -> String
+pub fn SchemaRef::schema_version(Self) -> String
+
+pub struct WorkspaceRefV1 {
+  workspace_id : String
+  revision : String
+  digest : DigestRefV1
+} derive(Eq, @debug.Debug)
+pub fn WorkspaceRefV1::canonical_text(Self) -> String
+pub fn WorkspaceRefV1::digest(Self) -> DigestRefV1
+pub fn WorkspaceRefV1::revision(Self) -> String
+pub fn WorkspaceRefV1::workspace_id(Self) -> String
 
 // Type aliases
 

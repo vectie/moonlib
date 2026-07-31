@@ -18,7 +18,9 @@ pub fn PrincipalKindV1::id(self : PrincipalKindV1) -> String {
 }
 
 ///|
-fn principal_kind_v1_from_id(value : String) -> PrincipalKindV1 raise CapabilityContractError {
+fn principal_kind_v1_from_id(
+  value : String,
+) -> PrincipalKindV1 raise CapabilityContractError {
   match value {
     "human" => Human
     "agent" => Agent
@@ -86,7 +88,9 @@ pub struct DigestRefV1 {
 } derive(Debug, Eq, Compare, Hash)
 
 ///|
-pub fn digest_ref_v1(value : String) -> DigestRefV1 raise CapabilityContractError {
+pub fn digest_ref_v1(
+  value : String,
+) -> DigestRefV1 raise CapabilityContractError {
   if !sha256_digest_is_canonical(value) {
     raise InvalidReference("digest must be lowercase sha256")
   }
@@ -199,7 +203,9 @@ pub fn WorkspaceRefV1::canonical_text(self : WorkspaceRefV1) -> String {
 fn portable_correlation_token(value : String) -> Bool {
   !value.is_empty() &&
   value.length() <= 512 &&
-  value.iter().all(fn(char) {
+  value
+  .iter()
+  .all(fn(char) {
     char.is_ascii_alphabetic() ||
     char.is_ascii_digit() ||
     char == '.' ||
@@ -232,9 +238,9 @@ pub fn correlation_ref_v1(
 ) -> CorrelationRefV1 raise CapabilityContractError {
   let required = [run_id, work_item_id]
   if required.any(value => !portable_correlation_token(value)) ||
-    [request_id, attempt_id, idempotency_key].any(value =>
+    [request_id, attempt_id, idempotency_key].any(value => {
       value is Some(token) && !portable_correlation_token(token)
-    ) {
+    }) {
     raise InvalidReference("correlation reference is not canonical")
   }
   { run_id, work_item_id, request_id, attempt_id, idempotency_key }
@@ -358,31 +364,47 @@ pub fn authority_decision_ref_v1(
     decided_at >= expires_at {
     raise InvalidReference("authority decision reference is not canonical")
   }
-  { decision_id, principal, digest: digest_ref_v1(digest), decided_at, expires_at }
+  {
+    decision_id,
+    principal,
+    digest: digest_ref_v1(digest),
+    decided_at,
+    expires_at,
+  }
 }
 
 ///|
-pub fn AuthorityDecisionRefV1::decision_id(self : AuthorityDecisionRefV1) -> String {
+pub fn AuthorityDecisionRefV1::decision_id(
+  self : AuthorityDecisionRefV1,
+) -> String {
   self.decision_id
 }
 
 ///|
-pub fn AuthorityDecisionRefV1::principal(self : AuthorityDecisionRefV1) -> PrincipalRefV1 {
+pub fn AuthorityDecisionRefV1::principal(
+  self : AuthorityDecisionRefV1,
+) -> PrincipalRefV1 {
   self.principal
 }
 
 ///|
-pub fn AuthorityDecisionRefV1::digest(self : AuthorityDecisionRefV1) -> DigestRefV1 {
+pub fn AuthorityDecisionRefV1::digest(
+  self : AuthorityDecisionRefV1,
+) -> DigestRefV1 {
   self.digest
 }
 
 ///|
-pub fn AuthorityDecisionRefV1::decided_at(self : AuthorityDecisionRefV1) -> String {
+pub fn AuthorityDecisionRefV1::decided_at(
+  self : AuthorityDecisionRefV1,
+) -> String {
   self.decided_at
 }
 
 ///|
-pub fn AuthorityDecisionRefV1::expires_at(self : AuthorityDecisionRefV1) -> String {
+pub fn AuthorityDecisionRefV1::expires_at(
+  self : AuthorityDecisionRefV1,
+) -> String {
   self.expires_at
 }
 
@@ -419,8 +441,12 @@ pub fn encode_principal_ref_v1(reference : PrincipalRefV1) -> Json {
 }
 
 ///|
-pub fn decode_principal_ref_v1(value : Json) -> PrincipalRefV1 raise CapabilityContractError {
-  let wire : PrincipalRefWireV1 = decode_wire(value, "moonsuite.principal-ref.v1")
+pub fn decode_principal_ref_v1(
+  value : Json,
+) -> PrincipalRefV1 raise CapabilityContractError {
+  let wire : PrincipalRefWireV1 = decode_wire(
+    value, "moonsuite.principal-ref.v1",
+  )
   if wire.contract_id != "moonsuite.principal-ref.v1" {
     raise InvalidReference("unsupported principal reference contract")
   }
@@ -449,7 +475,9 @@ pub fn encode_contract_ref_v1(reference : ContractRefV1) -> Json {
 }
 
 ///|
-pub fn decode_contract_ref_v1(value : Json) -> ContractRefV1 raise CapabilityContractError {
+pub fn decode_contract_ref_v1(
+  value : Json,
+) -> ContractRefV1 raise CapabilityContractError {
   let wire : ContractRefWireV1 = decode_wire(value, "moonsuite.contract-ref.v1")
   if wire.contract_id != "moonsuite.contract-ref.v1" {
     raise InvalidReference("unsupported contract reference contract")
@@ -476,8 +504,12 @@ pub fn encode_workspace_ref_v1(reference : WorkspaceRefV1) -> Json {
 }
 
 ///|
-pub fn decode_workspace_ref_v1(value : Json) -> WorkspaceRefV1 raise CapabilityContractError {
-  let wire : WorkspaceRefWireV1 = decode_wire(value, "moonsuite.workspace-ref.v1")
+pub fn decode_workspace_ref_v1(
+  value : Json,
+) -> WorkspaceRefV1 raise CapabilityContractError {
+  let wire : WorkspaceRefWireV1 = decode_wire(
+    value, "moonsuite.workspace-ref.v1",
+  )
   if wire.contract_id != "moonsuite.workspace-ref.v1" {
     raise InvalidReference("unsupported workspace reference contract")
   }
@@ -507,8 +539,12 @@ pub fn encode_correlation_ref_v1(reference : CorrelationRefV1) -> Json {
 }
 
 ///|
-pub fn decode_correlation_ref_v1(value : Json) -> CorrelationRefV1 raise CapabilityContractError {
-  let wire : CorrelationRefWireV1 = decode_wire(value, "moonsuite.correlation-ref.v1")
+pub fn decode_correlation_ref_v1(
+  value : Json,
+) -> CorrelationRefV1 raise CapabilityContractError {
+  let wire : CorrelationRefWireV1 = decode_wire(
+    value, "moonsuite.correlation-ref.v1",
+  )
   if wire.contract_id != "moonsuite.correlation-ref.v1" {
     raise InvalidReference("unsupported correlation reference contract")
   }
@@ -536,7 +572,9 @@ pub fn encode_digest_ref_v1(reference : DigestRefV1) -> Json {
 }
 
 ///|
-pub fn decode_digest_ref_v1(value : Json) -> DigestRefV1 raise CapabilityContractError {
+pub fn decode_digest_ref_v1(
+  value : Json,
+) -> DigestRefV1 raise CapabilityContractError {
   let wire : DigestRefWireV1 = decode_wire(value, "moonsuite.digest-ref.v1")
   if wire.contract_id != "moonsuite.digest-ref.v1" {
     raise InvalidReference("unsupported digest reference contract")
@@ -563,7 +601,9 @@ pub fn encode_schema_ref_v1(reference : SchemaRef) -> Json {
 }
 
 ///|
-pub fn decode_schema_ref_v1(value : Json) -> SchemaRef raise CapabilityContractError {
+pub fn decode_schema_ref_v1(
+  value : Json,
+) -> SchemaRef raise CapabilityContractError {
   let wire : SchemaRefWireV1 = decode_wire(value, "moonsuite.schema-ref.v1")
   if wire.contract_id != "moonsuite.schema-ref.v1" {
     raise InvalidReference("unsupported schema reference contract")
@@ -590,8 +630,12 @@ pub fn encode_operation_ref_v1(reference : OperationRef) -> Json {
 }
 
 ///|
-pub fn decode_operation_ref_v1(value : Json) -> OperationRef raise CapabilityContractError {
-  let wire : OperationRefWireV1 = decode_wire(value, "moonsuite.operation-ref.v1")
+pub fn decode_operation_ref_v1(
+  value : Json,
+) -> OperationRef raise CapabilityContractError {
+  let wire : OperationRefWireV1 = decode_wire(
+    value, "moonsuite.operation-ref.v1",
+  )
   if wire.contract_id != "moonsuite.operation-ref.v1" {
     raise InvalidReference("unsupported operation reference contract")
   }
@@ -621,8 +665,12 @@ pub fn encode_delegation_ref_v1(reference : DelegationRefV1) -> Json {
 }
 
 ///|
-pub fn decode_delegation_ref_v1(value : Json) -> DelegationRefV1 raise CapabilityContractError {
-  let wire : DelegationRefWireV1 = decode_wire(value, "moonsuite.delegation-ref.v1")
+pub fn decode_delegation_ref_v1(
+  value : Json,
+) -> DelegationRefV1 raise CapabilityContractError {
+  let wire : DelegationRefWireV1 = decode_wire(
+    value, "moonsuite.delegation-ref.v1",
+  )
   if wire.contract_id != "moonsuite.delegation-ref.v1" {
     raise InvalidReference("unsupported delegation reference contract")
   }
@@ -646,7 +694,9 @@ priv struct AuthorityDecisionRefWireV1 {
 } derive(ToJson, FromJson)
 
 ///|
-pub fn encode_authority_decision_ref_v1(reference : AuthorityDecisionRefV1) -> Json {
+pub fn encode_authority_decision_ref_v1(
+  reference : AuthorityDecisionRefV1,
+) -> Json {
   AuthorityDecisionRefWireV1::{
     contract_id: "moonsuite.authority-decision-ref.v1",
     decision_id: reference.decision_id,
@@ -662,8 +712,7 @@ pub fn decode_authority_decision_ref_v1(
   value : Json,
 ) -> AuthorityDecisionRefV1 raise CapabilityContractError {
   let wire : AuthorityDecisionRefWireV1 = decode_wire(
-    value,
-    "moonsuite.authority-decision-ref.v1",
+    value, "moonsuite.authority-decision-ref.v1",
   )
   if wire.contract_id != "moonsuite.authority-decision-ref.v1" {
     raise InvalidReference("unsupported authority decision reference contract")
