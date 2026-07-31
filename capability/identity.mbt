@@ -1,7 +1,7 @@
 ///|
 /// Parsed canonical operation identity:
 /// `<product>/<tool>@<pack-version>`.
-pub(all) struct OperationRef {
+pub struct OperationRef {
   product_id : String
   tool_id : String
   pack_version : String
@@ -10,7 +10,7 @@ pub(all) struct OperationRef {
 ///|
 /// Parsed canonical schema identity:
 /// `<product>/<schema>@<schema-version>`.
-pub(all) struct SchemaRef {
+pub struct SchemaRef {
   product_id : String
   schema_id : String
   schema_version : String
@@ -84,6 +84,21 @@ pub fn OperationRef::format(self : OperationRef) -> String {
 }
 
 ///|
+pub fn OperationRef::product_id(self : OperationRef) -> String {
+  self.product_id
+}
+
+///|
+pub fn OperationRef::tool_id(self : OperationRef) -> String {
+  self.tool_id
+}
+
+///|
+pub fn OperationRef::pack_version(self : OperationRef) -> String {
+  self.pack_version
+}
+
+///|
 pub fn OperationRef::is_canonical(self : OperationRef) -> Bool {
   identifier_component_is_canonical(self.product_id) &&
   identifier_component_is_canonical(self.tool_id) &&
@@ -144,6 +159,21 @@ fn parse_operation_ref_or_none(value : String) -> OperationRef? {
 ///|
 pub fn SchemaRef::format(self : SchemaRef) -> String {
   "\{self.product_id}/\{self.schema_id}@\{self.schema_version}"
+}
+
+///|
+pub fn SchemaRef::product_id(self : SchemaRef) -> String {
+  self.product_id
+}
+
+///|
+pub fn SchemaRef::schema_id(self : SchemaRef) -> String {
+  self.schema_id
+}
+
+///|
+pub fn SchemaRef::schema_version(self : SchemaRef) -> String {
+  self.schema_version
 }
 
 ///|

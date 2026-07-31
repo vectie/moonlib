@@ -1,8 +1,8 @@
 # MoonLib product contract
 
-Class: library
+Class: library/functionality
 Maturity: available shared library; release process maturing
-Last reviewed: 2026-07-30
+Last reviewed: 2026-07-31
 
 ## Outcome
 

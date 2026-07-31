@@ -4,6 +4,9 @@
 > [product contract](docs/PRODUCT_CONTRACT.md) for ownership, capability labels,
 > verification and release gates.
 
+The [responsibility and testability map](docs/RESPONSIBILITY_AND_TESTABILITY.md)
+records public package ownership and the deliberate absence of a daemon or UI.
+
 Shared utility library used by moongate, moonclaw, moondesk, moontown, and moonbook.
 
 MoonLib is the low-level contract layer for code that more than one MoonSuite

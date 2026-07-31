@@ -2,10 +2,24 @@
 /// A workspace-relative artifact reference bound to the digest of its exact
 /// bytes. This type records identity only; it does not read, trust, authorize,
 /// or retain the artifact.
-pub(all) struct ContentAddressedEvidenceRefV1 {
+pub struct ContentAddressedEvidenceRefV1 {
   evidence_ref : String
   evidence_digest : String
 } derive(Debug, Eq, ToJson, FromJson)
+
+///|
+pub fn ContentAddressedEvidenceRefV1::evidence_ref(
+  self : ContentAddressedEvidenceRefV1,
+) -> String {
+  self.evidence_ref
+}
+
+///|
+pub fn ContentAddressedEvidenceRefV1::evidence_digest(
+  self : ContentAddressedEvidenceRefV1,
+) -> String {
+  self.evidence_digest
+}
 
 ///|
 /// Canonical SHA-256 identity used on the capability wire.
