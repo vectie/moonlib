@@ -1,5 +1,9 @@
 # MoonLib - Shared utilities for the Moon suite
 
+> **Library · available shared contracts.** Read the
+> [product contract](docs/PRODUCT_CONTRACT.md) for ownership, capability labels,
+> verification and release gates.
+
 Shared utility library used by moongate, moonclaw, moondesk, moontown, and moonbook.
 
 MoonLib is the low-level contract layer for code that more than one MoonSuite

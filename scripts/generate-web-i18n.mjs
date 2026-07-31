@@ -134,6 +134,13 @@ function translateText(text) {
   return text;
 }
 
+function translateAttribute(text) {
+  const leading = text.match(/^\s*/)?.[0] || "";
+  const trailing = text.match(/\s*$/)?.[0] || "";
+  const core = text.slice(leading.length, text.length - trailing.length);
+  return core in zhHans ? leading + zhHans[core] + trailing : text;
+}
+
 function translate(root) {
   if (root.closest?.('[data-i18n-scope="content"],[data-i18n-scope="technical"],[translate="no"]')) return;
   for (const element of root.querySelectorAll?.("[data-i18n],[data-i18n-placeholder],[data-i18n-title],[data-i18n-aria-label]") || []) {
@@ -164,7 +171,7 @@ function translate(root) {
   for (const element of root.querySelectorAll?.("[placeholder],[title],[aria-label]") || []) {
     for (const attribute of ["placeholder", "title", "aria-label"]) {
       if (element.hasAttribute(attribute)) {
-        const translated = translateText(element.getAttribute(attribute) || "");
+        const translated = translateAttribute(element.getAttribute(attribute) || "");
         if (element.getAttribute(attribute) !== translated) element.setAttribute(attribute, translated);
       }
     }
@@ -172,11 +179,15 @@ function translate(root) {
   if (root.matches?.("[placeholder],[title],[aria-label]")) {
     for (const attribute of ["placeholder", "title", "aria-label"]) {
       if (root.hasAttribute(attribute)) {
-        const translated = translateText(root.getAttribute(attribute) || "");
+        const translated = translateAttribute(root.getAttribute(attribute) || "");
         if (root.getAttribute(attribute) !== translated) root.setAttribute(attribute, translated);
       }
     }
   }
+}
+
+function systemLanguageLabel() {
+  return selectedLocale() === "zh-Hans" ? "系统语言" : "System language";
 }
 
 function installSelector() {
@@ -193,7 +204,8 @@ function installSelector() {
   const select = document.createElement("select");
   select.setAttribute("aria-label", languageLabel);
   select.style.cssText = "border:0;background:transparent;color:#0f172a;font:600 13px system-ui;cursor:pointer";
-  select.innerHTML = '<option value="system">System / 跟随系统</option><option value="en-US">English</option><option value="zh-Hans">简体中文</option>';
+  select.innerHTML = '<option value="system">' + systemLanguageLabel() +
+    '</option><option value="en-US">English</option><option value="zh-Hans">简体中文</option>';
   select.value = selectedPreference();
   select.addEventListener("change", () => storeLocale(select.value));
   label.append(select);

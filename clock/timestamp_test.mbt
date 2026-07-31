@@ -37,7 +37,7 @@ test "Timestamp::ms" {
 test "Timestamp::equal" {
   let t1 = @clock.Timestamp::from_ms(1000)
   let t2 = @clock.Timestamp::from_ms(1000)
-  assert_eq(t1, t2)
+  assert_true(t1 == t2)
 }
 
 ///|

@@ -1,9 +1,9 @@
 name = "vectie/moonlib"
 
-version = "0.1.17"
+version = "0.1.18"
 
 import {
-  "moonbitlang/async@0.16.6",
+  "moonbitlang/async@0.19.4",
   "moonbitlang/x@0.4.40",
 }
 
