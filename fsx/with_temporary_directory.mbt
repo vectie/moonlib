@@ -40,6 +40,11 @@ pub async fn[T] with_temporary_directory(
   f : async (String) -> T,
 ) -> T {
   let os_tmpdir = @os.tmpdir()
+  let template = if template.has_suffix("XXXXXX") {
+    template
+  } else {
+    template + "XXXXXX"
+  }
   let template = @pathx.join(os_tmpdir, template)
   let template = mkdtemp(template)
   try f(template) catch {
