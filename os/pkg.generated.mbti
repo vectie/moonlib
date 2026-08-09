@@ -4,7 +4,7 @@ package "vectie/moonlib/os"
 // Values
 pub fn args() -> Array[String]
 
-pub fn atexit(FuncRef[() -> Unit]) -> Unit
+pub fn atexit(FuncRef[() -> Unit]) -> Int
 
 pub fn chdir(StringView) -> Unit raise
 
@@ -45,4 +45,3 @@ pub fn unsetenv(StringView) -> Unit raise
 // Type aliases
 
 // Traits
-
