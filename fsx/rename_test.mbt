@@ -6,14 +6,14 @@ async test "atomic rename replaces destination content" {
   @fs.write_file(
     source,
     @encoding/utf8.encode("new"),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   @fs.write_file(
     destination,
     @encoding/utf8.encode("old"),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   atomic_rename(source, destination)
   assert_false(@fs.exists(source))

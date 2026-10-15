@@ -92,5 +92,5 @@ pub fn compile_work_graph(
       blocker: "",
     }
   })
-  { graph_id, book_id, declaration_revision, items, recorded_at }
+  { graph_id, book_id, declaration_revision, items, recorded_at, }
 }

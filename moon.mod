@@ -3,8 +3,8 @@ name = "vectie/moonlib"
 version = "0.1.23"
 
 import {
-  "moonbitlang/async@0.19.4",
-  "moonbitlang/x@0.4.40",
+  "moonbitlang/async@0.22.4",
+  "moonbitlang/x@0.5.5",
 }
 
 readme = "README.md"

@@ -24,6 +24,10 @@ test "host projection carries generic contracts only" {
     provider_ports: [],
     schedules: [],
     app_entrypoints: [@pack.app_entrypoint("desk", "/fixture", "operator")],
+    app_runtime_identity: Some({
+      contract: "fixture.runtime-identity.v1",
+      path: "/fixture/api/v1/runtime-identity",
+    }),
     migrations: [],
     evaluations: [],
     uninstall_contract: Some(
@@ -38,6 +42,10 @@ test "host projection carries generic contracts only" {
     installed_root: "/packs/fixture/1.0.0",
   }
   assert_eq(activation_projection(manifest, pointer).tools.length(), 1)
+  assert_eq(
+    activation_projection(manifest, pointer).app_runtime_identity,
+    manifest.app_runtime_identity,
+  )
   assert_true(
     deactivation_projection(manifest).preserve_namespaces.contains(
       "records/fixture-product",

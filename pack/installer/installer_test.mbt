@@ -18,6 +18,7 @@ fn fixture_manifest(version : String) -> @pack.MoonPackManifest {
     provider_ports: [],
     schedules: [],
     app_entrypoints: [],
+    app_runtime_identity: None,
     migrations: [],
     evaluations: [],
     uninstall_contract: Some(
@@ -32,20 +33,20 @@ async fn write_fixture(root : String, version : String) -> Unit {
   @fs.write_file(
     root + "/pack.json",
     @encoding/utf8.encode(@pack.encode_manifest(fixture_manifest(version))),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   @fs.write_file(
     root + "/schemas/record.schema.json",
     @encoding/utf8.encode("{\"type\":\"object\"}\n"),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   @fs.write_file(
     root + "/UNINSTALL.md",
     @encoding/utf8.encode("Preserve user data.\n"),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
 }
 
@@ -106,6 +107,78 @@ async test "install verify rollback and deactivate preserve immutable versions" 
 }
 
 ///|
+async test "install preserves app runtime identity declaration" {
+  let source = @fs.tmpdir(prefix="moonpack-identity-source")
+  let workspace = @fs.tmpdir(prefix="moonpack-identity-workspace")
+  write_fixture(source, "1.0.0")
+  let manifest = {
+    ..fixture_manifest("1.0.0"),
+    app_entrypoints: [@pack.app_entrypoint("desk", "/apps/fixture", "operator")],
+    app_runtime_identity: Some({
+      contract: "fixture.runtime-identity.v1",
+      path: "/apps/fixture/api/v1/runtime-identity",
+    }),
+  }
+  @fs.write_file(
+    source + "/pack.json",
+    @encoding/utf8.encode(@pack.encode_manifest(manifest)),
+    create_mode=CreateOrTruncate,
+    permission=0o644,
+  )
+  let receipt = install(source, workspace)
+  let installed = @pack.decode_manifest(
+    @fs.read_file(receipt.installed_root + "/pack.json").text(),
+  )
+  assert_eq(installed.app_runtime_identity, manifest.app_runtime_identity)
+  assert_true(verify_installed(workspace, "fixture", "1.0.0").ok)
+  @fs.rmdir(source, recursive=true)
+  @fs.rmdir(workspace, recursive=true)
+}
+
+///|
+async test "install keeps executable and ordinary artifact permissions" {
+  let source = @fs.tmpdir(prefix="moonpack-mode-source")
+  let workspace = @fs.tmpdir(prefix="moonpack-mode-workspace")
+  write_fixture(source, "1.0.0")
+  @fs.mkdir(source + "/bin", permission=0o755, recursive=true)
+  let executable = source + "/bin/runner"
+  let ordinary = source + "/bin/data.txt"
+  @fs.write_file(
+    executable,
+    @encoding/utf8.encode("runner\n"),
+    create_mode=OpenOrCreate,
+    permission=0o755,
+  )
+  @fs.write_file(
+    ordinary,
+    @encoding/utf8.encode("data\n"),
+    create_mode=OpenOrCreate,
+    permission=0o644,
+  )
+  @fs.chmod(executable, 0o755)
+  @fs.chmod(ordinary, 0o644)
+  let manifest = {
+    ..fixture_manifest("1.0.0"),
+    evaluations: [
+      @pack.contract_ref("runner", "1.0.0", "bin/runner"),
+      @pack.contract_ref("data", "1.0.0", "bin/data.txt"),
+    ],
+  }
+  @fs.write_file(
+    source + "/pack.json",
+    @encoding/utf8.encode(@pack.encode_manifest(manifest)),
+    create_mode=CreateOrTruncate,
+    permission=0o644,
+  )
+  let receipt = install(source, workspace)
+  assert_eq(@fsx.stat(receipt.installed_root + "/bin/runner").mode(), 0o755)
+  assert_eq(@fsx.stat(receipt.installed_root + "/bin/data.txt").mode(), 0o644)
+  assert_true(verify_installed(workspace, "fixture", "1.0.0").ok)
+  @fs.rmdir(source, recursive=true)
+  @fs.rmdir(workspace, recursive=true)
+}
+
+///|
 async test "verification detects artifact tampering" {
   let source = @fs.tmpdir(prefix="moonpack-source")
   let workspace = @fs.tmpdir(prefix="moonpack-workspace")
@@ -114,8 +187,8 @@ async test "verification detects artifact tampering" {
   @fs.write_file(
     receipt.installed_root + "/schemas/record.schema.json",
     @encoding/utf8.encode("tampered\n"),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   let result = verify_installed(workspace, "fixture", "1.0.0")
   assert_false(result.ok)

@@ -49,7 +49,7 @@ pub fn Generator::v4(self : Generator) -> Uuid {
   let lo = self.0.uint64()
   let hi = (hi & 0xFFFF_FFFF_FFFF_0FFF_UL) | 0x0000_0000_0000_4000_UL
   let lo = (lo & 0x0FFF_FFFF_FFFF_FFFF_UL) | 0x8000_0000_0000_0000_UL
-  { hi, lo }
+  { hi, lo, }
 }
 
 ///|
@@ -63,7 +63,7 @@ pub fn[Source : Source] generator(source : Source) -> Generator {
 }
 
 ///|
-pub let nil : Uuid = { hi: 0UL, lo: 0UL }
+pub let nil : Uuid = { hi: 0UL, lo: 0UL, }
 
 ///|
 pub let max : Uuid = {
@@ -90,7 +90,7 @@ pub fn Uuid::of_bytes(bytes : Bytes) -> Uuid {
     (bytes[13].to_uint64() << 16) |
     (bytes[14].to_uint64() << 8) |
     bytes[15].to_uint64()
-  { hi, lo }
+  { hi, lo, }
 }
 
 ///|
@@ -166,7 +166,7 @@ pub fn parse(hex : StringView) -> Uuid raise ParseError {
   parse_dash()
   let lo = parse_hex_octet(6, lo)
   guard view.is_empty() else { raise ExtraContent(view) }
-  { hi, lo }
+  { hi, lo, }
 }
 
 ///|
@@ -246,14 +246,34 @@ pub(all) enum Version {
 } derive(ToJson)
 
 ///|
-fn Version::from_uint64_unchecked(value : UInt64) -> Version = "%identity"
+fn Version::from_nibble(value : UInt64) -> Version {
+  match value.to_int() {
+    0 => V0
+    1 => V1
+    2 => V2
+    3 => V3
+    4 => V4
+    5 => V5
+    6 => V6
+    7 => V7
+    8 => V8
+    9 => V9
+    10 => V10
+    11 => V11
+    12 => V12
+    13 => V13
+    14 => V14
+    15 => V15
+    _ => V0 // The caller masks the value to four bits.
+  }
+}
 
 ///|
 pub fn Uuid::variant(self : Uuid) -> Variant {
   if (self.lo & (0x8000UL << 48)) == 0UL {
     ReservedNCS
   } else if (self.lo & (0x4000UL << 48)) == 0UL {
-    RFC9562(Version::from_uint64_unchecked((self.hi >> 12) & 0xFUL))
+    RFC9562(Version::from_nibble((self.hi >> 12) & 0xFUL))
   } else if (self.lo & (0x2000UL << 48)) == 0UL {
     ReservedMicrosoft
   } else {

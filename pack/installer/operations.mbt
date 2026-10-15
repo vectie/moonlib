@@ -63,8 +63,8 @@ pub async fn install_authorized(
   @fs.write_file(
     staging + "/pack.json",
     @encoding/utf8.encode(manifest_text),
-    create=0o644,
-    truncate=true,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
   let artifacts : Array[ArtifactReceipt] = []
   for contract in @pack.artifact_contracts(manifest) {
@@ -72,7 +72,7 @@ pub async fn install_authorized(
       source + "/" + contract.path,
       staging + "/" + contract.path,
     )
-    artifacts.push({ ..copied, path: contract.path })
+    artifacts.push({ ..copied, path: contract.path, })
   }
   let receipt : InstallationReceipt = {
     contract: "moonsuite.pack-installation.v1",
@@ -110,7 +110,12 @@ pub async fn verify_installed(
   let issues : Array[String] = []
   let root = installed_root(workspace, pack_id, version)
   if !@fs.exists(root) {
-    return { ok: false, pack_id, version, issues: ["version is not installed"] }
+    return {
+      ok: false,
+      pack_id,
+      version,
+      issues: ["version is not installed"],
+    }
   }
   let receipt = read_receipt(root + "/receipt.json") catch {
     _ =>
@@ -126,7 +131,7 @@ pub async fn verify_installed(
   ) catch {
     _ => {
       issues.push("installed manifest is missing or invalid")
-      return { ok: false, pack_id, version, issues }
+      return { ok: false, pack_id, version, issues, }
     }
   }
   if text_sha256(@pack.encode_manifest(manifest)) != receipt.manifest_sha256 {
@@ -149,7 +154,7 @@ pub async fn verify_installed(
       issues.push(artifact.path + ": digest mismatch")
     }
   }
-  { ok: issues.is_empty(), pack_id, version, issues }
+  { ok: issues.is_empty(), pack_id, version, issues, }
 }
 
 ///|

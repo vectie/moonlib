@@ -26,6 +26,7 @@ pub(all) struct HostActivationProjection {
   tools : Array[@pack.ToolDeclaration]
   schedules : Array[@pack.ScheduleDeclaration]
   app_entrypoints : Array[@pack.AppEntrypoint]
+  app_runtime_identity : @pack.AppRuntimeIdentity?
   provider_ports : Array[@pack.ContractRef]
   policies : Array[@pack.ContractRef]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
@@ -42,4 +43,3 @@ pub(all) struct HostDeactivationProjection {
 // Type aliases
 
 // Traits
-

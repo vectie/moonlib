@@ -72,7 +72,7 @@ pub fn content_addressed_evidence_ref(
   evidence_ref : String,
   evidence_digest : String,
 ) -> ContentAddressedEvidenceRefV1 raise CapabilityContractError {
-  let reference = { evidence_ref, evidence_digest }
+  let reference = { evidence_ref, evidence_digest, }
   raise_if_invalid(
     "moonsuite.content-addressed-evidence-ref.v1",
     reference.conformance_issues(),

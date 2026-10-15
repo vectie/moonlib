@@ -131,7 +131,7 @@ pub(all) struct AdapterHealthV1 {
 pub fn AdapterHealthV1::evidence(
   self : AdapterHealthV1,
 ) -> ContentAddressedEvidenceRefV1 {
-  { evidence_ref: self.evidence_ref, evidence_digest: self.evidence_digest }
+  { evidence_ref: self.evidence_ref, evidence_digest: self.evidence_digest, }
 }
 
 ///|

@@ -142,7 +142,7 @@ test "revoked and expired unattended envelopes fail closed" {
     concurrency: 0,
   }
   let revoked = authorize_autonomy_event(
-    { ..unattended_envelope(), revoked: true },
+    { ..unattended_envelope(), revoked: true, },
     event,
     usage,
     "decision-revoked",

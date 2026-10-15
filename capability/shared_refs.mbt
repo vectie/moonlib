@@ -52,7 +52,7 @@ pub fn principal_ref_v1(
     !identifier_component_is_canonical(subject) {
     raise InvalidReference("principal reference is not canonical")
   }
-  { principal_id, kind, issuer, subject }
+  { principal_id, kind, issuer, subject, }
 }
 
 ///|
@@ -94,7 +94,7 @@ pub fn digest_ref_v1(
   if !sha256_digest_is_canonical(value) {
     raise InvalidReference("digest must be lowercase sha256")
   }
-  { text: value }
+  { text: value, }
 }
 
 ///|
@@ -121,7 +121,7 @@ pub fn sha256_digest_ref_v1(bytes : Bytes) -> DigestRefV1 {
     builder.write_char(shared_hex_digit(value / 16))
     builder.write_char(shared_hex_digit(value % 16))
   }
-  { text: builder.to_string() }
+  { text: builder.to_string(), }
 }
 
 ///|
@@ -140,7 +140,7 @@ pub fn contract_ref_v1(
     !semantic_version_is_canonical(contract_version) {
     raise InvalidReference("contract reference is not canonical")
   }
-  { contract_id, contract_version }
+  { contract_id, contract_version, }
 }
 
 ///|
@@ -176,7 +176,7 @@ pub fn workspace_ref_v1(
     !identifier_component_is_canonical(revision) {
     raise InvalidReference("workspace identity is not canonical")
   }
-  { workspace_id, revision, digest: digest_ref_v1(digest) }
+  { workspace_id, revision, digest: digest_ref_v1(digest), }
 }
 
 ///|
@@ -243,7 +243,7 @@ pub fn correlation_ref_v1(
     }) {
     raise InvalidReference("correlation reference is not canonical")
   }
-  { run_id, work_item_id, request_id, attempt_id, idempotency_key }
+  { run_id, work_item_id, request_id, attempt_id, idempotency_key, }
 }
 
 ///|

@@ -33,3 +33,10 @@ moonbit_moonlib_fs_stat_get_atime(moonbit_bytes_t buf) {
   struct stat *st = (struct stat *)buf;
   return (int64_t)st->st_atime;
 }
+
+MOONBIT_FFI_EXPORT
+int
+moonbit_moonlib_fs_stat_get_mode(moonbit_bytes_t buf) {
+  struct stat *st = (struct stat *)buf;
+  return (int)(st->st_mode & 0777);
+}

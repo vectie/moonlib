@@ -16,6 +16,7 @@ fn fixture_manifest(id : String, version : String) -> @pack.MoonPackManifest {
     provider_ports: [],
     schedules: [],
     app_entrypoints: [],
+    app_runtime_identity: None,
     migrations: [],
     evaluations: [],
     uninstall_contract: Some(

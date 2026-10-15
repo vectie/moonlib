@@ -12,7 +12,7 @@ pub fn Catalog::new(
   en_us : Map[String, String],
   zh_hans : Map[String, String],
 ) -> Catalog {
-  { product_id, en_us, zh_hans }
+  { product_id, en_us, zh_hans, }
 }
 
 ///|

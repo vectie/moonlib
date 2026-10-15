@@ -23,7 +23,7 @@ fn add_issue(
   field : String,
   message : String,
 ) -> Unit {
-  issues.push({ field, message })
+  issues.push({ field, message, })
 }
 
 ///|
@@ -49,7 +49,7 @@ fn append_issues(
     } else {
       prefix + "." + issue.field
     }
-    target.push({ field, message: issue.message })
+    target.push({ field, message: issue.message, })
   }
 }
 
@@ -83,7 +83,7 @@ fn[T : @json.FromJson] decode_wire(
   @json.from_json(value) catch {
     error =>
       raise InvalidWireContract(contract, [
-        { field: "", message: "invalid JSON shape: \{error}" },
+        { field: "", message: "invalid JSON shape: \{error}", },
       ])
   }
 }

@@ -402,7 +402,7 @@ pub fn quarantine_metadata_v1(
   if status == Rejected && reason.trim().is_empty() {
     raise InvalidReference("rejected quarantine requires a reason")
   }
-  { status, evidence_refs: ReadOnlyArray::from_array(evidence_refs), reason }
+  { status, evidence_refs: ReadOnlyArray::from_array(evidence_refs), reason, }
 }
 
 ///|
@@ -496,7 +496,7 @@ pub fn handover_budget_ceilings_v1(
     (max_artifacts is Some(value) && value <= 0) {
     raise InvalidReference("handover budget ceilings must be positive")
   }
-  { max_cost_micro_usd, max_runtime_ms, max_tokens, max_artifacts }
+  { max_cost_micro_usd, max_runtime_ms, max_tokens, max_artifacts, }
 }
 
 ///|
@@ -577,7 +577,7 @@ pub fn previous_handover_ref_v1(
   if !identifier_component_is_canonical(handover_id) {
     raise InvalidReference("previous handover id is not canonical")
   }
-  { handover_id, envelope_digest: digest_ref_v1(envelope_digest) }
+  { handover_id, envelope_digest: digest_ref_v1(envelope_digest), }
 }
 
 ///|

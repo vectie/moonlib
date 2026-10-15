@@ -57,4 +57,3 @@ pub(all) enum LocalePreference {
 // Type aliases
 
 // Traits
-

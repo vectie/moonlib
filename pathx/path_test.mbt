@@ -131,6 +131,20 @@ test "choose second if absolute" {
 }
 
 ///|
+test "absolute join and trailing separator keep MoonLib path semantics" {
+  assert_eq(@pathx.join("/root/current", "/other/../target/"), "/target")
+  assert_eq(@pathx.dirname("a/b/c/"), "a/b/c")
+  assert_eq(@pathx.normalize("a/b/c//"), "a/b/c")
+  assert_eq(@pathx.join("/", "tmp"), "/tmp")
+  assert_eq(@pathx.join("//", "tmp"), "//tmp")
+  assert_eq(
+    @pathx.dirname("/tmp/suite/books/research-demo"),
+    "/tmp/suite/books",
+  )
+  assert_eq(@pathx.dirname("/tmp/suite/books"), "/tmp/suite")
+}
+
+///|
 test "replace_ext" {
   let path = "main.mbt"
   inspect(replace_ext(path, ".c"), content="main.c")

@@ -48,6 +48,17 @@ pub fn Stat::atime(self : Stat) -> Int64 {
 }
 
 ///|
+#borrow(stat)
+extern "c" fn fs_stat_get_mode(stat : Bytes) -> Int = "moonbit_moonlib_fs_stat_get_mode"
+
+///|
+/// Return ordinary owner, group, and other permission bits. Special bits are
+/// intentionally excluded when copying an artifact into a pack installation.
+pub fn Stat::mode(self : Stat) -> Int {
+  fs_stat_get_mode(self.0)
+}
+
+///|
 /// Inspect the `FileKind` of the entry at `path`.
 pub async fn kind(path : StringView) -> FileKind {
   FileKind::of_fs_file_kind(@fs.kind(path.to_owned()))

@@ -71,11 +71,13 @@ function escapeRegex(value) {
 }
 
 function compileTemplate({ source, target }) {
+  const numericParameters = new Set(["count", "selected", "total", "items", "folders", "files", "ran", "failed"]);
   const names = [];
   let cursor = 0;
   let pattern = "^";
   for (const match of source.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)) {
-    pattern += escapeRegex(source.slice(cursor, match.index)) + "(.+?)";
+    pattern += escapeRegex(source.slice(cursor, match.index)) +
+      (numericParameters.has(match[1]) ? "([0-9]+)" : "(.+?)");
     names.push(match[1]);
     cursor = match.index + match[0].length;
   }

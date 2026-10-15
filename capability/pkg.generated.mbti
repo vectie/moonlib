@@ -596,4 +596,3 @@ pub fn WorkspaceRefV1::workspace_id(Self) -> String
 // Type aliases
 
 // Traits
-

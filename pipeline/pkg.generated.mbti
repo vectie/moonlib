@@ -591,4 +591,3 @@ pub fn WorkStatus::is_terminal(Self) -> Bool
 // Type aliases
 
 // Traits
-

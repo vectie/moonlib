@@ -81,7 +81,7 @@ test "isolated loopback scope accepts only explicit loopback origins" {
     expires_at: "2026-07-13T12:00:00Z",
   }
   assert_true(valid.quality_issues().is_empty())
-  let invalid = { ..valid, allowed_origins: ["https://example.com"] }
+  let invalid = { ..valid, allowed_origins: ["https://example.com"], }
   assert_true(
     invalid
     .quality_issues()

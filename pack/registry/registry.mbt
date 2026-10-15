@@ -5,7 +5,7 @@ pub(all) struct PackRegistry {
 
 ///|
 pub fn empty() -> PackRegistry {
-  { manifests: [] }
+  { manifests: [], }
 }
 
 ///|

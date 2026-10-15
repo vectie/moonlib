@@ -50,6 +50,13 @@ pub(all) struct AppEntrypoint {
 } derive(Debug, Eq, ToJson, FromJson)
 
 ///|
+/// An app route that returns the runtime identity for the active pack.
+pub(all) struct AppRuntimeIdentity {
+  contract : String
+  path : String
+} derive(Debug, Eq, ToJson, FromJson)
+
+///|
 pub(all) struct MoonPackManifest {
   id : String
   version : String
@@ -66,6 +73,7 @@ pub(all) struct MoonPackManifest {
   provider_ports : Array[ContractRef]
   schedules : Array[ScheduleDeclaration]
   app_entrypoints : Array[AppEntrypoint]
+  app_runtime_identity : AppRuntimeIdentity?
   migrations : Array[ContractRef]
   evaluations : Array[ContractRef]
   uninstall_contract : ContractRef?
@@ -89,7 +97,7 @@ pub fn contract_ref(
   version : String,
   path : String,
 ) -> ContractRef {
-  { id, version, path }
+  { id, version, path, }
 }
 
 ///|
@@ -122,7 +130,7 @@ pub fn schedule_declaration(
   timezone : String,
   workflow_id : String,
 ) -> ScheduleDeclaration {
-  { id, cadence, timezone, workflow_id }
+  { id, cadence, timezone, workflow_id, }
 }
 
 ///|
@@ -131,5 +139,5 @@ pub fn app_entrypoint(
   path : String,
   audience : String,
 ) -> AppEntrypoint {
-  { id, path, audience }
+  { id, path, audience, }
 }

@@ -162,7 +162,7 @@ fn conformance_finding(
   path : String,
   message : String,
 ) -> ConformanceFinding {
-  { code, path, message, severity: "error" }
+  { code, path, message, severity: "error", }
 }
 
 ///|

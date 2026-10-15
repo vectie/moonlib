@@ -17,11 +17,24 @@ pub let sep : Char = '/'
 /// 
 /// edge cases: when path is relative path without directory component, return "."
 pub fn dirname(path : StringView) -> StringView {
-  let dir = @xpath.Path::dirname(path.to_owned()).to_string()
-  if dir.is_empty() {
-    "."
-  } else {
-    dir
+  let trimmed = path.trim_end(chars="/")
+  if trimmed.is_empty() {
+    return if path.is_empty() { "." } else { path }
+  }
+  if trimmed.length() != path.length() {
+    return trimmed
+  }
+  match path.rev_find("/") {
+    None => "."
+    Some(index) => {
+      let prefix = path.view(end_offset=index + 1)
+      let dir = prefix.trim_end(chars="/")
+      if dir.is_empty() {
+        prefix
+      } else {
+        dir
+      }
+    }
   }
 }
 
@@ -193,14 +206,41 @@ pub fn split(view : StringView) -> Iter[StringView] {
 ///|
 /// Normalize path by resolving `.` and `..` and eliminating redundant slashes.
 pub fn normalize(view : StringView) -> String {
-  Path::normalize(view.to_owned()).0
+  let mut root = ""
+  let components : Array[String] = []
+  for part in split(view) {
+    if root.is_empty() && components.is_empty() && (part == "/" || part == "//") {
+      root = part.to_owned()
+    } else if part == "." {
+      continue
+    } else if part == ".." {
+      if !components.is_empty() && components[components.length() - 1] != ".." {
+        components.pop() |> ignore
+      } else if root.is_empty() {
+        components.push("..")
+      }
+    } else {
+      components.push(part.to_owned())
+    }
+  }
+  root + components.join("/")
 }
 
 ///|
 /// 1. normalize path.
 /// 2. if rhs is absolute path, return rhs.
 pub fn join(p : StringView, q : StringView) -> String {
-  Path::join(p.to_owned(), q.to_owned()).normalize().0
+  if is_absolute(q) {
+    normalize(q)
+  } else if p.is_empty() {
+    normalize(q)
+  } else if q.is_empty() {
+    normalize(p)
+  } else if p.has_suffix("/") {
+    normalize(p.to_owned() + q.to_owned())
+  } else {
+    normalize(p.to_owned() + "/" + q.to_owned())
+  }
 }
 
 ///|

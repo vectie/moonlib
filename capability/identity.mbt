@@ -113,7 +113,7 @@ pub fn operation_ref(
   tool_id : String,
   pack_version : String,
 ) -> OperationRef raise CapabilityContractError {
-  let reference = { product_id, tool_id, pack_version }
+  let reference = { product_id, tool_id, pack_version, }
   if !reference.is_canonical() {
     raise InvalidReference(
       "non-canonical operation reference: \{reference.format()}",
@@ -130,7 +130,7 @@ pub fn parse_operation_ref(
   let (product_id, tool_id, pack_version) = canonical_identity_parts(
     value, "operation",
   )
-  let reference = { product_id, tool_id, pack_version }
+  let reference = { product_id, tool_id, pack_version, }
   if reference.format() != value {
     raise InvalidReference("non-canonical operation reference: \{value}")
   }
@@ -191,7 +191,7 @@ pub fn schema_ref(
   schema_id : String,
   schema_version : String,
 ) -> SchemaRef raise CapabilityContractError {
-  let reference = { product_id, schema_id, schema_version }
+  let reference = { product_id, schema_id, schema_version, }
   if !reference.is_canonical() {
     raise InvalidReference(
       "non-canonical schema reference: \{reference.format()}",
@@ -208,7 +208,7 @@ pub fn parse_schema_ref(
   let (product_id, schema_id, schema_version) = canonical_identity_parts(
     value, "schema",
   )
-  let reference = { product_id, schema_id, schema_version }
+  let reference = { product_id, schema_id, schema_version, }
   if reference.format() != value {
     raise InvalidReference("non-canonical schema reference: \{value}")
   }

@@ -39,4 +39,3 @@ pub fn CompletedProcess::check(Self) -> Unit raise Failed
 // Type aliases
 
 // Traits
-

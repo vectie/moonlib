@@ -4,7 +4,7 @@ fn add_issue(
   path : String,
   message : String,
 ) -> Unit {
-  issues.push({ path, message })
+  issues.push({ path, message, })
 }
 
 ///|
@@ -48,6 +48,26 @@ fn schema_declared(manifest : MoonPackManifest, id : String) -> Bool {
 ///|
 fn workflow_declared(manifest : MoonPackManifest, id : String) -> Bool {
   manifest.workflows.any(fn(workflow) { workflow.id == id })
+}
+
+///|
+fn safe_app_route_path(path : String) -> Bool {
+  if !path.has_prefix("/") ||
+    path.has_prefix("//") ||
+    path.contains("\\") ||
+    path.contains("..") ||
+    path.contains("//") ||
+    path.contains("%") ||
+    path.contains("?") ||
+    path.contains("#") {
+    return false
+  }
+  for ch in path {
+    if ch.is_control() || ch.is_whitespace() {
+      return false
+    }
+  }
+  true
 }
 
 ///|
@@ -166,11 +186,34 @@ pub fn validate_manifest(manifest : MoonPackManifest) -> ValidationReport {
       }
     }
   }
+  match manifest.app_runtime_identity {
+    None => ()
+    Some(identity) => {
+      if identity.contract.trim().is_empty() ||
+        identity.contract.length() > 128 ||
+        identity.contract.contains("\n") ||
+        identity.contract.contains("\r") {
+        add_issue(
+          issues, "app_runtime_identity.contract", "must be a nonempty contract name of at most 128 characters",
+        )
+      }
+      let path = identity.path
+      if !safe_app_route_path(path) ||
+        !manifest.app_entrypoints.any(fn(entrypoint) {
+          let base = entrypoint.path.trim_end(chars="/")
+          safe_app_route_path(entrypoint.path) && path.has_prefix(base + "/")
+        }) {
+        add_issue(
+          issues, "app_runtime_identity.path", "must be a safe route inside an app entrypoint",
+        )
+      }
+    }
+  }
   match manifest.uninstall_contract {
     None => add_issue(issues, "uninstall_contract", "must be declared")
     Some(contract) => validate_contract(contract, "uninstall_contract", issues)
   }
-  { ok: issues.is_empty(), issues }
+  { ok: issues.is_empty(), issues, }
 }
 
 ///|

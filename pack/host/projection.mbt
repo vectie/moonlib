@@ -9,6 +9,7 @@ pub(all) struct HostActivationProjection {
   tools : Array[@pack.ToolDeclaration]
   schedules : Array[@pack.ScheduleDeclaration]
   app_entrypoints : Array[@pack.AppEntrypoint]
+  app_runtime_identity : @pack.AppRuntimeIdentity?
   provider_ports : Array[@pack.ContractRef]
   policies : Array[@pack.ContractRef]
 } derive(Debug, Eq, ToJson, FromJson)
@@ -41,6 +42,7 @@ pub fn activation_projection(
     tools: manifest.tools,
     schedules: manifest.schedules,
     app_entrypoints: manifest.app_entrypoints,
+    app_runtime_identity: manifest.app_runtime_identity,
     provider_ports: manifest.provider_ports,
     policies: manifest.policies,
   }

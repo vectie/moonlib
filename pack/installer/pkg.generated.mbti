@@ -102,4 +102,3 @@ pub(all) struct SourceInspection {
 // Type aliases
 
 // Traits
-

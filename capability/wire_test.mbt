@@ -135,7 +135,7 @@ test "manifest and discovery DTOs serialize without deciding policy" {
     compiled_at: "2026-07-31T00:00:01Z",
     conformant: true,
     products: [
-      { product_id: "moonmold", pack_id: "moonmold", pack_version: "0.2.0" },
+      { product_id: "moonmold", pack_id: "moonmold", pack_version: "0.2.0", },
     ],
     operations: [operation_fixture()],
     issues: [],
@@ -252,7 +252,7 @@ test "request result and reconcile receipt preserve durable identities" {
     ),
     receipt,
   )
-  let mismatched = { ..receipt, request_id: "different-request" }
+  let mismatched = { ..receipt, request_id: "different-request", }
   assert_true(
     mismatched
     .conformance_issues()

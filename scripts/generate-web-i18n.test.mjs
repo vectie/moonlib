@@ -15,11 +15,19 @@ test("generated runtime exposes keyed messages and content boundaries", () => {
   fs.mkdirSync(locales);
   fs.writeFileSync(
     path.join(locales, "en-US.json"),
-    JSON.stringify({ "test.greeting": "Hello {name}", "test.items": "{count} items" }),
+    JSON.stringify({
+      "test.greeting": "Hello {name}",
+      "test.items": "{count} items",
+      "test.installed": "{count} installed",
+    }),
   );
   fs.writeFileSync(
     path.join(locales, "zh-Hans.json"),
-    JSON.stringify({ "test.greeting": "你好，{name}", "test.items": "{count} 项" }),
+    JSON.stringify({
+      "test.greeting": "你好，{name}",
+      "test.items": "{count} 项",
+      "test.installed": "已安装 {count} 个",
+    }),
   );
 
   const generated = spawnSync(process.execPath, [generator.pathname, locales, output], {
@@ -54,4 +62,9 @@ test("generated runtime exposes keyed messages and content boundaries", () => {
   vm.createContext(context);
   vm.runInContext(`${source}\nglobalThis.translateForTest = translateText;`, context);
   assert.equal(context.translateForTest("3 items"), "3 项");
+  assert.equal(context.translateForTest("3 installed"), "已安装 3 个");
+  assert.equal(
+    context.translateForTest("MoonClaw is not installed"),
+    "MoonClaw is not installed",
+  );
 });

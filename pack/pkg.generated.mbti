@@ -38,6 +38,11 @@ pub(all) struct AppEntrypoint {
   audience : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 
+pub(all) struct AppRuntimeIdentity {
+  contract : String
+  path : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
 pub(all) enum AuthorityClass {
   Observe
   CognitiveMaintenance
@@ -69,6 +74,7 @@ pub(all) struct MoonPackManifest {
   provider_ports : Array[ContractRef]
   schedules : Array[ScheduleDeclaration]
   app_entrypoints : Array[AppEntrypoint]
+  app_runtime_identity : AppRuntimeIdentity?
   migrations : Array[ContractRef]
   evaluations : Array[ContractRef]
   uninstall_contract : ContractRef?
@@ -111,4 +117,3 @@ pub(all) struct ValidationReport {
 // Type aliases
 
 // Traits
-
