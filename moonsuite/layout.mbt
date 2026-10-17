@@ -9,6 +9,21 @@ pub enum ArtifactClass {
 } derive(Debug, Eq, Compare, Hash, ToJson)
 
 ///|
+pub extend ArtifactClass with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ArtifactClass with Eq::{equal, not_equal}
+
+///|
+pub extend ArtifactClass with Compare::{compare, op_lt, op_le, op_gt, op_ge}
+
+///|
+pub extend ArtifactClass with Hash::{hash, hash_combine}
+
+///|
+pub extend ArtifactClass with ToJson::{to_json}
+
+///|
 pub fn ArtifactClass::key(self : ArtifactClass) -> String {
   match self {
     ProductState => "product-state"
@@ -76,6 +91,18 @@ pub(all) struct ProductHome {
   tmp_path : String
   accepted_output_path : String
 } derive(Debug, Eq, ToJson, FromJson)
+
+///|
+pub extend ProductHome with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ProductHome with Eq::{equal, not_equal}
+
+///|
+pub extend ProductHome with ToJson::{to_json}
+
+///|
+pub extend ProductHome with FromJson::{from_json}
 
 ///|
 pub fn state_dir(root : String) -> String {

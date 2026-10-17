@@ -92,7 +92,18 @@ pub enum ArtifactClass {
   RunLedger
   ExternalToolHome
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn ArtifactClass::compare(Self, Self) -> Int
+pub fn ArtifactClass::equal(Self, Self) -> Bool
+pub fn ArtifactClass::hash(Self) -> Int
+pub fn ArtifactClass::hash_combine(Self, Hasher) -> Unit
 pub fn ArtifactClass::key(Self) -> String
+pub fn ArtifactClass::not_equal(Self, Self) -> Bool
+pub fn ArtifactClass::op_ge(Self, Self) -> Bool
+pub fn ArtifactClass::op_gt(Self, Self) -> Bool
+pub fn ArtifactClass::op_le(Self, Self) -> Bool
+pub fn ArtifactClass::op_lt(Self, Self) -> Bool
+pub fn ArtifactClass::to_json(Self) -> Json
+pub fn ArtifactClass::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ProductHome {
   product_id : String
@@ -102,6 +113,11 @@ pub(all) struct ProductHome {
   tmp_path : String
   accepted_output_path : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ProductHome::equal(Self, Self) -> Bool
+pub fn ProductHome::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ProductHome::not_equal(Self, Self) -> Bool
+pub fn ProductHome::to_json(Self) -> Json
+pub fn ProductHome::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
