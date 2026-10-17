@@ -147,20 +147,20 @@ test "absolute join and trailing separator keep MoonLib path semantics" {
 ///|
 test "replace_ext" {
   let path = "main.mbt"
-  inspect(replace_ext(path, ".c"), content="main.c")
+  inspect(@pathx.replace_ext(path, ".c"), content="main.c")
   let path = "main"
-  inspect(replace_ext(path, ".mbt"), content="main.mbt")
+  inspect(@pathx.replace_ext(path, ".mbt"), content="main.mbt")
   let path = "main.com/file"
-  inspect(replace_ext(path, ".c"), content="main.com/file.c")
+  inspect(@pathx.replace_ext(path, ".c"), content="main.com/file.c")
 }
 
 ///|
 test "replace_ext: failed cases" {
   let ext = ".md"
-  inspect(replace_ext("", ext), content="")
-  inspect(replace_ext(".", ext), content=".")
-  inspect(replace_ext("..", ext), content="..")
-  inspect(replace_ext("//", ext), content="//")
-  inspect(replace_ext("/", ext), content="/")
-  inspect(replace_ext("///", ext), content="///")
+  inspect(@pathx.replace_ext("", ext), content="")
+  inspect(@pathx.replace_ext(".", ext), content=".")
+  inspect(@pathx.replace_ext("..", ext), content="..")
+  inspect(@pathx.replace_ext("//", ext), content="//")
+  inspect(@pathx.replace_ext("/", ext), content="/")
+  inspect(@pathx.replace_ext("///", ext), content="///")
 }
