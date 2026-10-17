@@ -152,6 +152,9 @@ pub(all) suberror CapabilityContractError {
   InvalidReference(String)
   InvalidWireContract(String, Array[ContractIssueV1])
 } derive(Eq, @debug.Debug)
+pub fn CapabilityContractError::equal(Self, Self) -> Bool
+pub fn CapabilityContractError::not_equal(Self, Self) -> Bool
+pub fn CapabilityContractError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub(all) struct AdapterDeclarationV1 {
@@ -164,6 +167,11 @@ pub(all) struct AdapterDeclarationV1 {
   operations : Array[AdapterOperationDeclarationV1]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterDeclarationV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn AdapterDeclarationV1::equal(Self, Self) -> Bool
+pub fn AdapterDeclarationV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterDeclarationV1::not_equal(Self, Self) -> Bool
+pub fn AdapterDeclarationV1::to_json(Self) -> Json
+pub fn AdapterDeclarationV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AdapterHealthV1 {
   contract_id : String
@@ -180,7 +188,12 @@ pub(all) struct AdapterHealthV1 {
   evidence_digest : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterHealthV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn AdapterHealthV1::equal(Self, Self) -> Bool
 pub fn AdapterHealthV1::evidence(Self) -> ContentAddressedEvidenceRefV1
+pub fn AdapterHealthV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterHealthV1::not_equal(Self, Self) -> Bool
+pub fn AdapterHealthV1::to_json(Self) -> Json
+pub fn AdapterHealthV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AdapterOperationDeclarationV1 {
   operation_id : String
@@ -188,6 +201,11 @@ pub(all) struct AdapterOperationDeclarationV1 {
   supports_cancel : Bool
   supports_reconcile : Bool
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn AdapterOperationDeclarationV1::equal(Self, Self) -> Bool
+pub fn AdapterOperationDeclarationV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterOperationDeclarationV1::not_equal(Self, Self) -> Bool
+pub fn AdapterOperationDeclarationV1::to_json(Self) -> Json
+pub fn AdapterOperationDeclarationV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AdapterReconcileReceiptV1 {
   contract_id : String
@@ -202,6 +220,11 @@ pub(all) struct AdapterReconcileReceiptV1 {
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterReconcileReceiptV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn AdapterReconcileReceiptV1::equal(Self, Self) -> Bool
+pub fn AdapterReconcileReceiptV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterReconcileReceiptV1::not_equal(Self, Self) -> Bool
+pub fn AdapterReconcileReceiptV1::to_json(Self) -> Json
+pub fn AdapterReconcileReceiptV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AdapterRequestWireV1 {
   request_id : String
@@ -224,6 +247,11 @@ pub(all) struct AdapterRequestWireV1 {
   created_at : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterRequestWireV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn AdapterRequestWireV1::equal(Self, Self) -> Bool
+pub fn AdapterRequestWireV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterRequestWireV1::not_equal(Self, Self) -> Bool
+pub fn AdapterRequestWireV1::to_json(Self) -> Json
+pub fn AdapterRequestWireV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AdapterResultV1 {
   result_id : String
@@ -240,6 +268,11 @@ pub(all) struct AdapterResultV1 {
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn AdapterResultV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn AdapterResultV1::equal(Self, Self) -> Bool
+pub fn AdapterResultV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AdapterResultV1::not_equal(Self, Self) -> Bool
+pub fn AdapterResultV1::to_json(Self) -> Json
+pub fn AdapterResultV1::to_repr(Self) -> @debug.Repr
 
 pub struct AuthorityDecisionRefV1 {
   decision_id : String
@@ -251,9 +284,12 @@ pub struct AuthorityDecisionRefV1 {
 pub fn AuthorityDecisionRefV1::decided_at(Self) -> String
 pub fn AuthorityDecisionRefV1::decision_id(Self) -> String
 pub fn AuthorityDecisionRefV1::digest(Self) -> DigestRefV1
+pub fn AuthorityDecisionRefV1::equal(Self, Self) -> Bool
 pub fn AuthorityDecisionRefV1::expires_at(Self) -> String
 pub fn AuthorityDecisionRefV1::is_fresh_for(Self, PrincipalRefV1, String) -> Bool
+pub fn AuthorityDecisionRefV1::not_equal(Self, Self) -> Bool
 pub fn AuthorityDecisionRefV1::principal(Self) -> PrincipalRefV1
+pub fn AuthorityDecisionRefV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct CapabilityCatalogProjectionV1 {
   contract_id : String
@@ -265,6 +301,11 @@ pub(all) struct CapabilityCatalogProjectionV1 {
   issues : Array[CatalogIssueProjectionV1]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn CapabilityCatalogProjectionV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn CapabilityCatalogProjectionV1::equal(Self, Self) -> Bool
+pub fn CapabilityCatalogProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn CapabilityCatalogProjectionV1::not_equal(Self, Self) -> Bool
+pub fn CapabilityCatalogProjectionV1::to_json(Self) -> Json
+pub fn CapabilityCatalogProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct CatalogIssueProjectionV1 {
   code : String
@@ -272,6 +313,11 @@ pub(all) struct CatalogIssueProjectionV1 {
   detail : String
   suggestions : Array[String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn CatalogIssueProjectionV1::equal(Self, Self) -> Bool
+pub fn CatalogIssueProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn CatalogIssueProjectionV1::not_equal(Self, Self) -> Bool
+pub fn CatalogIssueProjectionV1::to_json(Self) -> Json
+pub fn CatalogIssueProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct CatalogOperationProjectionV1 {
   operation_ref : String
@@ -295,26 +341,46 @@ pub(all) struct CatalogOperationProjectionV1 {
   health_evidence_digest : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn CatalogOperationProjectionV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn CatalogOperationProjectionV1::equal(Self, Self) -> Bool
+pub fn CatalogOperationProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
 pub fn CatalogOperationProjectionV1::health_evidence(Self) -> ContentAddressedEvidenceRefV1
+pub fn CatalogOperationProjectionV1::not_equal(Self, Self) -> Bool
+pub fn CatalogOperationProjectionV1::to_json(Self) -> Json
+pub fn CatalogOperationProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct CatalogProductProjectionV1 {
   product_id : String
   pack_id : String
   pack_version : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn CatalogProductProjectionV1::equal(Self, Self) -> Bool
+pub fn CatalogProductProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn CatalogProductProjectionV1::not_equal(Self, Self) -> Bool
+pub fn CatalogProductProjectionV1::to_json(Self) -> Json
+pub fn CatalogProductProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub struct ContentAddressedEvidenceRefV1 {
   evidence_ref : String
   evidence_digest : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn ContentAddressedEvidenceRefV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn ContentAddressedEvidenceRefV1::equal(Self, Self) -> Bool
 pub fn ContentAddressedEvidenceRefV1::evidence_digest(Self) -> String
 pub fn ContentAddressedEvidenceRefV1::evidence_ref(Self) -> String
+pub fn ContentAddressedEvidenceRefV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ContentAddressedEvidenceRefV1::not_equal(Self, Self) -> Bool
+pub fn ContentAddressedEvidenceRefV1::to_json(Self) -> Json
+pub fn ContentAddressedEvidenceRefV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ContractIssueV1 {
   field : String
   message : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ContractIssueV1::equal(Self, Self) -> Bool
+pub fn ContractIssueV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ContractIssueV1::not_equal(Self, Self) -> Bool
+pub fn ContractIssueV1::to_json(Self) -> Json
+pub fn ContractIssueV1::to_repr(Self) -> @debug.Repr
 
 pub struct ContractRefV1 {
   contract_id : String
@@ -322,7 +388,10 @@ pub struct ContractRefV1 {
 } derive(Eq, @debug.Debug)
 pub fn ContractRefV1::contract_id(Self) -> String
 pub fn ContractRefV1::contract_version(Self) -> String
+pub fn ContractRefV1::equal(Self, Self) -> Bool
 pub fn ContractRefV1::format(Self) -> String
+pub fn ContractRefV1::not_equal(Self, Self) -> Bool
+pub fn ContractRefV1::to_repr(Self) -> @debug.Repr
 
 pub struct CorrelationRefV1 {
   run_id : String
@@ -333,9 +402,12 @@ pub struct CorrelationRefV1 {
 } derive(Eq, @debug.Debug)
 pub fn CorrelationRefV1::attempt_id(Self) -> String?
 pub fn CorrelationRefV1::canonical_text(Self) -> String
+pub fn CorrelationRefV1::equal(Self, Self) -> Bool
 pub fn CorrelationRefV1::idempotency_key(Self) -> String?
+pub fn CorrelationRefV1::not_equal(Self, Self) -> Bool
 pub fn CorrelationRefV1::request_id(Self) -> String?
 pub fn CorrelationRefV1::run_id(Self) -> String
+pub fn CorrelationRefV1::to_repr(Self) -> @debug.Repr
 pub fn CorrelationRefV1::work_item_id(Self) -> String
 
 pub struct DelegationRefV1 {
@@ -349,12 +421,25 @@ pub fn DelegationRefV1::delegate(Self) -> PrincipalRefV1
 pub fn DelegationRefV1::delegation_id(Self) -> String
 pub fn DelegationRefV1::delegator(Self) -> PrincipalRefV1
 pub fn DelegationRefV1::digest(Self) -> DigestRefV1
+pub fn DelegationRefV1::equal(Self, Self) -> Bool
+pub fn DelegationRefV1::not_equal(Self, Self) -> Bool
 pub fn DelegationRefV1::parent_digest(Self) -> DigestRefV1?
+pub fn DelegationRefV1::to_repr(Self) -> @debug.Repr
 
 pub struct DigestRefV1 {
   text : String
 } derive(Compare, Eq, Hash, @debug.Debug)
+pub fn DigestRefV1::compare(Self, Self) -> Int
+pub fn DigestRefV1::equal(Self, Self) -> Bool
+pub fn DigestRefV1::hash(Self) -> Int
+pub fn DigestRefV1::hash_combine(Self, Hasher) -> Unit
+pub fn DigestRefV1::not_equal(Self, Self) -> Bool
+pub fn DigestRefV1::op_ge(Self, Self) -> Bool
+pub fn DigestRefV1::op_gt(Self, Self) -> Bool
+pub fn DigestRefV1::op_le(Self, Self) -> Bool
+pub fn DigestRefV1::op_lt(Self, Self) -> Bool
 pub fn DigestRefV1::text(Self) -> String
+pub fn DigestRefV1::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ExportClassificationV1 {
   Public
@@ -362,7 +447,10 @@ pub(all) enum ExportClassificationV1 {
   Confidential
   Secret
 } derive(Eq, @debug.Debug)
+pub fn ExportClassificationV1::equal(Self, Self) -> Bool
 pub fn ExportClassificationV1::id(Self) -> String
+pub fn ExportClassificationV1::not_equal(Self, Self) -> Bool
+pub fn ExportClassificationV1::to_repr(Self) -> @debug.Repr
 
 pub struct HandoverBudgetCeilingsV1 {
   max_cost_micro_usd : Int64?
@@ -370,10 +458,13 @@ pub struct HandoverBudgetCeilingsV1 {
   max_tokens : Int64?
   max_artifacts : Int?
 } derive(Eq, @debug.Debug)
+pub fn HandoverBudgetCeilingsV1::equal(Self, Self) -> Bool
 pub fn HandoverBudgetCeilingsV1::max_artifacts(Self) -> Int?
 pub fn HandoverBudgetCeilingsV1::max_cost_micro_usd(Self) -> Int64?
 pub fn HandoverBudgetCeilingsV1::max_runtime_ms(Self) -> Int64?
 pub fn HandoverBudgetCeilingsV1::max_tokens(Self) -> Int64?
+pub fn HandoverBudgetCeilingsV1::not_equal(Self, Self) -> Bool
+pub fn HandoverBudgetCeilingsV1::to_repr(Self) -> @debug.Repr
 
 pub struct HandoverBundleEntryV1 {
   artifact : ContentAddressedEvidenceRefV1
@@ -387,7 +478,10 @@ pub struct HandoverBundleEntryV1 {
 pub fn HandoverBundleEntryV1::artifact(Self) -> ContentAddressedEvidenceRefV1
 pub fn HandoverBundleEntryV1::classification(Self) -> ExportClassificationV1
 pub fn HandoverBundleEntryV1::contract(Self) -> ContractRefV1
+pub fn HandoverBundleEntryV1::equal(Self, Self) -> Bool
 pub fn HandoverBundleEntryV1::executable_content(Self) -> Bool
+pub fn HandoverBundleEntryV1::not_equal(Self, Self) -> Bool
+pub fn HandoverBundleEntryV1::to_repr(Self) -> @debug.Repr
 pub fn HandoverBundleEntryV1::untrusted_document(Self) -> Bool
 
 pub struct HandoverBundleV1 {
@@ -403,8 +497,11 @@ pub fn HandoverBundleV1::bundle_id(Self) -> String
 pub fn HandoverBundleV1::content_digest(Self) -> DigestRefV1
 pub fn HandoverBundleV1::created_by(Self) -> PrincipalRefV1
 pub fn HandoverBundleV1::entries(Self) -> ReadOnlyArray[HandoverBundleEntryV1]
+pub fn HandoverBundleV1::equal(Self, Self) -> Bool
 pub fn HandoverBundleV1::excluded_secret_refs(Self) -> ReadOnlyArray[String]
+pub fn HandoverBundleV1::not_equal(Self, Self) -> Bool
 pub fn HandoverBundleV1::requires_quarantine(Self) -> Bool
+pub fn HandoverBundleV1::to_repr(Self) -> @debug.Repr
 pub fn HandoverBundleV1::workspace(Self) -> WorkspaceRefV1
 
 pub struct HandoverContinuationContextV1 {
@@ -422,10 +519,13 @@ pub fn HandoverContinuationContextV1::attempt_ref(Self) -> String?
 pub fn HandoverContinuationContextV1::budget_ceilings(Self) -> HandoverBudgetCeilingsV1?
 pub fn HandoverContinuationContextV1::checkpoint(Self) -> ContentAddressedEvidenceRefV1?
 pub fn HandoverContinuationContextV1::compatibility_requirements(Self) -> ReadOnlyArray[ContractRefV1]
+pub fn HandoverContinuationContextV1::equal(Self, Self) -> Bool
+pub fn HandoverContinuationContextV1::not_equal(Self, Self) -> Bool
 pub fn HandoverContinuationContextV1::previous_handover(Self) -> PreviousHandoverRefV1?
 pub fn HandoverContinuationContextV1::purpose(Self) -> String
 pub fn HandoverContinuationContextV1::run_ref(Self) -> String
 pub fn HandoverContinuationContextV1::stage_ref(Self) -> String?
+pub fn HandoverContinuationContextV1::to_repr(Self) -> @debug.Repr
 pub fn HandoverContinuationContextV1::work_ref(Self) -> String
 
 pub struct HandoverControlEnvelopeV1 {
@@ -462,8 +562,10 @@ pub fn HandoverControlEnvelopeV1::continuation(Self) -> HandoverContinuationCont
 pub fn HandoverControlEnvelopeV1::correlation(Self) -> CorrelationRefV1
 pub fn HandoverControlEnvelopeV1::created_at(Self) -> String
 pub fn HandoverControlEnvelopeV1::envelope_digest(Self) -> DigestRefV1
+pub fn HandoverControlEnvelopeV1::equal(Self, Self) -> Bool
 pub fn HandoverControlEnvelopeV1::expires_at(Self) -> String
 pub fn HandoverControlEnvelopeV1::handover_id(Self) -> String
+pub fn HandoverControlEnvelopeV1::not_equal(Self, Self) -> Bool
 pub fn HandoverControlEnvelopeV1::open_items(Self) -> ReadOnlyArray[String]
 pub fn HandoverControlEnvelopeV1::operation(Self) -> OperationRef
 pub fn HandoverControlEnvelopeV1::quarantine(Self) -> QuarantineMetadataV1
@@ -480,6 +582,7 @@ pub fn HandoverControlEnvelopeV1::target_input_schemas(Self) -> ReadOnlyArray[Sc
 pub fn HandoverControlEnvelopeV1::target_operation(Self) -> OperationRef
 pub fn HandoverControlEnvelopeV1::target_output_schemas(Self) -> ReadOnlyArray[SchemaRef]
 pub fn HandoverControlEnvelopeV1::target_product_id(Self) -> String
+pub fn HandoverControlEnvelopeV1::to_repr(Self) -> @debug.Repr
 pub fn HandoverControlEnvelopeV1::workspace(Self) -> WorkspaceRefV1
 
 pub struct HandoverSignatureMetadataV1 {
@@ -490,18 +593,24 @@ pub struct HandoverSignatureMetadataV1 {
   signature : ContentAddressedEvidenceRefV1
   signed_at : String
 } derive(Eq, @debug.Debug)
+pub fn HandoverSignatureMetadataV1::equal(Self, Self) -> Bool
+pub fn HandoverSignatureMetadataV1::not_equal(Self, Self) -> Bool
 pub fn HandoverSignatureMetadataV1::signed_bundle_digest(Self) -> DigestRefV1
 pub fn HandoverSignatureMetadataV1::signer(Self) -> PrincipalRefV1
+pub fn HandoverSignatureMetadataV1::to_repr(Self) -> @debug.Repr
 
 pub struct OperationRef {
   product_id : String
   tool_id : String
   pack_version : String
 } derive(Eq, @debug.Debug)
+pub fn OperationRef::equal(Self, Self) -> Bool
 pub fn OperationRef::format(Self) -> String
 pub fn OperationRef::is_canonical(Self) -> Bool
+pub fn OperationRef::not_equal(Self, Self) -> Bool
 pub fn OperationRef::pack_version(Self) -> String
 pub fn OperationRef::product_id(Self) -> String
+pub fn OperationRef::to_repr(Self) -> @debug.Repr
 pub fn OperationRef::tool_id(Self) -> String
 
 pub(all) struct PackManifestProjectionV1 {
@@ -512,6 +621,11 @@ pub(all) struct PackManifestProjectionV1 {
   tools : Array[PackOperationProjectionV1]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
 pub fn PackManifestProjectionV1::conformance_issues(Self) -> Array[ContractIssueV1]
+pub fn PackManifestProjectionV1::equal(Self, Self) -> Bool
+pub fn PackManifestProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn PackManifestProjectionV1::not_equal(Self, Self) -> Bool
+pub fn PackManifestProjectionV1::to_json(Self) -> Json
+pub fn PackManifestProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct PackOperationProjectionV1 {
   id : String
@@ -523,26 +637,42 @@ pub(all) struct PackOperationProjectionV1 {
   evidence_outputs : Array[String]
   review_required : Bool
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn PackOperationProjectionV1::equal(Self, Self) -> Bool
+pub fn PackOperationProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn PackOperationProjectionV1::not_equal(Self, Self) -> Bool
+pub fn PackOperationProjectionV1::to_json(Self) -> Json
+pub fn PackOperationProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub(all) struct PackSchemaProjectionV1 {
   id : String
   version : String
   path : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn PackSchemaProjectionV1::equal(Self, Self) -> Bool
+pub fn PackSchemaProjectionV1::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn PackSchemaProjectionV1::not_equal(Self, Self) -> Bool
+pub fn PackSchemaProjectionV1::to_json(Self) -> Json
+pub fn PackSchemaProjectionV1::to_repr(Self) -> @debug.Repr
 
 pub struct PreviousHandoverRefV1 {
   handover_id : String
   envelope_digest : DigestRefV1
 } derive(Eq, @debug.Debug)
 pub fn PreviousHandoverRefV1::envelope_digest(Self) -> DigestRefV1
+pub fn PreviousHandoverRefV1::equal(Self, Self) -> Bool
 pub fn PreviousHandoverRefV1::handover_id(Self) -> String
+pub fn PreviousHandoverRefV1::not_equal(Self, Self) -> Bool
+pub fn PreviousHandoverRefV1::to_repr(Self) -> @debug.Repr
 
 pub(all) enum PrincipalKindV1 {
   Human
   Agent
   Service
 } derive(Eq, @debug.Debug)
+pub fn PrincipalKindV1::equal(Self, Self) -> Bool
 pub fn PrincipalKindV1::id(Self) -> String
+pub fn PrincipalKindV1::not_equal(Self, Self) -> Bool
+pub fn PrincipalKindV1::to_repr(Self) -> @debug.Repr
 
 pub struct PrincipalRefV1 {
   principal_id : String
@@ -551,18 +681,24 @@ pub struct PrincipalRefV1 {
   subject : String
 } derive(Eq, @debug.Debug)
 pub fn PrincipalRefV1::canonical_text(Self) -> String
+pub fn PrincipalRefV1::equal(Self, Self) -> Bool
 pub fn PrincipalRefV1::issuer(Self) -> String
 pub fn PrincipalRefV1::kind(Self) -> PrincipalKindV1
+pub fn PrincipalRefV1::not_equal(Self, Self) -> Bool
 pub fn PrincipalRefV1::principal_id(Self) -> String
 pub fn PrincipalRefV1::subject(Self) -> String
+pub fn PrincipalRefV1::to_repr(Self) -> @debug.Repr
 
 pub struct QuarantineMetadataV1 {
   status : QuarantineStatusV1
   evidence_refs : ReadOnlyArray[ContentAddressedEvidenceRefV1]
   reason : String
 } derive(Eq, @debug.Debug)
+pub fn QuarantineMetadataV1::equal(Self, Self) -> Bool
 pub fn QuarantineMetadataV1::evidence_refs(Self) -> ReadOnlyArray[ContentAddressedEvidenceRefV1]
+pub fn QuarantineMetadataV1::not_equal(Self, Self) -> Bool
 pub fn QuarantineMetadataV1::status(Self) -> QuarantineStatusV1
+pub fn QuarantineMetadataV1::to_repr(Self) -> @debug.Repr
 
 pub(all) enum QuarantineStatusV1 {
   NotRequired
@@ -570,18 +706,24 @@ pub(all) enum QuarantineStatusV1 {
   Cleared
   Rejected
 } derive(Eq, @debug.Debug)
+pub fn QuarantineStatusV1::equal(Self, Self) -> Bool
 pub fn QuarantineStatusV1::id(Self) -> String
+pub fn QuarantineStatusV1::not_equal(Self, Self) -> Bool
+pub fn QuarantineStatusV1::to_repr(Self) -> @debug.Repr
 
 pub struct SchemaRef {
   product_id : String
   schema_id : String
   schema_version : String
 } derive(Eq, @debug.Debug)
+pub fn SchemaRef::equal(Self, Self) -> Bool
 pub fn SchemaRef::format(Self) -> String
 pub fn SchemaRef::is_canonical(Self) -> Bool
+pub fn SchemaRef::not_equal(Self, Self) -> Bool
 pub fn SchemaRef::product_id(Self) -> String
 pub fn SchemaRef::schema_id(Self) -> String
 pub fn SchemaRef::schema_version(Self) -> String
+pub fn SchemaRef::to_repr(Self) -> @debug.Repr
 
 pub struct WorkspaceRefV1 {
   workspace_id : String
@@ -590,7 +732,10 @@ pub struct WorkspaceRefV1 {
 } derive(Eq, @debug.Debug)
 pub fn WorkspaceRefV1::canonical_text(Self) -> String
 pub fn WorkspaceRefV1::digest(Self) -> DigestRefV1
+pub fn WorkspaceRefV1::equal(Self, Self) -> Bool
+pub fn WorkspaceRefV1::not_equal(Self, Self) -> Bool
 pub fn WorkspaceRefV1::revision(Self) -> String
+pub fn WorkspaceRefV1::to_repr(Self) -> @debug.Repr
 pub fn WorkspaceRefV1::workspace_id(Self) -> String
 
 // Type aliases

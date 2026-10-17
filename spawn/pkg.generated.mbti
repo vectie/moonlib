@@ -18,6 +18,9 @@ pub async fn spawn(StringView, Array[StringView], stdin? : String, timeout? : In
 pub suberror Failed {
   Failed(CompletedProcess)
 } derive(ToJson)
+pub fn Failed::output(Self, &Logger) -> Unit
+pub fn Failed::to_json(Self) -> Json
+pub fn Failed::to_string(Self) -> String
 pub impl Show for Failed
 
 pub suberror TimedOut {
@@ -35,6 +38,7 @@ pub struct CompletedProcess {
   timeout : Int?
 } derive(ToJson)
 pub fn CompletedProcess::check(Self) -> Unit raise Failed
+pub fn CompletedProcess::to_json(Self) -> Json
 
 // Type aliases
 

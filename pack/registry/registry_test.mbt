@@ -27,8 +27,13 @@ fn fixture_manifest(id : String, version : String) -> @pack.MoonPackManifest {
 
 ///|
 test "registry accepts caller-supplied packs without domain imports" {
-  let registry = register(empty(), fixture_manifest("alpha", "1.0.0")).unwrap()
-  assert_true(find(registry, "alpha", "1.0.0") is Some(_))
-  assert_true(register(registry, fixture_manifest("alpha", "1.0.0")) is Err(_))
-  assert_eq(remove(registry, "alpha", "1.0.0").manifests.length(), 0)
+  let registry = @registry.register(
+    @registry.empty(),
+    fixture_manifest("alpha", "1.0.0"),
+  ).unwrap()
+  assert_true(@registry.find(registry, "alpha", "1.0.0") is Some(_))
+  assert_true(
+    @registry.register(registry, fixture_manifest("alpha", "1.0.0")) is Err(_),
+  )
+  assert_eq(@registry.remove(registry, "alpha", "1.0.0").manifests.length(), 0)
 }

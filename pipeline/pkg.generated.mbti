@@ -77,7 +77,11 @@ pub(all) struct ArtifactRef {
   authority : String
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ArtifactRef::equal(Self, Self) -> Bool
+pub fn ArtifactRef::not_equal(Self, Self) -> Bool
 pub fn ArtifactRef::quality_issues(Self) -> Array[String]
+pub fn ArtifactRef::to_json(Self) -> Json
+pub fn ArtifactRef::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AuthorityClass {
   Observe
@@ -88,8 +92,19 @@ pub(all) enum AuthorityClass {
   PhysicalEffect
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn AuthorityClass::allows(Self, Self) -> Bool
+pub fn AuthorityClass::compare(Self, Self) -> Int
+pub fn AuthorityClass::equal(Self, Self) -> Bool
+pub fn AuthorityClass::hash(Self) -> Int
+pub fn AuthorityClass::hash_combine(Self, Hasher) -> Unit
 pub fn AuthorityClass::id(Self) -> String
+pub fn AuthorityClass::not_equal(Self, Self) -> Bool
+pub fn AuthorityClass::op_ge(Self, Self) -> Bool
+pub fn AuthorityClass::op_gt(Self, Self) -> Bool
+pub fn AuthorityClass::op_le(Self, Self) -> Bool
+pub fn AuthorityClass::op_lt(Self, Self) -> Bool
 pub fn AuthorityClass::requires_explicit_human(Self) -> Bool
+pub fn AuthorityClass::to_json(Self) -> Json
+pub fn AuthorityClass::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AuthorityGrant {
   authority_id : String
@@ -99,7 +114,11 @@ pub(all) struct AuthorityGrant {
   granted_by : String
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AuthorityGrant::equal(Self, Self) -> Bool
+pub fn AuthorityGrant::not_equal(Self, Self) -> Bool
 pub fn AuthorityGrant::quality_issues(Self) -> Array[String]
+pub fn AuthorityGrant::to_json(Self) -> Json
+pub fn AuthorityGrant::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyBudget {
   model_tokens : Int
@@ -108,7 +127,11 @@ pub(all) struct AutonomyBudget {
   attempts : Int
   concurrency : Int
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyBudget::equal(Self, Self) -> Bool
+pub fn AutonomyBudget::not_equal(Self, Self) -> Bool
 pub fn AutonomyBudget::quality_issues(Self) -> Array[String]
+pub fn AutonomyBudget::to_json(Self) -> Json
+pub fn AutonomyBudget::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyBudgetBalance {
   model_tokens : Int
@@ -117,6 +140,10 @@ pub(all) struct AutonomyBudgetBalance {
   attempts : Int
   concurrency : Int
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyBudgetBalance::equal(Self, Self) -> Bool
+pub fn AutonomyBudgetBalance::not_equal(Self, Self) -> Bool
+pub fn AutonomyBudgetBalance::to_json(Self) -> Json
+pub fn AutonomyBudgetBalance::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyBudgetUsage {
   model_tokens : Int
@@ -125,7 +152,11 @@ pub(all) struct AutonomyBudgetUsage {
   attempts : Int
   concurrency : Int
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyBudgetUsage::equal(Self, Self) -> Bool
+pub fn AutonomyBudgetUsage::not_equal(Self, Self) -> Bool
 pub fn AutonomyBudgetUsage::quality_issues(Self) -> Array[String]
+pub fn AutonomyBudgetUsage::to_json(Self) -> Json
+pub fn AutonomyBudgetUsage::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyDecision {
   contract_id : String
@@ -137,6 +168,10 @@ pub(all) struct AutonomyDecision {
   remaining_budget : AutonomyBudgetBalance
   checked_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyDecision::equal(Self, Self) -> Bool
+pub fn AutonomyDecision::not_equal(Self, Self) -> Bool
+pub fn AutonomyDecision::to_json(Self) -> Json
+pub fn AutonomyDecision::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyEnvelope {
   contract_id : String
@@ -154,7 +189,11 @@ pub(all) struct AutonomyEnvelope {
   expires_at : String
   revoked : Bool
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyEnvelope::equal(Self, Self) -> Bool
+pub fn AutonomyEnvelope::not_equal(Self, Self) -> Bool
 pub fn AutonomyEnvelope::quality_issues(Self) -> Array[String]
+pub fn AutonomyEnvelope::to_json(Self) -> Json
+pub fn AutonomyEnvelope::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyEventRequest {
   contract_id : String
@@ -169,6 +208,10 @@ pub(all) struct AutonomyEventRequest {
   budget_request : AutonomyBudgetUsage
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyEventRequest::equal(Self, Self) -> Bool
+pub fn AutonomyEventRequest::not_equal(Self, Self) -> Bool
+pub fn AutonomyEventRequest::to_json(Self) -> Json
+pub fn AutonomyEventRequest::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AutonomyGrant {
   product_id : String
@@ -177,7 +220,11 @@ pub(all) struct AutonomyGrant {
   claim_ceiling : ClaimClass
   artifact_prefixes : Array[String]
 } derive(Eq, ToJson, @debug.Debug)
+pub fn AutonomyGrant::equal(Self, Self) -> Bool
+pub fn AutonomyGrant::not_equal(Self, Self) -> Bool
 pub fn AutonomyGrant::quality_issues(Self) -> Array[String]
+pub fn AutonomyGrant::to_json(Self) -> Json
+pub fn AutonomyGrant::to_repr(Self) -> @debug.Repr
 
 pub(all) struct BeliefUpdate {
   update_id : String
@@ -190,7 +237,11 @@ pub(all) struct BeliefUpdate {
   affected_refs : Array[String]
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn BeliefUpdate::equal(Self, Self) -> Bool
+pub fn BeliefUpdate::not_equal(Self, Self) -> Bool
 pub fn BeliefUpdate::quality_issues(Self) -> Array[String]
+pub fn BeliefUpdate::to_json(Self) -> Json
+pub fn BeliefUpdate::to_repr(Self) -> @debug.Repr
 
 pub(all) struct BookkeeperReflection {
   reflection_id : String
@@ -206,7 +257,11 @@ pub(all) struct BookkeeperReflection {
   requested_authority : AuthorityClass
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn BookkeeperReflection::equal(Self, Self) -> Bool
+pub fn BookkeeperReflection::not_equal(Self, Self) -> Bool
 pub fn BookkeeperReflection::quality_issues(Self) -> Array[String]
+pub fn BookkeeperReflection::to_json(Self) -> Json
+pub fn BookkeeperReflection::to_repr(Self) -> @debug.Repr
 
 pub(all) struct BrowserActionReceipt {
   contract_id : String
@@ -227,14 +282,29 @@ pub(all) struct BrowserActionReceipt {
   evidence_refs : Array[String]
   completed_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn BrowserActionReceipt::equal(Self, Self) -> Bool
+pub fn BrowserActionReceipt::not_equal(Self, Self) -> Bool
 pub fn BrowserActionReceipt::quality_issues(Self) -> Array[String]
+pub fn BrowserActionReceipt::to_json(Self) -> Json
+pub fn BrowserActionReceipt::to_repr(Self) -> @debug.Repr
 
 pub(all) enum BrowserActor {
   HumanUser
   Agent
   Replay
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn BrowserActor::compare(Self, Self) -> Int
+pub fn BrowserActor::equal(Self, Self) -> Bool
+pub fn BrowserActor::hash(Self) -> Int
+pub fn BrowserActor::hash_combine(Self, Hasher) -> Unit
 pub fn BrowserActor::id(Self) -> String
+pub fn BrowserActor::not_equal(Self, Self) -> Bool
+pub fn BrowserActor::op_ge(Self, Self) -> Bool
+pub fn BrowserActor::op_gt(Self, Self) -> Bool
+pub fn BrowserActor::op_le(Self, Self) -> Bool
+pub fn BrowserActor::op_lt(Self, Self) -> Bool
+pub fn BrowserActor::to_json(Self) -> Json
+pub fn BrowserActor::to_repr(Self) -> @debug.Repr
 
 pub(all) enum BrowserOperation {
   RenderLocal
@@ -247,8 +317,19 @@ pub(all) enum BrowserOperation {
   SubmitExternal
   ControlPhysicalDevice
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn BrowserOperation::compare(Self, Self) -> Int
+pub fn BrowserOperation::equal(Self, Self) -> Bool
+pub fn BrowserOperation::hash(Self) -> Int
+pub fn BrowserOperation::hash_combine(Self, Hasher) -> Unit
 pub fn BrowserOperation::id(Self) -> String
+pub fn BrowserOperation::not_equal(Self, Self) -> Bool
+pub fn BrowserOperation::op_ge(Self, Self) -> Bool
+pub fn BrowserOperation::op_gt(Self, Self) -> Bool
+pub fn BrowserOperation::op_le(Self, Self) -> Bool
+pub fn BrowserOperation::op_lt(Self, Self) -> Bool
 pub fn BrowserOperation::required_authority(Self) -> AuthorityClass
+pub fn BrowserOperation::to_json(Self) -> Json
+pub fn BrowserOperation::to_repr(Self) -> @debug.Repr
 
 pub(all) struct BrowserSessionScope {
   contract_id : String
@@ -269,7 +350,11 @@ pub(all) struct BrowserSessionScope {
   capability_digest : String
   expires_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn BrowserSessionScope::equal(Self, Self) -> Bool
+pub fn BrowserSessionScope::not_equal(Self, Self) -> Bool
 pub fn BrowserSessionScope::quality_issues(Self) -> Array[String]
+pub fn BrowserSessionScope::to_json(Self) -> Json
+pub fn BrowserSessionScope::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ClaimClass {
   Observation
@@ -286,14 +371,36 @@ pub(all) enum ClaimClass {
   PhysicalEffectClaim
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
 pub fn ClaimClass::allows(Self, Self) -> Bool
+pub fn ClaimClass::compare(Self, Self) -> Int
+pub fn ClaimClass::equal(Self, Self) -> Bool
+pub fn ClaimClass::hash(Self) -> Int
+pub fn ClaimClass::hash_combine(Self, Hasher) -> Unit
 pub fn ClaimClass::id(Self) -> String
+pub fn ClaimClass::not_equal(Self, Self) -> Bool
+pub fn ClaimClass::op_ge(Self, Self) -> Bool
+pub fn ClaimClass::op_gt(Self, Self) -> Bool
+pub fn ClaimClass::op_le(Self, Self) -> Bool
+pub fn ClaimClass::op_lt(Self, Self) -> Bool
+pub fn ClaimClass::to_json(Self) -> Json
+pub fn ClaimClass::to_repr(Self) -> @debug.Repr
 
 pub(all) enum CognitionGapKind {
   InformationGap
   CognitionGap
   ExecutionGap
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn CognitionGapKind::compare(Self, Self) -> Int
+pub fn CognitionGapKind::equal(Self, Self) -> Bool
+pub fn CognitionGapKind::hash(Self) -> Int
+pub fn CognitionGapKind::hash_combine(Self, Hasher) -> Unit
 pub fn CognitionGapKind::id(Self) -> String
+pub fn CognitionGapKind::not_equal(Self, Self) -> Bool
+pub fn CognitionGapKind::op_ge(Self, Self) -> Bool
+pub fn CognitionGapKind::op_gt(Self, Self) -> Bool
+pub fn CognitionGapKind::op_le(Self, Self) -> Bool
+pub fn CognitionGapKind::op_lt(Self, Self) -> Bool
+pub fn CognitionGapKind::to_json(Self) -> Json
+pub fn CognitionGapKind::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ConformanceFinding {
   code : String
@@ -301,6 +408,10 @@ pub(all) struct ConformanceFinding {
   message : String
   severity : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ConformanceFinding::equal(Self, Self) -> Bool
+pub fn ConformanceFinding::not_equal(Self, Self) -> Bool
+pub fn ConformanceFinding::to_json(Self) -> Json
+pub fn ConformanceFinding::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ConformanceSubject {
   subject_id : String
@@ -318,6 +429,10 @@ pub(all) struct ConformanceSubject {
   workspace_root : String
   artifact_paths : Array[String]
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ConformanceSubject::equal(Self, Self) -> Bool
+pub fn ConformanceSubject::not_equal(Self, Self) -> Bool
+pub fn ConformanceSubject::to_json(Self) -> Json
+pub fn ConformanceSubject::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ConstitutionConformanceReport {
   contract_id : String
@@ -328,6 +443,10 @@ pub(all) struct ConstitutionConformanceReport {
   findings : Array[ConformanceFinding]
   checked_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ConstitutionConformanceReport::equal(Self, Self) -> Bool
+pub fn ConstitutionConformanceReport::not_equal(Self, Self) -> Bool
+pub fn ConstitutionConformanceReport::to_json(Self) -> Json
+pub fn ConstitutionConformanceReport::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ContractKind {
   Identity
@@ -357,7 +476,18 @@ pub(all) enum ContractKind {
   SpatialArtifact
   RepresentationTransformContract
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn ContractKind::compare(Self, Self) -> Int
+pub fn ContractKind::equal(Self, Self) -> Bool
+pub fn ContractKind::hash(Self) -> Int
+pub fn ContractKind::hash_combine(Self, Hasher) -> Unit
 pub fn ContractKind::id(Self) -> String
+pub fn ContractKind::not_equal(Self, Self) -> Bool
+pub fn ContractKind::op_ge(Self, Self) -> Bool
+pub fn ContractKind::op_gt(Self, Self) -> Bool
+pub fn ContractKind::op_le(Self, Self) -> Bool
+pub fn ContractKind::op_lt(Self, Self) -> Bool
+pub fn ContractKind::to_json(Self) -> Json
+pub fn ContractKind::to_repr(Self) -> @debug.Repr
 
 pub(all) struct CriterionOwnership {
   criterion_id : String
@@ -366,6 +496,10 @@ pub(all) struct CriterionOwnership {
   negative_path_required : Bool
   evidence_refs : Array[String]
 } derive(Eq, ToJson, @debug.Debug)
+pub fn CriterionOwnership::equal(Self, Self) -> Bool
+pub fn CriterionOwnership::not_equal(Self, Self) -> Bool
+pub fn CriterionOwnership::to_json(Self) -> Json
+pub fn CriterionOwnership::to_repr(Self) -> @debug.Repr
 
 pub(all) enum DeclarationKind {
   Goal
@@ -376,14 +510,36 @@ pub(all) enum DeclarationKind {
   Validation
   Acceptance
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn DeclarationKind::compare(Self, Self) -> Int
+pub fn DeclarationKind::equal(Self, Self) -> Bool
+pub fn DeclarationKind::hash(Self) -> Int
+pub fn DeclarationKind::hash_combine(Self, Hasher) -> Unit
 pub fn DeclarationKind::id(Self) -> String
+pub fn DeclarationKind::not_equal(Self, Self) -> Bool
+pub fn DeclarationKind::op_ge(Self, Self) -> Bool
+pub fn DeclarationKind::op_gt(Self, Self) -> Bool
+pub fn DeclarationKind::op_le(Self, Self) -> Bool
+pub fn DeclarationKind::op_lt(Self, Self) -> Bool
+pub fn DeclarationKind::to_json(Self) -> Json
+pub fn DeclarationKind::to_repr(Self) -> @debug.Repr
 
 pub(all) enum DisclosureLevel {
   User
   Operator
   Developer
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn DisclosureLevel::compare(Self, Self) -> Int
+pub fn DisclosureLevel::equal(Self, Self) -> Bool
+pub fn DisclosureLevel::hash(Self) -> Int
+pub fn DisclosureLevel::hash_combine(Self, Hasher) -> Unit
 pub fn DisclosureLevel::id(Self) -> String
+pub fn DisclosureLevel::not_equal(Self, Self) -> Bool
+pub fn DisclosureLevel::op_ge(Self, Self) -> Bool
+pub fn DisclosureLevel::op_gt(Self, Self) -> Bool
+pub fn DisclosureLevel::op_le(Self, Self) -> Bool
+pub fn DisclosureLevel::op_lt(Self, Self) -> Bool
+pub fn DisclosureLevel::to_json(Self) -> Json
+pub fn DisclosureLevel::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ExecutableDeclaration {
   declaration_id : String
@@ -397,7 +553,11 @@ pub(all) struct ExecutableDeclaration {
   acceptance_criteria : Array[String]
   requested_authority : AuthorityClass
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ExecutableDeclaration::equal(Self, Self) -> Bool
+pub fn ExecutableDeclaration::not_equal(Self, Self) -> Bool
 pub fn ExecutableDeclaration::quality_issues(Self) -> Array[String]
+pub fn ExecutableDeclaration::to_json(Self) -> Json
+pub fn ExecutableDeclaration::to_repr(Self) -> @debug.Repr
 
 pub(all) enum InterventionCategory {
   ConstitutionalAuthority
@@ -405,7 +565,18 @@ pub(all) enum InterventionCategory {
   RequiredIntervention
   HiddenOrchestration
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn InterventionCategory::compare(Self, Self) -> Int
+pub fn InterventionCategory::equal(Self, Self) -> Bool
+pub fn InterventionCategory::hash(Self) -> Int
+pub fn InterventionCategory::hash_combine(Self, Hasher) -> Unit
 pub fn InterventionCategory::id(Self) -> String
+pub fn InterventionCategory::not_equal(Self, Self) -> Bool
+pub fn InterventionCategory::op_ge(Self, Self) -> Bool
+pub fn InterventionCategory::op_gt(Self, Self) -> Bool
+pub fn InterventionCategory::op_le(Self, Self) -> Bool
+pub fn InterventionCategory::op_lt(Self, Self) -> Bool
+pub fn InterventionCategory::to_json(Self) -> Json
+pub fn InterventionCategory::to_repr(Self) -> @debug.Repr
 
 pub(all) struct InterventionRecord {
   intervention_id : String
@@ -416,6 +587,10 @@ pub(all) struct InterventionRecord {
   evidence_ref : String
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn InterventionRecord::equal(Self, Self) -> Bool
+pub fn InterventionRecord::not_equal(Self, Self) -> Bool
+pub fn InterventionRecord::to_json(Self) -> Json
+pub fn InterventionRecord::to_repr(Self) -> @debug.Repr
 
 pub(all) struct InterventionScorecard {
   contract_id : String
@@ -429,6 +604,10 @@ pub(all) struct InterventionScorecard {
   records : Array[InterventionRecord]
   checked_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn InterventionScorecard::equal(Self, Self) -> Bool
+pub fn InterventionScorecard::not_equal(Self, Self) -> Bool
+pub fn InterventionScorecard::to_json(Self) -> Json
+pub fn InterventionScorecard::to_repr(Self) -> @debug.Repr
 
 pub(all) struct KnowledgeGap {
   gap_id : String
@@ -443,7 +622,11 @@ pub(all) struct KnowledgeGap {
   status : String
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn KnowledgeGap::equal(Self, Self) -> Bool
+pub fn KnowledgeGap::not_equal(Self, Self) -> Bool
 pub fn KnowledgeGap::quality_issues(Self) -> Array[String]
+pub fn KnowledgeGap::to_json(Self) -> Json
+pub fn KnowledgeGap::to_repr(Self) -> @debug.Repr
 
 pub(all) struct LearnedProcedure {
   procedure_id : String
@@ -458,7 +641,11 @@ pub(all) struct LearnedProcedure {
   status : String
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn LearnedProcedure::equal(Self, Self) -> Bool
+pub fn LearnedProcedure::not_equal(Self, Self) -> Bool
 pub fn LearnedProcedure::quality_issues(Self) -> Array[String]
+pub fn LearnedProcedure::to_json(Self) -> Json
+pub fn LearnedProcedure::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ProductBoundary {
   product_id : String
@@ -470,7 +657,11 @@ pub(all) struct ProductBoundary {
   claim_ceiling : ClaimClass
   prohibited_claims : Array[ClaimClass]
 } derive(Eq, ToJson, @debug.Debug)
+pub fn ProductBoundary::equal(Self, Self) -> Bool
+pub fn ProductBoundary::not_equal(Self, Self) -> Bool
 pub fn ProductBoundary::quality_issues(Self) -> Array[String]
+pub fn ProductBoundary::to_json(Self) -> Json
+pub fn ProductBoundary::to_repr(Self) -> @debug.Repr
 
 pub(all) enum RepresentationClass {
   ReferenceBundle
@@ -482,8 +673,19 @@ pub(all) enum RepresentationClass {
   ManufacturingCandidate
   FabricationJob
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn RepresentationClass::compare(Self, Self) -> Int
+pub fn RepresentationClass::equal(Self, Self) -> Bool
+pub fn RepresentationClass::hash(Self) -> Int
+pub fn RepresentationClass::hash_combine(Self, Hasher) -> Unit
 pub fn RepresentationClass::id(Self) -> String
 pub fn RepresentationClass::is_engineering_input(Self) -> Bool
+pub fn RepresentationClass::not_equal(Self, Self) -> Bool
+pub fn RepresentationClass::op_ge(Self, Self) -> Bool
+pub fn RepresentationClass::op_gt(Self, Self) -> Bool
+pub fn RepresentationClass::op_le(Self, Self) -> Bool
+pub fn RepresentationClass::op_lt(Self, Self) -> Bool
+pub fn RepresentationClass::to_json(Self) -> Json
+pub fn RepresentationClass::to_repr(Self) -> @debug.Repr
 
 pub(all) struct RepresentationTransform {
   contract_id : String
@@ -504,7 +706,11 @@ pub(all) struct RepresentationTransform {
   validation_refs : Array[String]
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn RepresentationTransform::equal(Self, Self) -> Bool
+pub fn RepresentationTransform::not_equal(Self, Self) -> Bool
 pub fn RepresentationTransform::quality_issues(Self) -> Array[String]
+pub fn RepresentationTransform::to_json(Self) -> Json
+pub fn RepresentationTransform::to_repr(Self) -> @debug.Repr
 
 pub(all) struct SpatialArtifactManifest {
   contract_id : String
@@ -531,7 +737,11 @@ pub(all) struct SpatialArtifactManifest {
   claim_ceiling : ClaimClass
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn SpatialArtifactManifest::equal(Self, Self) -> Bool
+pub fn SpatialArtifactManifest::not_equal(Self, Self) -> Bool
 pub fn SpatialArtifactManifest::quality_issues(Self) -> Array[String]
+pub fn SpatialArtifactManifest::to_json(Self) -> Json
+pub fn SpatialArtifactManifest::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SpatialLineageRelation {
   InterpretedFrom
@@ -548,7 +758,18 @@ pub(all) enum SpatialLineageRelation {
   PlacedAs
   SimulatedAs
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn SpatialLineageRelation::compare(Self, Self) -> Int
+pub fn SpatialLineageRelation::equal(Self, Self) -> Bool
+pub fn SpatialLineageRelation::hash(Self) -> Int
+pub fn SpatialLineageRelation::hash_combine(Self, Hasher) -> Unit
 pub fn SpatialLineageRelation::id(Self) -> String
+pub fn SpatialLineageRelation::not_equal(Self, Self) -> Bool
+pub fn SpatialLineageRelation::op_ge(Self, Self) -> Bool
+pub fn SpatialLineageRelation::op_gt(Self, Self) -> Bool
+pub fn SpatialLineageRelation::op_le(Self, Self) -> Bool
+pub fn SpatialLineageRelation::op_lt(Self, Self) -> Bool
+pub fn SpatialLineageRelation::to_json(Self) -> Json
+pub fn SpatialLineageRelation::to_repr(Self) -> @debug.Repr
 
 pub(all) struct WorkGraph {
   graph_id : String
@@ -557,8 +778,12 @@ pub(all) struct WorkGraph {
   items : Array[WorkItem]
   recorded_at : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn WorkGraph::equal(Self, Self) -> Bool
+pub fn WorkGraph::not_equal(Self, Self) -> Bool
 pub fn WorkGraph::quality_issues(Self) -> Array[String]
 pub fn WorkGraph::runnable_item_ids(Self) -> Array[String]
+pub fn WorkGraph::to_json(Self) -> Json
+pub fn WorkGraph::to_repr(Self) -> @debug.Repr
 
 pub(all) struct WorkItem {
   work_item_id : String
@@ -572,6 +797,10 @@ pub(all) struct WorkItem {
   attempt_count : Int
   blocker : String
 } derive(Eq, ToJson, @debug.Debug)
+pub fn WorkItem::equal(Self, Self) -> Bool
+pub fn WorkItem::not_equal(Self, Self) -> Bool
+pub fn WorkItem::to_json(Self) -> Json
+pub fn WorkItem::to_repr(Self) -> @debug.Repr
 
 pub(all) enum WorkStatus {
   Proposed
@@ -585,8 +814,19 @@ pub(all) enum WorkStatus {
   Cancelled
   Superseded
 } derive(Compare, Eq, Hash, ToJson, @debug.Debug)
+pub fn WorkStatus::compare(Self, Self) -> Int
+pub fn WorkStatus::equal(Self, Self) -> Bool
+pub fn WorkStatus::hash(Self) -> Int
+pub fn WorkStatus::hash_combine(Self, Hasher) -> Unit
 pub fn WorkStatus::id(Self) -> String
 pub fn WorkStatus::is_terminal(Self) -> Bool
+pub fn WorkStatus::not_equal(Self, Self) -> Bool
+pub fn WorkStatus::op_ge(Self, Self) -> Bool
+pub fn WorkStatus::op_gt(Self, Self) -> Bool
+pub fn WorkStatus::op_le(Self, Self) -> Bool
+pub fn WorkStatus::op_lt(Self, Self) -> Bool
+pub fn WorkStatus::to_json(Self) -> Json
+pub fn WorkStatus::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

@@ -1,5 +1,5 @@
 ///|
-fn fixture_manifest() -> MoonPackManifest {
+fn fixture_manifest() -> @pack.MoonPackManifest {
   {
     id: "fixture",
     version: "1.0.0",
@@ -8,7 +8,7 @@ fn fixture_manifest() -> MoonPackManifest {
     kind: DomainPack,
     required_runtime_extensions: [],
     book_templates: [],
-    schemas: [contract_ref("record", "1", "schemas/record.json")],
+    schemas: [@pack.contract_ref("record", "1", "schemas/record.json")],
     tools: [],
     workflows: [],
     skills: [],
@@ -19,48 +19,56 @@ fn fixture_manifest() -> MoonPackManifest {
     app_runtime_identity: None,
     migrations: [],
     evaluations: [],
-    uninstall_contract: Some(contract_ref("uninstall", "1", "UNINSTALL.md")),
+    uninstall_contract: Some(
+      @pack.contract_ref("uninstall", "1", "UNINSTALL.md"),
+    ),
   }
 }
 
 ///|
 test "manifest JSON is a stable disk boundary" {
   let manifest = fixture_manifest()
-  assert_true(decode_manifest(encode_manifest(manifest)) == manifest)
-  assert_true(validate_manifest(manifest).ok)
+  assert_true(
+    @pack.decode_manifest(@pack.encode_manifest(manifest)) == manifest,
+  )
+  assert_true(@pack.validate_manifest(manifest).ok)
 }
 
 ///|
 test "optional app runtime identity survives JSON and older manifests" {
   let manifest = {
     ..fixture_manifest(),
-    app_entrypoints: [app_entrypoint("desk", "/apps/fixture", "operator")],
+    app_entrypoints: [@pack.app_entrypoint("desk", "/apps/fixture", "operator")],
     app_runtime_identity: Some({
       contract: "fixture.runtime-identity.v1",
       path: "/apps/fixture/api/v1/runtime-identity",
     }),
   }
-  assert_true(validate_manifest(manifest).ok)
-  assert_true(decode_manifest(encode_manifest(manifest)) == manifest)
-  let legacy = @json.parse(encode_manifest(fixture_manifest()))
+  assert_true(@pack.validate_manifest(manifest).ok)
+  assert_true(
+    @pack.decode_manifest(@pack.encode_manifest(manifest)) == manifest,
+  )
+  let legacy = @json.parse(@pack.encode_manifest(fixture_manifest()))
   match legacy {
     Object(fields) => fields.remove("app_runtime_identity") |> ignore
     _ => fail("encoded manifest should be an object")
   }
-  assert_true(decode_manifest(legacy.stringify()).app_runtime_identity is None)
+  assert_true(
+    @pack.decode_manifest(legacy.stringify()).app_runtime_identity is None,
+  )
 }
 
 ///|
 test "app runtime identity must be within an app route" {
   let manifest = {
     ..fixture_manifest(),
-    app_entrypoints: [app_entrypoint("desk", "/apps/fixture", "operator")],
+    app_entrypoints: [@pack.app_entrypoint("desk", "/apps/fixture", "operator")],
     app_runtime_identity: Some({
       contract: "fixture.runtime-identity.v1",
       path: "/apps/other/api/v1/runtime-identity",
     }),
   }
-  assert_false(validate_manifest(manifest).ok)
+  assert_false(@pack.validate_manifest(manifest).ok)
   let traversal = {
     ..manifest,
     app_runtime_identity: Some({
@@ -68,7 +76,7 @@ test "app runtime identity must be within an app route" {
       path: "/apps/fixture/../other",
     }),
   }
-  assert_false(validate_manifest(traversal).ok)
+  assert_false(@pack.validate_manifest(traversal).ok)
 }
 
 ///|
@@ -77,7 +85,7 @@ test "external effects require review and evidence" {
   let manifest = {
     ..base,
     tools: [
-      tool_declaration(
+      @pack.tool_declaration(
         "fixture.publish",
         "fixture",
         "record",
@@ -86,7 +94,7 @@ test "external effects require review and evidence" {
       ),
     ],
   }
-  let report = validate_manifest(manifest)
+  let report = @pack.validate_manifest(manifest)
   assert_false(report.ok)
   assert_true(
     report.issues.any(fn(issue) { issue.message == "effects require review" }),
@@ -104,11 +112,11 @@ test "artifact traversal and duplicate paths are rejected" {
   let manifest = {
     ..base,
     schemas: [
-      contract_ref("one", "1", "../outside.json"),
-      contract_ref("two", "1", "../outside.json"),
+      @pack.contract_ref("one", "1", "../outside.json"),
+      @pack.contract_ref("two", "1", "../outside.json"),
     ],
   }
-  let report = validate_manifest(manifest)
+  let report = @pack.validate_manifest(manifest)
   assert_false(report.ok)
   assert_true(
     report.issues.any(fn(issue) {

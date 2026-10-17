@@ -91,3 +91,42 @@ pub fn intervention_scorecard(
     checked_at,
   }
 }
+
+///|
+pub extend InterventionCategory with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InterventionCategory with Eq::{not_equal, equal}
+
+///|
+pub extend InterventionCategory with Compare::{
+  op_lt,
+  op_le,
+  op_ge,
+  compare,
+  op_gt,
+}
+
+///|
+pub extend InterventionCategory with Hash::{hash, hash_combine}
+
+///|
+pub extend InterventionCategory with ToJson::{to_json}
+
+///|
+pub extend InterventionRecord with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InterventionRecord with Eq::{not_equal, equal}
+
+///|
+pub extend InterventionRecord with ToJson::{to_json}
+
+///|
+pub extend InterventionScorecard with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InterventionScorecard with Eq::{not_equal, equal}
+
+///|
+pub extend InterventionScorecard with ToJson::{to_json}

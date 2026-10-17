@@ -37,22 +37,40 @@ pub(all) struct LanguagePreferences {
   default_document_language : String
   product_locale_overrides : Map[String, String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn LanguagePreferences::equal(Self, Self) -> Bool
+pub fn LanguagePreferences::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
 pub fn LanguagePreferences::interface_preference(Self, StringView) -> LocalePreference
+pub fn LanguagePreferences::not_equal(Self, Self) -> Bool
 pub fn LanguagePreferences::resolve_interface_locale(Self, StringView, StringView) -> Locale
+pub fn LanguagePreferences::to_json(Self) -> Json
+pub fn LanguagePreferences::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Locale {
   EnUs
   ZhHans
 } derive(Compare, Eq, Hash, @debug.Debug)
+pub fn Locale::compare(Self, Self) -> Int
 pub fn Locale::direction(Self) -> String
+pub fn Locale::equal(Self, Self) -> Bool
+pub fn Locale::hash(Self) -> Int
+pub fn Locale::hash_combine(Self, Hasher) -> Unit
 pub fn Locale::html_lang(Self) -> String
 pub fn Locale::is_chinese(Self) -> Bool
+pub fn Locale::not_equal(Self, Self) -> Bool
+pub fn Locale::op_ge(Self, Self) -> Bool
+pub fn Locale::op_gt(Self, Self) -> Bool
+pub fn Locale::op_le(Self, Self) -> Bool
+pub fn Locale::op_lt(Self, Self) -> Bool
 pub fn Locale::tag(Self) -> String
+pub fn Locale::to_repr(Self) -> @debug.Repr
 
 pub(all) enum LocalePreference {
   System
   Explicit(Locale)
 } derive(Eq, @debug.Debug)
+pub fn LocalePreference::equal(Self, Self) -> Bool
+pub fn LocalePreference::not_equal(Self, Self) -> Bool
+pub fn LocalePreference::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

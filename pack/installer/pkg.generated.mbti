@@ -48,18 +48,33 @@ pub(all) struct ActivePackPointer {
   manifest_sha256 : String
   installed_root : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ActivePackPointer::equal(Self, Self) -> Bool
+pub fn ActivePackPointer::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ActivePackPointer::not_equal(Self, Self) -> Bool
+pub fn ActivePackPointer::to_json(Self) -> Json
+pub fn ActivePackPointer::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ArtifactReceipt {
   path : String
   sha256 : String
   size : Int
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ArtifactReceipt::equal(Self, Self) -> Bool
+pub fn ArtifactReceipt::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ArtifactReceipt::not_equal(Self, Self) -> Bool
+pub fn ArtifactReceipt::to_json(Self) -> Json
+pub fn ArtifactReceipt::to_repr(Self) -> @debug.Repr
 
 pub(all) struct HostProfile {
   contract : String
   runtime_extensions : Array[String]
   granted_authorities : Array[@pack.AuthorityClass]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn HostProfile::equal(Self, Self) -> Bool
+pub fn HostProfile::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HostProfile::not_equal(Self, Self) -> Bool
+pub fn HostProfile::to_json(Self) -> Json
+pub fn HostProfile::to_repr(Self) -> @debug.Repr
 
 pub(all) struct InstallPlan {
   pack_id : String
@@ -69,11 +84,21 @@ pub(all) struct InstallPlan {
   authorities : Array[@pack.AuthorityClass]
   owned_namespaces : Array[String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn InstallPlan::equal(Self, Self) -> Bool
+pub fn InstallPlan::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn InstallPlan::not_equal(Self, Self) -> Bool
+pub fn InstallPlan::to_json(Self) -> Json
+pub fn InstallPlan::to_repr(Self) -> @debug.Repr
 
 pub(all) enum InstallState {
   Rejected
   ReadyToStage
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn InstallState::equal(Self, Self) -> Bool
+pub fn InstallState::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn InstallState::not_equal(Self, Self) -> Bool
+pub fn InstallState::to_json(Self) -> Json
+pub fn InstallState::to_repr(Self) -> @debug.Repr
 
 pub(all) struct InstallationReceipt {
   contract : String
@@ -85,6 +110,11 @@ pub(all) struct InstallationReceipt {
   artifacts : Array[ArtifactReceipt]
   authorities : Array[@pack.AuthorityClass]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn InstallationReceipt::equal(Self, Self) -> Bool
+pub fn InstallationReceipt::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn InstallationReceipt::not_equal(Self, Self) -> Bool
+pub fn InstallationReceipt::to_json(Self) -> Json
+pub fn InstallationReceipt::to_repr(Self) -> @debug.Repr
 
 pub(all) struct InstalledVerification {
   ok : Bool
@@ -92,12 +122,22 @@ pub(all) struct InstalledVerification {
   version : String
   issues : Array[String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn InstalledVerification::equal(Self, Self) -> Bool
+pub fn InstalledVerification::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn InstalledVerification::not_equal(Self, Self) -> Bool
+pub fn InstalledVerification::to_json(Self) -> Json
+pub fn InstalledVerification::to_repr(Self) -> @debug.Repr
 
 pub(all) struct SourceInspection {
   manifest : @pack.MoonPackManifest
   plan : InstallPlan
   issues : Array[String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn SourceInspection::equal(Self, Self) -> Bool
+pub fn SourceInspection::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn SourceInspection::not_equal(Self, Self) -> Bool
+pub fn SourceInspection::to_json(Self) -> Json
+pub fn SourceInspection::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

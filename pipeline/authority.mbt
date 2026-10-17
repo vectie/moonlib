@@ -91,3 +91,27 @@ pub fn AuthorityGrant::quality_issues(self : AuthorityGrant) -> Array[String] {
   }
   issues
 }
+
+///|
+pub extend AuthorityClass with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AuthorityClass with Eq::{not_equal, equal}
+
+///|
+pub extend AuthorityClass with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend AuthorityClass with Hash::{hash, hash_combine}
+
+///|
+pub extend AuthorityClass with ToJson::{to_json}
+
+///|
+pub extend AuthorityGrant with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AuthorityGrant with Eq::{not_equal, equal}
+
+///|
+pub extend AuthorityGrant with ToJson::{to_json}

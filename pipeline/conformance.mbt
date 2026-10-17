@@ -400,3 +400,65 @@ pub fn validate_constitutional_conformance(
     checked_at,
   }
 }
+
+///|
+pub extend ClaimClass with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ClaimClass with Eq::{not_equal, equal}
+
+///|
+pub extend ClaimClass with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend ClaimClass with Hash::{hash, hash_combine}
+
+///|
+pub extend ClaimClass with ToJson::{to_json}
+
+///|
+pub extend ProductBoundary with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ProductBoundary with Eq::{not_equal, equal}
+
+///|
+pub extend ProductBoundary with ToJson::{to_json}
+
+///|
+pub extend CriterionOwnership with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend CriterionOwnership with Eq::{not_equal, equal}
+
+///|
+pub extend CriterionOwnership with ToJson::{to_json}
+
+///|
+pub extend ConformanceSubject with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ConformanceSubject with Eq::{not_equal, equal}
+
+///|
+pub extend ConformanceSubject with ToJson::{to_json}
+
+///|
+pub extend ConformanceFinding with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ConformanceFinding with Eq::{not_equal, equal}
+
+///|
+pub extend ConformanceFinding with ToJson::{to_json}
+
+///|
+pub extend ConstitutionConformanceReport with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend ConstitutionConformanceReport with Eq::{not_equal, equal}
+
+///|
+pub extend ConstitutionConformanceReport with ToJson::{to_json}

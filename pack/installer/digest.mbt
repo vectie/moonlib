@@ -10,7 +10,7 @@ fn hex_digit(value : Int32) -> Char {
 ///|
 fn sha256_hex(bytes : Bytes) -> String {
   let digest = @crypto.sha256(bytes)
-  let builder = StringBuilder::new()
+  let builder = StringBuilder()
   for i in 0..<digest.length() {
     let value = digest[i].to_int()
     builder.write_char(hex_digit(value / 16))

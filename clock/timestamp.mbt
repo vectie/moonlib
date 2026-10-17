@@ -5,7 +5,7 @@ struct Timestamp(Int64) derive(Eq)
 
 ///|
 pub impl Show for Timestamp with fn output(self : Timestamp, logger : &Logger) -> Unit {
-  self.0.output(logger)
+  Show::output(self.0, logger)
 }
 
 ///|
@@ -101,3 +101,15 @@ pub impl @json.FromJson for Timestamp with fn from_json(
       )
   }
 }
+
+///|
+pub extend Timestamp with Eq::{not_equal, equal}
+
+///|
+pub extend Timestamp with Show::{to_string, output}
+
+///|
+pub extend Timestamp with ToJson::{to_json}
+
+///|
+pub extend Timestamp with @moonbitlang/core/json.FromJson::{from_json}

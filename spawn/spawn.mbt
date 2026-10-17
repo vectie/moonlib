@@ -31,7 +31,7 @@ pub impl Show for Failed with fn output(self : Failed, logger : &Logger) -> Unit
     logger.write_string(arg.escape())
   }
   logger.write_string(" failed with status ")
-  self.status.output(logger)
+  Show::output(self.status, logger)
   logger.write_string(".\n")
   if !self.stdout.is_blank() {
     logger.write_string("Standard Output:\n")
@@ -164,3 +164,12 @@ pub fn kill(pid : Int32, sig : Int32) -> Unit raise @errno.Errno {
     raise Errno(status)
   }
 }
+
+///|
+pub extend CompletedProcess with ToJson::{to_json}
+
+///|
+pub extend Failed with ToJson::{to_json}
+
+///|
+pub extend Failed with Show::{to_string, output}

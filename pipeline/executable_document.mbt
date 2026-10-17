@@ -94,3 +94,27 @@ pub fn compile_work_graph(
   })
   { graph_id, book_id, declaration_revision, items, recorded_at, }
 }
+
+///|
+pub extend DeclarationKind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend DeclarationKind with Eq::{not_equal, equal}
+
+///|
+pub extend DeclarationKind with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend DeclarationKind with Hash::{hash, hash_combine}
+
+///|
+pub extend DeclarationKind with ToJson::{to_json}
+
+///|
+pub extend ExecutableDeclaration with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ExecutableDeclaration with Eq::{not_equal, equal}
+
+///|
+pub extend ExecutableDeclaration with ToJson::{to_json}

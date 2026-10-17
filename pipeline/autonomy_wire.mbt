@@ -67,7 +67,7 @@ fn autonomy_wire_strings(
 
 ///|
 fn autonomy_wire_string_array(values : Array[String]) -> Json {
-  values.to_json()
+  ToJson::to_json(values)
 }
 
 ///|

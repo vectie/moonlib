@@ -1,5 +1,5 @@
 ///|
-fn moonrobo_boundary() -> ProductBoundary {
+fn moonrobo_boundary() -> @pipeline.ProductBoundary {
   {
     product_id: "moonrobo",
     owner: "robot identity, digital build, and safety validation",
@@ -13,7 +13,7 @@ fn moonrobo_boundary() -> ProductBoundary {
 }
 
 ///|
-fn qualified_subject() -> ConformanceSubject {
+fn qualified_subject() -> @pipeline.ConformanceSubject {
   {
     subject_id: "work-build-rover",
     product_id: "moonrobo",
@@ -42,7 +42,7 @@ fn qualified_subject() -> ConformanceSubject {
 
 ///|
 test "qualified product-owned digital work passes constitutional conformance" {
-  let report = validate_constitutional_conformance(
+  let report = @pipeline.validate_constitutional_conformance(
     [moonrobo_boundary()],
     qualified_subject(),
     "report-build-rover",
@@ -70,7 +70,7 @@ test "conformance rejects downstream criteria physical overclaim and hidden acce
     acceptance_review_ref: "",
     artifact_paths: ["../outside/result.json"],
   }
-  let report = validate_constitutional_conformance(
+  let report = @pipeline.validate_constitutional_conformance(
     [moonrobo_boundary()],
     subject,
     "report-overclaim",
@@ -97,7 +97,7 @@ test "simulation evidence cannot grant physical-effect authority" {
     accepted: false,
     acceptance_review_ref: "",
   }
-  let report = validate_constitutional_conformance(
+  let report = @pipeline.validate_constitutional_conformance(
     [moonrobo_boundary()],
     subject,
     "report-physical-authority",

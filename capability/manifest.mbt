@@ -152,3 +152,49 @@ pub fn encode_pack_manifest_projection_v1(
   )
   projection.to_json()
 }
+
+///|
+pub extend PackSchemaProjectionV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PackSchemaProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend PackSchemaProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend PackSchemaProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend PackOperationProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend PackOperationProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend PackOperationProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend PackOperationProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend PackManifestProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend PackManifestProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend PackManifestProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend PackManifestProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}

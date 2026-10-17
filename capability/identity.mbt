@@ -224,3 +224,15 @@ pub fn schema_ref_is_canonical(value : String) -> Bool {
     _ => false
   }
 }
+
+///|
+pub extend OperationRef with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend OperationRef with Eq::{not_equal, equal}
+
+///|
+pub extend SchemaRef with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend SchemaRef with Eq::{not_equal, equal}

@@ -252,3 +252,45 @@ pub fn encode_adapter_reconcile_receipt_v1(
   )
   receipt.to_json()
 }
+
+///|
+pub extend AdapterRequestWireV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AdapterRequestWireV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterRequestWireV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterRequestWireV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend AdapterResultV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AdapterResultV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterResultV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterResultV1 with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend AdapterReconcileReceiptV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend AdapterReconcileReceiptV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterReconcileReceiptV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterReconcileReceiptV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}

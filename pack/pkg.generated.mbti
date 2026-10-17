@@ -37,11 +37,21 @@ pub(all) struct AppEntrypoint {
   path : String
   audience : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn AppEntrypoint::equal(Self, Self) -> Bool
+pub fn AppEntrypoint::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AppEntrypoint::not_equal(Self, Self) -> Bool
+pub fn AppEntrypoint::to_json(Self) -> Json
+pub fn AppEntrypoint::to_repr(Self) -> @debug.Repr
 
 pub(all) struct AppRuntimeIdentity {
   contract : String
   path : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn AppRuntimeIdentity::equal(Self, Self) -> Bool
+pub fn AppRuntimeIdentity::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AppRuntimeIdentity::not_equal(Self, Self) -> Bool
+pub fn AppRuntimeIdentity::to_json(Self) -> Json
+pub fn AppRuntimeIdentity::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AuthorityClass {
   Observe
@@ -51,12 +61,22 @@ pub(all) enum AuthorityClass {
   ExternalEffect
   PhysicalEffect
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn AuthorityClass::equal(Self, Self) -> Bool
+pub fn AuthorityClass::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn AuthorityClass::not_equal(Self, Self) -> Bool
+pub fn AuthorityClass::to_json(Self) -> Json
+pub fn AuthorityClass::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ContractRef {
   id : String
   version : String
   path : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ContractRef::equal(Self, Self) -> Bool
+pub fn ContractRef::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ContractRef::not_equal(Self, Self) -> Bool
+pub fn ContractRef::to_json(Self) -> Json
+pub fn ContractRef::to_repr(Self) -> @debug.Repr
 
 pub(all) struct MoonPackManifest {
   id : String
@@ -79,12 +99,22 @@ pub(all) struct MoonPackManifest {
   evaluations : Array[ContractRef]
   uninstall_contract : ContractRef?
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn MoonPackManifest::equal(Self, Self) -> Bool
+pub fn MoonPackManifest::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn MoonPackManifest::not_equal(Self, Self) -> Bool
+pub fn MoonPackManifest::to_json(Self) -> Json
+pub fn MoonPackManifest::to_repr(Self) -> @debug.Repr
 
 pub(all) enum PackKind {
   DomainPack
   RuntimeExtension
   AppToolBundle
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn PackKind::equal(Self, Self) -> Bool
+pub fn PackKind::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn PackKind::not_equal(Self, Self) -> Bool
+pub fn PackKind::to_json(Self) -> Json
+pub fn PackKind::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ScheduleDeclaration {
   id : String
@@ -92,6 +122,11 @@ pub(all) struct ScheduleDeclaration {
   timezone : String
   workflow_id : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ScheduleDeclaration::equal(Self, Self) -> Bool
+pub fn ScheduleDeclaration::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ScheduleDeclaration::not_equal(Self, Self) -> Bool
+pub fn ScheduleDeclaration::to_json(Self) -> Json
+pub fn ScheduleDeclaration::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ToolDeclaration {
   id : String
@@ -103,16 +138,31 @@ pub(all) struct ToolDeclaration {
   evidence_outputs : Array[String]
   review_required : Bool
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ToolDeclaration::equal(Self, Self) -> Bool
+pub fn ToolDeclaration::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ToolDeclaration::not_equal(Self, Self) -> Bool
+pub fn ToolDeclaration::to_json(Self) -> Json
+pub fn ToolDeclaration::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ValidationIssue {
   path : String
   message : String
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ValidationIssue::equal(Self, Self) -> Bool
+pub fn ValidationIssue::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ValidationIssue::not_equal(Self, Self) -> Bool
+pub fn ValidationIssue::to_json(Self) -> Json
+pub fn ValidationIssue::to_repr(Self) -> @debug.Repr
 
 pub(all) struct ValidationReport {
   ok : Bool
   issues : Array[ValidationIssue]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ValidationReport::equal(Self, Self) -> Bool
+pub fn ValidationReport::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn ValidationReport::not_equal(Self, Self) -> Bool
+pub fn ValidationReport::to_json(Self) -> Json
+pub fn ValidationReport::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

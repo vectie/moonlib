@@ -30,6 +30,11 @@ pub(all) struct HostActivationProjection {
   provider_ports : Array[@pack.ContractRef]
   policies : Array[@pack.ContractRef]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn HostActivationProjection::equal(Self, Self) -> Bool
+pub fn HostActivationProjection::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HostActivationProjection::not_equal(Self, Self) -> Bool
+pub fn HostActivationProjection::to_json(Self) -> Json
+pub fn HostActivationProjection::to_repr(Self) -> @debug.Repr
 
 pub(all) struct HostDeactivationProjection {
   contract : String
@@ -39,6 +44,11 @@ pub(all) struct HostDeactivationProjection {
   app_entrypoint_ids : Array[String]
   preserve_namespaces : Array[String]
 } derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn HostDeactivationProjection::equal(Self, Self) -> Bool
+pub fn HostDeactivationProjection::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HostDeactivationProjection::not_equal(Self, Self) -> Bool
+pub fn HostDeactivationProjection::to_json(Self) -> Json
+pub fn HostDeactivationProjection::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

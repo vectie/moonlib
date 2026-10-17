@@ -1,5 +1,5 @@
 ///|
-fn unattended_envelope() -> AutonomyEnvelope {
+fn unattended_envelope() -> @pipeline.AutonomyEnvelope {
   {
     contract_id: "moongate.autonomy-envelope.v1",
     envelope_id: "envelope-clean-run",
@@ -33,7 +33,7 @@ fn unattended_envelope() -> AutonomyEnvelope {
 }
 
 ///|
-fn unattended_event() -> AutonomyEventRequest {
+fn unattended_event() -> @pipeline.AutonomyEventRequest {
   {
     contract_id: "moongate.autonomy-event-request.v1",
     event_id: "event-dispatch-1",
@@ -57,7 +57,7 @@ fn unattended_event() -> AutonomyEventRequest {
 
 ///|
 test "unattended envelope authorizes only scoped digital work" {
-  let decision = authorize_autonomy_event(
+  let decision = @pipeline.authorize_autonomy_event(
     unattended_envelope(),
     unattended_event(),
     {
@@ -77,11 +77,13 @@ test "unattended envelope authorizes only scoped digital work" {
 ///|
 test "autonomy wire round trips canonical authority and claim ids" {
   let envelope = unattended_envelope()
-  let decoded = decode_autonomy_envelope(autonomy_envelope_json(envelope))
+  let decoded = @pipeline.decode_autonomy_envelope(
+    @pipeline.autonomy_envelope_json(envelope),
+  )
   assert_true(decoded == envelope)
   let event = unattended_event()
-  let decoded_event = decode_autonomy_event_request(
-    autonomy_event_request_json(event),
+  let decoded_event = @pipeline.decode_autonomy_event_request(
+    @pipeline.autonomy_event_request_json(event),
   )
   assert_true(decoded_event == event)
 }
@@ -102,7 +104,7 @@ test "unattended envelope fails closed on authority claim path and budget" {
       concurrency: 1,
     },
   }
-  let decision = authorize_autonomy_event(
+  let decision = @pipeline.authorize_autonomy_event(
     unattended_envelope(),
     event,
     {
@@ -134,14 +136,14 @@ test "unattended envelope fails closed on authority claim path and budget" {
 ///|
 test "revoked and expired unattended envelopes fail closed" {
   let event = unattended_event()
-  let usage : AutonomyBudgetUsage = {
+  let usage : @pipeline.AutonomyBudgetUsage = {
     model_tokens: 0,
     tool_calls: 0,
     storage_bytes: 0,
     attempts: 0,
     concurrency: 0,
   }
-  let revoked = authorize_autonomy_event(
+  let revoked = @pipeline.authorize_autonomy_event(
     { ..unattended_envelope(), revoked: true, },
     event,
     usage,
@@ -150,7 +152,7 @@ test "revoked and expired unattended envelopes fail closed" {
   )
   assert_false(revoked.accepted)
   assert_true(revoked.findings.contains("autonomy envelope is revoked"))
-  let expired = authorize_autonomy_event(
+  let expired = @pipeline.authorize_autonomy_event(
     unattended_envelope(),
     event,
     usage,
@@ -163,7 +165,7 @@ test "revoked and expired unattended envelopes fail closed" {
 
 ///|
 test "intervention scorecard separates constitutional observation and hidden work" {
-  let clean = intervention_scorecard(
+  let clean = @pipeline.intervention_scorecard(
     "run-clean",
     [
       {
@@ -188,7 +190,7 @@ test "intervention scorecard separates constitutional observation and hidden wor
     "2026-07-12T04:03:00Z",
   )
   assert_true(clean.unattended_qualified)
-  let hidden = intervention_scorecard(
+  let hidden = @pipeline.intervention_scorecard(
     "run-hidden",
     [
       {

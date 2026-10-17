@@ -87,3 +87,21 @@ fn[T : @json.FromJson] decode_wire(
       ])
   }
 }
+
+///|
+pub extend ContractIssueV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ContractIssueV1 with Eq::{not_equal, equal}
+
+///|
+pub extend ContractIssueV1 with ToJson::{to_json}
+
+///|
+pub extend ContractIssueV1 with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend CapabilityContractError with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend CapabilityContractError with Eq::{not_equal, equal}

@@ -7,7 +7,7 @@ fn handover_test_digest(fill : String) -> String {
 test "shared collaboration references round-trip canonically" {
   let principal = @capability.principal_ref_v1(
     "agent-one",
-    @capability.Agent,
+    Agent,
     "local",
     "agent-one",
   )
@@ -34,7 +34,7 @@ test "shared collaboration references round-trip canonically" {
 test "handover bundles are deterministic and exclude secret artifacts" {
   let principal = @capability.principal_ref_v1(
     "agent-source",
-    @capability.Agent,
+    Agent,
     "local",
     "agent-source",
   )
@@ -49,7 +49,7 @@ test "handover bundles are deterministic and exclude secret artifacts" {
     handover_test_digest("c"),
     contract,
     "application/json",
-    @capability.Internal,
+    Internal,
     handover_test_digest("d"),
   )
   let first = @capability.handover_bundle_v1(
@@ -70,7 +70,7 @@ test "handover bundles are deterministic and exclude secret artifacts" {
         handover_test_digest("e"),
         contract,
         "application/json",
-        @capability.Secret,
+        Secret,
         handover_test_digest("f"),
       ),
     )

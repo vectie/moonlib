@@ -43,7 +43,7 @@ pub impl Show for Errno with fn output(self : Errno, logger : &Logger) -> Unit {
 
 ///|
 pub impl ToJson for Errno with fn to_json(self : Errno) -> Json {
-  self.to_string().to_json()
+  ToJson::to_json(self.to_string())
 }
 
 ///|
@@ -89,3 +89,9 @@ extern "c" fn errno_EACCES() -> Int32 = "moonbit_moonlib_errno_EACCES"
 
 ///|
 pub let eacces : Int32 = errno_EACCES()
+
+///|
+pub extend Errno with Show::{to_string, output}
+
+///|
+pub extend Errno with ToJson::{to_json}

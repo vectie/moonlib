@@ -114,7 +114,7 @@ fn shared_hex_digit(value : Int32) -> Char {
 ///|
 pub fn sha256_digest_ref_v1(bytes : Bytes) -> DigestRefV1 {
   let digest = @crypto.sha256(bytes)
-  let builder = StringBuilder::new()
+  let builder = StringBuilder()
   builder.write_string("sha256:")
   for byte in digest {
     let value = byte.to_int()
@@ -725,3 +725,84 @@ pub fn decode_authority_decision_ref_v1(
     wire.expires_at,
   )
 }
+
+///|
+pub extend PrincipalKindV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PrincipalKindV1 with Eq::{not_equal, equal}
+
+///|
+pub extend PrincipalRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PrincipalRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend DigestRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend DigestRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend DigestRefV1 with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend DigestRefV1 with Hash::{hash, hash_combine}
+
+///|
+pub extend ContractRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ContractRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend WorkspaceRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend WorkspaceRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend CorrelationRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend CorrelationRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend DelegationRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend DelegationRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AuthorityDecisionRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AuthorityDecisionRefV1 with Eq::{not_equal, equal}
+
+///|
+extend PrincipalRefWireV1 with ToJson::{to_json}
+
+///|
+extend ContractRefWireV1 with ToJson::{to_json}
+
+///|
+extend WorkspaceRefWireV1 with ToJson::{to_json}
+
+///|
+extend CorrelationRefWireV1 with ToJson::{to_json}
+
+///|
+extend DigestRefWireV1 with ToJson::{to_json}
+
+///|
+extend SchemaRefWireV1 with ToJson::{to_json}
+
+///|
+extend OperationRefWireV1 with ToJson::{to_json}
+
+///|
+extend DelegationRefWireV1 with ToJson::{to_json}
+
+///|
+extend AuthorityDecisionRefWireV1 with ToJson::{to_json}

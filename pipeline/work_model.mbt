@@ -194,3 +194,45 @@ pub fn WorkGraph::runnable_item_ids(self : WorkGraph) -> Array[String] {
   }
   runnable
 }
+
+///|
+pub extend WorkStatus with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend WorkStatus with Eq::{not_equal, equal}
+
+///|
+pub extend WorkStatus with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend WorkStatus with Hash::{hash, hash_combine}
+
+///|
+pub extend WorkStatus with ToJson::{to_json}
+
+///|
+pub extend ArtifactRef with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ArtifactRef with Eq::{not_equal, equal}
+
+///|
+pub extend ArtifactRef with ToJson::{to_json}
+
+///|
+pub extend WorkItem with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend WorkItem with Eq::{not_equal, equal}
+
+///|
+pub extend WorkItem with ToJson::{to_json}
+
+///|
+pub extend WorkGraph with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend WorkGraph with Eq::{not_equal, equal}
+
+///|
+pub extend WorkGraph with ToJson::{to_json}

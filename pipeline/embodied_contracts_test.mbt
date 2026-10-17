@@ -5,32 +5,37 @@ fn digest(char : String) -> String {
 
 ///|
 test "disclosure changes presentation but has stable portable ids" {
-  assert_eq(DisclosureLevel::User.id(), "user")
-  assert_true(disclosure_level_from_id("operator") == Operator)
-  assert_true(disclosure_level_from_id("developer") == Developer)
+  assert_eq(@pipeline.DisclosureLevel::User.id(), "user")
+  assert_true(@pipeline.disclosure_level_from_id("operator") == Operator)
+  assert_true(@pipeline.disclosure_level_from_id("developer") == Developer)
 }
 
 ///|
 test "browser operations map to constitutional authority" {
-  assert_true(BrowserOperation::RenderLocal.required_authority() == Observe)
   assert_true(
-    BrowserOperation::InteractLocal.required_authority() == SandboxExecution,
+    @pipeline.BrowserOperation::RenderLocal.required_authority() == Observe,
   )
   assert_true(
-    BrowserOperation::SaveWorkspace.required_authority() == WorkspaceMutation,
+    @pipeline.BrowserOperation::InteractLocal.required_authority() ==
+    SandboxExecution,
   )
   assert_true(
-    BrowserOperation::SubmitExternal.required_authority() == ExternalEffect,
+    @pipeline.BrowserOperation::SaveWorkspace.required_authority() ==
+    WorkspaceMutation,
   )
   assert_true(
-    BrowserOperation::ControlPhysicalDevice.required_authority() ==
+    @pipeline.BrowserOperation::SubmitExternal.required_authority() ==
+    ExternalEffect,
+  )
+  assert_true(
+    @pipeline.BrowserOperation::ControlPhysicalDevice.required_authority() ==
     PhysicalEffect,
   )
 }
 
 ///|
 test "opaque-local browser scope rejects ambient network and path escape" {
-  let scope : BrowserSessionScope = {
+  let scope : @pipeline.BrowserSessionScope = {
     contract_id: "moonsuite.browser-session.v1",
     session_id: "session-1",
     book_id: "book-1",
@@ -61,7 +66,7 @@ test "opaque-local browser scope rejects ambient network and path escape" {
 
 ///|
 test "isolated loopback scope accepts only explicit loopback origins" {
-  let valid : BrowserSessionScope = {
+  let valid : @pipeline.BrowserSessionScope = {
     contract_id: "moonsuite.browser-session.v1",
     session_id: "session-loopback",
     book_id: "book-1",
@@ -91,7 +96,7 @@ test "isolated loopback scope accepts only explicit loopback origins" {
 
 ///|
 test "external and physical browser actions require authority receipts" {
-  let receipt : BrowserActionReceipt = {
+  let receipt : @pipeline.BrowserActionReceipt = {
     contract_id: "moonsuite.browser-action-receipt.v1",
     receipt_id: "receipt-1",
     session_id: "session-1",
@@ -120,23 +125,28 @@ test "external and physical browser actions require authority receipts" {
 ///|
 test "styled representations cannot enter engineering or manufacturing lanes" {
   assert_true(
-    representation_transition_issues(VisualStyledModel, EngineeringModel).contains(
-      "styled geometry cannot become an engineering input",
-    ),
+    @pipeline.representation_transition_issues(
+      VisualStyledModel,
+      EngineeringModel,
+    ).contains("styled geometry cannot become an engineering input"),
   )
   assert_true(
-    representation_transition_issues(VisualStyledModel, ManufacturingCandidate).contains(
-      "manufacturing candidates must descend from engineering models",
-    ),
+    @pipeline.representation_transition_issues(
+      VisualStyledModel,
+      ManufacturingCandidate,
+    ).contains("manufacturing candidates must descend from engineering models"),
   )
   assert_true(
-    representation_transition_issues(EngineeringModel, ManufacturingCandidate).is_empty(),
+    @pipeline.representation_transition_issues(
+      EngineeringModel,
+      ManufacturingCandidate,
+    ).is_empty(),
   )
 }
 
 ///|
 test "visual artifact rejects engineering consumers and physical claims" {
-  let manifest : SpatialArtifactManifest = {
+  let manifest : @pipeline.SpatialArtifactManifest = {
     contract_id: "moonmold.spatial-artifact.v1",
     artifact_id: "building-visual-r1",
     project_id: "building-1",
@@ -176,7 +186,7 @@ test "visual artifact rejects engineering consumers and physical claims" {
 
 ///|
 test "simulation model remains an input artifact until MoonMoon executes it" {
-  let manifest : SpatialArtifactManifest = {
+  let manifest : @pipeline.SpatialArtifactManifest = {
     contract_id: "moonmold.spatial-artifact.v1",
     artifact_id: "building-simulation-r1",
     project_id: "building-1",
@@ -212,7 +222,7 @@ test "simulation model remains an input artifact until MoonMoon executes it" {
 
 ///|
 test "accepted engineering transform has immutable lineage fields" {
-  let transform : RepresentationTransform = {
+  let transform : @pipeline.RepresentationTransform = {
     contract_id: "moonmold.representation-transform.v1",
     transform_id: "transform-engineering-to-manufacturing-r1",
     parent_artifact_id: "building-engineering-r1",
@@ -236,7 +246,7 @@ test "accepted engineering transform has immutable lineage fields" {
 
 ///|
 test "styled and simulation lineage cannot silently change representation lanes" {
-  let invalid : RepresentationTransform = {
+  let invalid : @pipeline.RepresentationTransform = {
     contract_id: "moonmold.representation-transform.v1",
     transform_id: "transform-invalid-style-to-simulation",
     parent_artifact_id: "building-style-r1",

@@ -101,3 +101,19 @@ pub fn wire_timestamp_is_canonical(value : String) -> Bool {
     char == 'Z'
   })
 }
+
+///|
+pub extend ContentAddressedEvidenceRefV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend ContentAddressedEvidenceRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend ContentAddressedEvidenceRefV1 with ToJson::{to_json}
+
+///|
+pub extend ContentAddressedEvidenceRefV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}

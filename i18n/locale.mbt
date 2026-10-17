@@ -91,3 +91,21 @@ pub fn fallback_locales(locale : Locale) -> Array[Locale] {
     ZhHans => [ZhHans, EnUs]
   }
 }
+
+///|
+pub extend Locale with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend Locale with Eq::{not_equal, equal}
+
+///|
+pub extend Locale with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend Locale with Hash::{hash, hash_combine}
+
+///|
+pub extend LocalePreference with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend LocalePreference with Eq::{not_equal, equal}

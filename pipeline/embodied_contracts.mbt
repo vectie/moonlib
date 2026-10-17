@@ -567,3 +567,126 @@ pub fn RepresentationTransform::quality_issues(
   }
   issues
 }
+
+///|
+pub extend DisclosureLevel with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend DisclosureLevel with Eq::{not_equal, equal}
+
+///|
+pub extend DisclosureLevel with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend DisclosureLevel with Hash::{hash, hash_combine}
+
+///|
+pub extend DisclosureLevel with ToJson::{to_json}
+
+///|
+pub extend BrowserOperation with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BrowserOperation with Eq::{not_equal, equal}
+
+///|
+pub extend BrowserOperation with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend BrowserOperation with Hash::{hash, hash_combine}
+
+///|
+pub extend BrowserOperation with ToJson::{to_json}
+
+///|
+pub extend BrowserActor with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BrowserActor with Eq::{not_equal, equal}
+
+///|
+pub extend BrowserActor with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend BrowserActor with Hash::{hash, hash_combine}
+
+///|
+pub extend BrowserActor with ToJson::{to_json}
+
+///|
+pub extend BrowserSessionScope with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BrowserSessionScope with Eq::{not_equal, equal}
+
+///|
+pub extend BrowserSessionScope with ToJson::{to_json}
+
+///|
+pub extend BrowserActionReceipt with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BrowserActionReceipt with Eq::{not_equal, equal}
+
+///|
+pub extend BrowserActionReceipt with ToJson::{to_json}
+
+///|
+pub extend RepresentationClass with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend RepresentationClass with Eq::{not_equal, equal}
+
+///|
+pub extend RepresentationClass with Compare::{
+  op_lt,
+  op_le,
+  op_ge,
+  compare,
+  op_gt,
+}
+
+///|
+pub extend RepresentationClass with Hash::{hash, hash_combine}
+
+///|
+pub extend RepresentationClass with ToJson::{to_json}
+
+///|
+pub extend SpatialLineageRelation with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend SpatialLineageRelation with Eq::{not_equal, equal}
+
+///|
+pub extend SpatialLineageRelation with Compare::{
+  op_lt,
+  op_le,
+  op_ge,
+  compare,
+  op_gt,
+}
+
+///|
+pub extend SpatialLineageRelation with Hash::{hash, hash_combine}
+
+///|
+pub extend SpatialLineageRelation with ToJson::{to_json}
+
+///|
+pub extend SpatialArtifactManifest with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend SpatialArtifactManifest with Eq::{not_equal, equal}
+
+///|
+pub extend SpatialArtifactManifest with ToJson::{to_json}
+
+///|
+pub extend RepresentationTransform with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend RepresentationTransform with Eq::{not_equal, equal}
+
+///|
+pub extend RepresentationTransform with ToJson::{to_json}

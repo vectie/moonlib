@@ -1542,3 +1542,101 @@ pub fn decode_handover_control_envelope_v1(
   }
   envelope
 }
+
+///|
+pub extend ExportClassificationV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ExportClassificationV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverBundleEntryV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend HandoverBundleEntryV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverBundleV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend HandoverBundleV1 with Eq::{not_equal, equal}
+
+///|
+pub extend QuarantineStatusV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend QuarantineStatusV1 with Eq::{not_equal, equal}
+
+///|
+pub extend QuarantineMetadataV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend QuarantineMetadataV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverBudgetCeilingsV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HandoverBudgetCeilingsV1 with Eq::{not_equal, equal}
+
+///|
+pub extend PreviousHandoverRefV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PreviousHandoverRefV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverContinuationContextV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HandoverContinuationContextV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverSignatureMetadataV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HandoverSignatureMetadataV1 with Eq::{not_equal, equal}
+
+///|
+pub extend HandoverControlEnvelopeV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HandoverControlEnvelopeV1 with Eq::{not_equal, equal}
+
+///|
+extend HandoverBundlePayloadWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverBundleWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverBundleEntryWireV1 with ToJson::{to_json}
+
+///|
+extend QuarantineMetadataWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverBudgetCeilingsWireV1 with ToJson::{to_json}
+
+///|
+extend PreviousHandoverWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverContinuationContextWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverSignatureMetadataWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverControlPayloadWireV1 with ToJson::{to_json}
+
+///|
+extend HandoverControlWireV1 with ToJson::{to_json}

@@ -4,6 +4,12 @@ pub(all) struct PackRegistry {
 } derive(Debug, Eq)
 
 ///|
+pub extend PackRegistry with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PackRegistry with Eq::{not_equal, equal}
+
+///|
 pub fn empty() -> PackRegistry {
   { manifests: [], }
 }

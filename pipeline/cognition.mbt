@@ -191,3 +191,54 @@ pub fn BookkeeperReflection::quality_issues(
   }
   issues
 }
+
+///|
+pub extend CognitionGapKind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend CognitionGapKind with Eq::{not_equal, equal}
+
+///|
+pub extend CognitionGapKind with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend CognitionGapKind with Hash::{hash, hash_combine}
+
+///|
+pub extend CognitionGapKind with ToJson::{to_json}
+
+///|
+pub extend KnowledgeGap with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend KnowledgeGap with Eq::{not_equal, equal}
+
+///|
+pub extend KnowledgeGap with ToJson::{to_json}
+
+///|
+pub extend BeliefUpdate with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BeliefUpdate with Eq::{not_equal, equal}
+
+///|
+pub extend BeliefUpdate with ToJson::{to_json}
+
+///|
+pub extend LearnedProcedure with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend LearnedProcedure with Eq::{not_equal, equal}
+
+///|
+pub extend LearnedProcedure with ToJson::{to_json}
+
+///|
+pub extend BookkeeperReflection with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend BookkeeperReflection with Eq::{not_equal, equal}
+
+///|
+pub extend BookkeeperReflection with ToJson::{to_json}

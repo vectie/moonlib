@@ -37,3 +37,15 @@ pub fn LanguagePreferences::resolve_interface_locale(
 ) -> Locale {
   resolve_locale(self.interface_preference(product_id), detected_locale)
 }
+
+///|
+pub extend LanguagePreferences with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend LanguagePreferences with Eq::{not_equal, equal}
+
+///|
+pub extend LanguagePreferences with ToJson::{to_json}
+
+///|
+pub extend LanguagePreferences with @moonbitlang/core/json.FromJson::{from_json}

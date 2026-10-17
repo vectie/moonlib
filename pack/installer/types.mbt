@@ -63,3 +63,101 @@ pub(all) struct SourceInspection {
   plan : InstallPlan
   issues : Array[String]
 } derive(Debug, Eq, ToJson, FromJson)
+
+///|
+pub extend InstallState with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InstallState with Eq::{not_equal, equal}
+
+///|
+pub extend InstallState with ToJson::{to_json}
+
+///|
+pub extend InstallState with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend InstallPlan with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InstallPlan with Eq::{not_equal, equal}
+
+///|
+pub extend InstallPlan with ToJson::{to_json}
+
+///|
+pub extend InstallPlan with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend HostProfile with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend HostProfile with Eq::{not_equal, equal}
+
+///|
+pub extend HostProfile with ToJson::{to_json}
+
+///|
+pub extend HostProfile with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ArtifactReceipt with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ArtifactReceipt with Eq::{not_equal, equal}
+
+///|
+pub extend ArtifactReceipt with ToJson::{to_json}
+
+///|
+pub extend ArtifactReceipt with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend InstallationReceipt with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InstallationReceipt with Eq::{not_equal, equal}
+
+///|
+pub extend InstallationReceipt with ToJson::{to_json}
+
+///|
+pub extend InstallationReceipt with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ActivePackPointer with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ActivePackPointer with Eq::{not_equal, equal}
+
+///|
+pub extend ActivePackPointer with ToJson::{to_json}
+
+///|
+pub extend ActivePackPointer with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend InstalledVerification with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend InstalledVerification with Eq::{not_equal, equal}
+
+///|
+pub extend InstalledVerification with ToJson::{to_json}
+
+///|
+pub extend InstalledVerification with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend SourceInspection with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend SourceInspection with Eq::{not_equal, equal}
+
+///|
+pub extend SourceInspection with ToJson::{to_json}
+
+///|
+pub extend SourceInspection with @moonbitlang/core/json.FromJson::{from_json}

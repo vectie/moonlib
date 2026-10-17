@@ -213,3 +213,66 @@ pub(all) struct AutonomyDecision {
   remaining_budget : AutonomyBudgetBalance
   checked_at : String
 } derive(Debug, Eq, ToJson)
+
+///|
+pub extend AutonomyBudget with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyBudget with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyBudget with ToJson::{to_json}
+
+///|
+pub extend AutonomyBudgetUsage with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyBudgetUsage with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyBudgetUsage with ToJson::{to_json}
+
+///|
+pub extend AutonomyGrant with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyGrant with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyGrant with ToJson::{to_json}
+
+///|
+pub extend AutonomyEnvelope with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyEnvelope with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyEnvelope with ToJson::{to_json}
+
+///|
+pub extend AutonomyEventRequest with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyEventRequest with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyEventRequest with ToJson::{to_json}
+
+///|
+pub extend AutonomyBudgetBalance with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyBudgetBalance with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyBudgetBalance with ToJson::{to_json}
+
+///|
+pub extend AutonomyDecision with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AutonomyDecision with Eq::{not_equal, equal}
+
+///|
+pub extend AutonomyDecision with ToJson::{to_json}

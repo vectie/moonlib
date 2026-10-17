@@ -12,16 +12,26 @@ test "constitutional contract ids are unique and versioned" {
 
 ///|
 test "authority ordering is explicit and physical effects require a human" {
-  assert_true(AuthorityClass::WorkspaceMutation.allows(SandboxExecution))
-  assert_false(AuthorityClass::SandboxExecution.allows(WorkspaceMutation))
-  assert_true(AuthorityClass::ExternalEffect.requires_explicit_human())
-  assert_true(AuthorityClass::PhysicalEffect.requires_explicit_human())
-  assert_false(AuthorityClass::CognitiveMaintenance.requires_explicit_human())
+  assert_true(
+    @pipeline.AuthorityClass::WorkspaceMutation.allows(SandboxExecution),
+  )
+  assert_false(
+    @pipeline.AuthorityClass::SandboxExecution.allows(WorkspaceMutation),
+  )
+  assert_true(
+    @pipeline.AuthorityClass::ExternalEffect.requires_explicit_human(),
+  )
+  assert_true(
+    @pipeline.AuthorityClass::PhysicalEffect.requires_explicit_human(),
+  )
+  assert_false(
+    @pipeline.AuthorityClass::CognitiveMaintenance.requires_explicit_human(),
+  )
 }
 
 ///|
 test "declarations compile deterministically into dependency linked work" {
-  let research = ExecutableDeclaration::{
+  let research = @pipeline.ExecutableDeclaration::{
     declaration_id: "research-terrain",
     book_id: "selene-crater-service-rover",
     revision: "r1",
@@ -33,7 +43,7 @@ test "declarations compile deterministically into dependency linked work" {
     acceptance_criteria: ["source digest is present"],
     requested_authority: Observe,
   }
-  let experiment = ExecutableDeclaration::{
+  let experiment = @pipeline.ExecutableDeclaration::{
     declaration_id: "qualify-route",
     book_id: "selene-crater-service-rover",
     revision: "r1",
@@ -59,7 +69,7 @@ test "declarations compile deterministically into dependency linked work" {
 
 ///|
 test "work graph rejects missing dependencies and cycles" {
-  let base = WorkItem::{
+  let base = @pipeline.WorkItem::{
     work_item_id: "work-a",
     declaration_id: "a",
     product_id: "moonwiki",
@@ -71,13 +81,13 @@ test "work graph rejects missing dependencies and cycles" {
     attempt_count: 0,
     blocker: "",
   }
-  let cycle = WorkItem::{
+  let cycle = @pipeline.WorkItem::{
     ..base,
     work_item_id: "work-b",
     declaration_id: "b",
     depends_on: ["work-a"],
   }
-  let graph = WorkGraph::{
+  let graph = @pipeline.WorkGraph::{
     graph_id: "cycle",
     book_id: "book",
     declaration_revision: "r1",
@@ -91,7 +101,7 @@ test "work graph rejects missing dependencies and cycles" {
 
 ///|
 test "Bookkeeper reflection requires action for an execution gap" {
-  let gap = KnowledgeGap::{
+  let gap = @pipeline.KnowledgeGap::{
     gap_id: "gap-route-action",
     book_id: "selene-crater-service-rover",
     kind: ExecutionGap,
@@ -106,7 +116,7 @@ test "Bookkeeper reflection requires action for an execution gap" {
     status: "open",
     recorded_at: "2026-07-11T00:00:00Z",
   }
-  let reflection = BookkeeperReflection::{
+  let reflection = @pipeline.BookkeeperReflection::{
     reflection_id: "reflection-route-1",
     book_id: "selene-crater-service-rover",
     trigger: "experiment-failed",
@@ -129,7 +139,7 @@ test "Bookkeeper reflection requires action for an execution gap" {
 
 ///|
 test "learned procedures reject overfit memories without applicability" {
-  let procedure = LearnedProcedure::{
+  let procedure = @pipeline.LearnedProcedure::{
     procedure_id: "qualify-route",
     book_id: "selene-crater-service-rover",
     title: "Qualify a mission-specific route",

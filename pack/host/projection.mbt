@@ -67,3 +67,35 @@ pub fn deactivation_projection(
     ],
   }
 }
+
+///|
+pub extend HostActivationProjection with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HostActivationProjection with Eq::{not_equal, equal}
+
+///|
+pub extend HostActivationProjection with ToJson::{to_json}
+
+///|
+pub extend HostActivationProjection with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend HostDeactivationProjection with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend HostDeactivationProjection with Eq::{not_equal, equal}
+
+///|
+pub extend HostDeactivationProjection with ToJson::{to_json}
+
+///|
+pub extend HostDeactivationProjection with @moonbitlang/core/json.FromJson::{
+  from_json,
+}

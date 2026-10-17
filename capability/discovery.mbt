@@ -438,3 +438,109 @@ pub fn encode_capability_catalog_projection_v1(
   )
   catalog.to_json()
 }
+
+///|
+pub extend AdapterOperationDeclarationV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend AdapterOperationDeclarationV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterOperationDeclarationV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterOperationDeclarationV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend AdapterDeclarationV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AdapterDeclarationV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterDeclarationV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterDeclarationV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend AdapterHealthV1 with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AdapterHealthV1 with Eq::{not_equal, equal}
+
+///|
+pub extend AdapterHealthV1 with ToJson::{to_json}
+
+///|
+pub extend AdapterHealthV1 with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend CatalogProductProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend CatalogProductProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend CatalogProductProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend CatalogProductProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend CatalogOperationProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend CatalogOperationProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend CatalogOperationProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend CatalogOperationProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend CatalogIssueProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend CatalogIssueProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend CatalogIssueProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend CatalogIssueProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}
+
+///|
+pub extend CapabilityCatalogProjectionV1 with @moonbitlang/core/debug.Debug::{
+  to_repr,
+}
+
+///|
+pub extend CapabilityCatalogProjectionV1 with Eq::{not_equal, equal}
+
+///|
+pub extend CapabilityCatalogProjectionV1 with ToJson::{to_json}
+
+///|
+pub extend CapabilityCatalogProjectionV1 with @moonbitlang/core/json.FromJson::{
+  from_json,
+}

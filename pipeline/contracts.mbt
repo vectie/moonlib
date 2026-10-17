@@ -288,3 +288,18 @@ pub fn missing_required_fields(
 pub fn has_required_fields(kind : ContractKind, value : Json) -> Bool {
   missing_required_fields(kind, value).is_empty()
 }
+
+///|
+pub extend ContractKind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ContractKind with Eq::{not_equal, equal}
+
+///|
+pub extend ContractKind with Compare::{op_lt, op_le, op_ge, compare, op_gt}
+
+///|
+pub extend ContractKind with Hash::{hash, hash_combine}
+
+///|
+pub extend ContractKind with ToJson::{to_json}

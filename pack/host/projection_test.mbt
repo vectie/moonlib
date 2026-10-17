@@ -41,13 +41,13 @@ test "host projection carries generic contracts only" {
     manifest_sha256: "digest",
     installed_root: "/packs/fixture/1.0.0",
   }
-  assert_eq(activation_projection(manifest, pointer).tools.length(), 1)
+  assert_eq(@host.activation_projection(manifest, pointer).tools.length(), 1)
   assert_eq(
-    activation_projection(manifest, pointer).app_runtime_identity,
+    @host.activation_projection(manifest, pointer).app_runtime_identity,
     manifest.app_runtime_identity,
   )
   assert_true(
-    deactivation_projection(manifest).preserve_namespaces.contains(
+    @host.deactivation_projection(manifest).preserve_namespaces.contains(
       "records/fixture-product",
     ),
   )

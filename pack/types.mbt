@@ -141,3 +141,123 @@ pub fn app_entrypoint(
 ) -> AppEntrypoint {
   { id, path, audience, }
 }
+
+///|
+pub extend PackKind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend PackKind with Eq::{not_equal, equal}
+
+///|
+pub extend PackKind with ToJson::{to_json}
+
+///|
+pub extend PackKind with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend AuthorityClass with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AuthorityClass with Eq::{not_equal, equal}
+
+///|
+pub extend AuthorityClass with ToJson::{to_json}
+
+///|
+pub extend AuthorityClass with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ContractRef with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ContractRef with Eq::{not_equal, equal}
+
+///|
+pub extend ContractRef with ToJson::{to_json}
+
+///|
+pub extend ContractRef with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ToolDeclaration with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ToolDeclaration with Eq::{not_equal, equal}
+
+///|
+pub extend ToolDeclaration with ToJson::{to_json}
+
+///|
+pub extend ToolDeclaration with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ScheduleDeclaration with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ScheduleDeclaration with Eq::{not_equal, equal}
+
+///|
+pub extend ScheduleDeclaration with ToJson::{to_json}
+
+///|
+pub extend ScheduleDeclaration with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend AppEntrypoint with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AppEntrypoint with Eq::{not_equal, equal}
+
+///|
+pub extend AppEntrypoint with ToJson::{to_json}
+
+///|
+pub extend AppEntrypoint with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend AppRuntimeIdentity with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend AppRuntimeIdentity with Eq::{not_equal, equal}
+
+///|
+pub extend AppRuntimeIdentity with ToJson::{to_json}
+
+///|
+pub extend AppRuntimeIdentity with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend MoonPackManifest with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend MoonPackManifest with Eq::{not_equal, equal}
+
+///|
+pub extend MoonPackManifest with ToJson::{to_json}
+
+///|
+pub extend MoonPackManifest with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ValidationIssue with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ValidationIssue with Eq::{not_equal, equal}
+
+///|
+pub extend ValidationIssue with ToJson::{to_json}
+
+///|
+pub extend ValidationIssue with @moonbitlang/core/json.FromJson::{from_json}
+
+///|
+pub extend ValidationReport with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
+pub extend ValidationReport with Eq::{not_equal, equal}
+
+///|
+pub extend ValidationReport with ToJson::{to_json}
+
+///|
+pub extend ValidationReport with @moonbitlang/core/json.FromJson::{from_json}
