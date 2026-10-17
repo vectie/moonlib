@@ -1,6 +1,6 @@
 ///|
 #borrow(source, destination)
-extern "c" fn fsx_rename(source : Bytes, destination : Bytes) -> Int = "moonbit_moonlib_fsx_rename"
+extern "c" fn fsx_rename(source : Bytes, destination : Bytes) -> Int32 = "moonbit_moonlib_fsx_rename"
 
 ///|
 /// Atomically replace `destination` with `source` when both paths reside on the

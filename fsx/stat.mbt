@@ -6,11 +6,11 @@
 struct Stat(Bytes)
 
 ///|
-extern "c" fn fs_stat_sizeof() -> Int = "moonbit_moonlib_fs_stat_sizeof"
+extern "c" fn fs_stat_sizeof() -> Int32 = "moonbit_moonlib_fs_stat_sizeof"
 
 ///|
 #borrow(path, stat)
-extern "c" fn fs_stat_sync(path : Bytes, stat : FixedArray[Byte]) -> Int = "moonbit_moonlib_fs_stat_sync"
+extern "c" fn fs_stat_sync(path : Bytes, stat : FixedArray[Byte]) -> Int32 = "moonbit_moonlib_fs_stat_sync"
 
 ///|
 /// Retrieve file metadata for `path`.
@@ -49,12 +49,12 @@ pub fn Stat::atime(self : Stat) -> Int64 {
 
 ///|
 #borrow(stat)
-extern "c" fn fs_stat_get_mode(stat : Bytes) -> Int = "moonbit_moonlib_fs_stat_get_mode"
+extern "c" fn fs_stat_get_mode(stat : Bytes) -> Int32 = "moonbit_moonlib_fs_stat_get_mode"
 
 ///|
 /// Return ordinary owner, group, and other permission bits. Special bits are
 /// intentionally excluded when copying an artifact into a pack installation.
-pub fn Stat::mode(self : Stat) -> Int {
+pub fn Stat::mode(self : Stat) -> Int32 {
   fs_stat_get_mode(self.0)
 }
 

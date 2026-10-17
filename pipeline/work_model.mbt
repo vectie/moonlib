@@ -77,7 +77,7 @@ pub(all) struct WorkItem {
   input_artifacts : Array[ArtifactRef]
   output_artifacts : Array[ArtifactRef]
   requested_authority : AuthorityClass
-  attempt_count : Int
+  attempt_count : Int32
   blocker : String
 } derive(Debug, Eq, ToJson)
 

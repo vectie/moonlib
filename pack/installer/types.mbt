@@ -25,7 +25,7 @@ pub(all) struct HostProfile {
 pub(all) struct ArtifactReceipt {
   path : String
   sha256 : String
-  size : Int
+  size : Int32
 } derive(Debug, Eq, ToJson, FromJson)
 
 ///|

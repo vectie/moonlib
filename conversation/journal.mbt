@@ -24,7 +24,7 @@ pub fn journal_required_fields() -> Array[String] {
 ///|
 pub fn journal_record(
   session_id~ : String,
-  sequence~ : Int,
+  sequence~ : Int32,
   record_id~ : String,
   record_kind~ : String,
   command_id~ : String,
@@ -119,7 +119,7 @@ fn journal_string(json : Json, key : String) -> String {
 }
 
 ///|
-fn journal_int(json : Json, key : String) -> Int {
+fn journal_int(json : Json, key : String) -> Int32 {
   match journal_object_field(json, key) {
     Some(Number(value, ..)) => value.to_int()
     _ => 0

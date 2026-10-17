@@ -275,7 +275,7 @@ pub fn product_cache_path_for_workspace_root(
 pub fn product_accepted_output_path_for_workspace_root(
   workspace_root : String,
   product_id : String,
-  book_id? : String = "<book-id>",
+  book_id~ : String = "<book-id>",
 ) -> String {
   product_accepted_output_path(
     suite_root_for_workspace_root(workspace_root),
@@ -288,7 +288,7 @@ pub fn product_accepted_output_path_for_workspace_root(
 pub fn product_home(
   root : String,
   product_id : String,
-  book_id? : String = "<book-id>",
+  book_id~ : String = "<book-id>",
 ) -> ProductHome {
   {
     product_id,
@@ -306,7 +306,7 @@ pub fn product_home(
 pub fn product_home_for_workspace_root(
   workspace_root : String,
   product_id : String,
-  book_id? : String = "<book-id>",
+  book_id~ : String = "<book-id>",
 ) -> ProductHome {
   product_home(
     suite_root_for_workspace_root(workspace_root),

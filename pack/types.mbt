@@ -107,9 +107,9 @@ pub fn tool_declaration(
   input_schema_id : String,
   output_schema_id : String,
   authority : AuthorityClass,
-  idempotent? : Bool = true,
-  evidence_outputs? : Array[String] = [],
-  review_required? : Bool = false,
+  idempotent~ : Bool = true,
+  evidence_outputs~ : Array[String] = [],
+  review_required~ : Bool = false,
 ) -> ToolDeclaration {
   {
     id,

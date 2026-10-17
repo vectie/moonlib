@@ -52,7 +52,7 @@ pub fn claim_class_from_id(id : String) -> ClaimClass raise {
 }
 
 ///|
-fn ClaimClass::rank(self : ClaimClass) -> Int {
+fn ClaimClass::rank(self : ClaimClass) -> Int32 {
   match self {
     Observation => 0
     ResearchEvidence => 1
@@ -129,7 +129,7 @@ pub(all) struct ConformanceSubject {
   output_contracts : Array[String]
   claim : ClaimClass
   criteria : Array[CriterionOwnership]
-  negative_path_count : Int
+  negative_path_count : Int32
   execution_succeeded : Bool
   accepted : Bool
   acceptance_review_ref : String

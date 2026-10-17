@@ -34,7 +34,7 @@ pub fn authority_class_from_id(id : String) -> AuthorityClass raise {
 }
 
 ///|
-fn AuthorityClass::rank(self : AuthorityClass) -> Int {
+fn AuthorityClass::rank(self : AuthorityClass) -> Int32 {
   match self {
     Observe => 0
     CognitiveMaintenance => 1

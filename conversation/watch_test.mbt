@@ -97,7 +97,7 @@ fn watch_test_json_string(
 }
 
 ///|
-fn watch_test_json_int(json : Json, key : String, default~ : Int) -> Int {
+fn watch_test_json_int(json : Json, key : String, default~ : Int32) -> Int32 {
   match watch_test_json_object_field(json, key) {
     Some(Number(value, ..)) => value.to_int()
     _ => default

@@ -1,10 +1,10 @@
 ///|
 pub(all) struct AutonomyBudget {
-  model_tokens : Int
-  tool_calls : Int
-  storage_bytes : Int
-  attempts : Int
-  concurrency : Int
+  model_tokens : Int32
+  tool_calls : Int32
+  storage_bytes : Int32
+  attempts : Int32
+  concurrency : Int32
 } derive(Debug, Eq, ToJson)
 
 ///|
@@ -28,11 +28,11 @@ pub fn AutonomyBudget::quality_issues(self : AutonomyBudget) -> Array[String] {
 
 ///|
 pub(all) struct AutonomyBudgetUsage {
-  model_tokens : Int
-  tool_calls : Int
-  storage_bytes : Int
-  attempts : Int
-  concurrency : Int
+  model_tokens : Int32
+  tool_calls : Int32
+  storage_bytes : Int32
+  attempts : Int32
+  concurrency : Int32
 } derive(Debug, Eq, ToJson)
 
 ///|
@@ -195,11 +195,11 @@ pub(all) struct AutonomyEventRequest {
 
 ///|
 pub(all) struct AutonomyBudgetBalance {
-  model_tokens : Int
-  tool_calls : Int
-  storage_bytes : Int
-  attempts : Int
-  concurrency : Int
+  model_tokens : Int32
+  tool_calls : Int32
+  storage_bytes : Int32
+  attempts : Int32
+  concurrency : Int32
 } derive(Debug, Eq, ToJson)
 
 ///|

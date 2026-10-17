@@ -17,7 +17,7 @@ pub fn watch_required_fields() -> Array[String] {
 }
 
 ///|
-pub fn watch_retry_after_ms_value(value : Int) -> Int {
+pub fn watch_retry_after_ms_value(value : Int32) -> Int32 {
   if value <= 0 {
     0
   } else if value < 100 {
@@ -32,12 +32,12 @@ pub fn watch_retry_after_ms_value(value : Int) -> Int {
 ///|
 pub fn watch_response(
   session_id~ : String,
-  revision~ : Int,
-  next_sequence~ : Int,
+  revision~ : Int32,
+  next_sequence~ : Int32,
   changed~ : Bool,
   heartbeat~ : Bool,
   terminal~ : Bool,
-  retry_after_ms~ : Int,
+  retry_after_ms~ : Int32,
   snapshot~ : Json,
 ) -> Json {
   {
@@ -71,7 +71,7 @@ pub fn watch_contract_json() -> Json {
 }
 
 ///|
-fn non_negative_watch_cursor(value : Int) -> Int {
+fn non_negative_watch_cursor(value : Int32) -> Int32 {
   if value < 0 {
     0
   } else {

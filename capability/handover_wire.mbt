@@ -52,8 +52,8 @@ pub fn handover_bundle_entry_v1(
   media_type : String,
   classification : ExportClassificationV1,
   provenance_digest : String,
-  untrusted_document? : Bool = false,
-  executable_content? : Bool = false,
+  untrusted_document~ : Bool = false,
+  executable_content~ : Bool = false,
 ) -> HandoverBundleEntryV1 raise CapabilityContractError {
   if media_type.trim().is_empty() || media_type.length() > 256 {
     raise InvalidReference("handover media type is required")
@@ -249,7 +249,7 @@ pub fn handover_bundle_v1(
   workspace : WorkspaceRefV1,
   created_by : PrincipalRefV1,
   entries : Array[HandoverBundleEntryV1],
-  excluded_secret_refs? : Array[String] = [],
+  excluded_secret_refs~ : Array[String] = [],
   created_at~ : String,
 ) -> HandoverBundleV1 raise CapabilityContractError {
   validate_handover_bundle_inputs_v1(
@@ -393,8 +393,8 @@ pub struct QuarantineMetadataV1 {
 ///|
 pub fn quarantine_metadata_v1(
   status : QuarantineStatusV1,
-  evidence_refs? : Array[ContentAddressedEvidenceRefV1] = [],
-  reason? : String = "",
+  evidence_refs~ : Array[ContentAddressedEvidenceRefV1] = [],
+  reason~ : String = "",
 ) -> QuarantineMetadataV1 raise CapabilityContractError {
   if status == Cleared && evidence_refs.is_empty() {
     raise InvalidReference("cleared quarantine requires evidence")
@@ -474,7 +474,7 @@ pub struct HandoverBudgetCeilingsV1 {
   max_cost_micro_usd : Int64?
   max_runtime_ms : Int64?
   max_tokens : Int64?
-  max_artifacts : Int?
+  max_artifacts : Int32?
 } derive(Debug, Eq)
 
 ///|
@@ -482,7 +482,7 @@ pub fn handover_budget_ceilings_v1(
   max_cost_micro_usd? : Int64,
   max_runtime_ms? : Int64,
   max_tokens? : Int64,
-  max_artifacts? : Int,
+  max_artifacts? : Int32,
 ) -> HandoverBudgetCeilingsV1 raise CapabilityContractError {
   if max_cost_micro_usd is None &&
     max_runtime_ms is None &&
@@ -523,7 +523,7 @@ pub fn HandoverBudgetCeilingsV1::max_tokens(
 ///|
 pub fn HandoverBudgetCeilingsV1::max_artifacts(
   self : HandoverBudgetCeilingsV1,
-) -> Int? {
+) -> Int32? {
   self.max_artifacts
 }
 
@@ -532,7 +532,7 @@ priv struct HandoverBudgetCeilingsWireV1 {
   max_cost_micro_usd : Int64?
   max_runtime_ms : Int64?
   max_tokens : Int64?
-  max_artifacts : Int?
+  max_artifacts : Int32?
 } derive(ToJson, FromJson)
 
 ///|
@@ -1118,11 +1118,11 @@ pub fn handover_control_envelope_v1(
   target_input_schemas~ : Array[SchemaRef],
   target_output_schemas~ : Array[SchemaRef],
   continuation~ : HandoverContinuationContextV1,
-  open_items? : Array[String] = [],
-  blockers? : Array[String] = [],
+  open_items~ : Array[String] = [],
+  blockers~ : Array[String] = [],
   acceptance_criteria~ : Array[String],
   requested_authority~ : String,
-  review_required? : Bool = true,
+  review_required~ : Bool = true,
   return_destination~ : String,
   quarantine~ : QuarantineMetadataV1,
   signature_metadata? : HandoverSignatureMetadataV1,

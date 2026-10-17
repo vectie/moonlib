@@ -33,7 +33,7 @@ fn autonomy_wire_optional_string(
 }
 
 ///|
-fn autonomy_wire_int(fields : Map[String, Json], key : String) -> Int raise {
+fn autonomy_wire_int(fields : Map[String, Json], key : String) -> Int32 raise {
   match fields.get(key) {
     Some(Number(value, ..)) => value.to_int()
     _ => fail("autonomy contract requires integer field: \{key}")

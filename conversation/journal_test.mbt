@@ -84,7 +84,7 @@ fn journal_test_string(json : Json, key : String) -> String {
 }
 
 ///|
-fn journal_test_int(json : Json, key : String) -> Int {
+fn journal_test_int(json : Json, key : String) -> Int32 {
   match journal_test_field(json, key) {
     Some(Number(value, ..)) => value.to_int()
     _ => 0

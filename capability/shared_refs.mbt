@@ -103,7 +103,7 @@ pub fn DigestRefV1::text(self : DigestRefV1) -> String {
 }
 
 ///|
-fn shared_hex_digit(value : Int) -> Char {
+fn shared_hex_digit(value : Int32) -> Char {
   if value < 10 {
     ('0'.to_int() + value).unsafe_to_char()
   } else {

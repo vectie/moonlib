@@ -42,11 +42,11 @@ pub(all) struct InterventionRecord {
 pub(all) struct InterventionScorecard {
   contract_id : String
   run_id : String
-  constitutional_authority_count : Int
-  optional_observation_count : Int
-  required_intervention_count : Int
-  hidden_orchestration_count : Int
-  normal_path_intervention_count : Int
+  constitutional_authority_count : Int32
+  optional_observation_count : Int32
+  required_intervention_count : Int32
+  hidden_orchestration_count : Int32
+  normal_path_intervention_count : Int32
   unattended_qualified : Bool
   records : Array[InterventionRecord]
   checked_at : String

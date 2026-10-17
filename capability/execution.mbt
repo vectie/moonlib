@@ -19,7 +19,7 @@ pub(all) struct AdapterRequestWireV1 {
   required_claim : String
   input_digest : String
   input_artifacts : Array[String]
-  timeout_ms : Int
+  timeout_ms : Int32
   created_at : String
 } derive(Debug, Eq, ToJson, FromJson)
 
