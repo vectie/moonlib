@@ -49,7 +49,7 @@ pub fn dirname(path : StringView) -> StringView {
 pub fn basename(path : StringView) -> StringView {
   let trimmed = path.trim_end(chars="/")
   if trimmed.is_empty() && !path.is_empty() {
-    return if path.length() == 1 { path } else { "" }
+    return path.view(end_offset=1)
   }
   fn scan(current : StringView) -> StringView {
     match current {

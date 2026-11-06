@@ -3,6 +3,22 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Same-bug cost follow-up 2026-11-06
+
+- Reproduced the historical basename bug by restoring only f2cfdd9's path.mbt
+  while preserving main's existing failing assertions; HEAD remained 74ab34f.
+  This is a repeat of a real bug, not a newly discovered feature request.
+  Two model trials: input 248354/12 responses then 213432/11, final 2144 output
+  and 183.982 sec. Both repaired/tested/delivered without in-run takeover.
+- Final model output returns the first slash for slash-only basenames, with
+  replace_ext unchanged. Relative to already-fixed HEAD this is one logic line;
+  relative to restored bug each trial actually used two edits and one post-edit
+  regression. Coordinator added one /// -> / assertion during independent
+  acceptance, without rewriting implementation. Native 108/108 and JS 12/12.
+- Both costs, default IDE fix, snapshot mode correction and remaining skill
+  overhead: ../moondesk/docs/MOONCODE_TOKEN_AUDIT_FOLLOWUP_2026-11-06.md.
+  Evaluation daemon stopped; raw evidence remains excluded from Git.
+
 ## Basename peer-task comparison 2026-11-06
 
 - Coordinator added three failing assertions in the existing basename test:
