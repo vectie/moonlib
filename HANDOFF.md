@@ -3,6 +3,17 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Snapshot/round-trip comparison 2026-11-06
+
+- Same historical source-only restoration on main be919a0, existing tests kept.
+  One autonomous run, 91539 input/1679 output, ten responses, 169.897 sec:
+  one Shell timeout/retry, two edits and one post-edit regression. No repeated
+  source/test reads or redundant scratch cleanup. Total input rose 22.5%.
+- Final source exactly matches accepted HEAD, independently Native 108/108 and
+  pathx JS 12/12. No coordinator business patch, no new business diff or tests.
+  All costs retained in sibling moondesk/docs/
+  MOONCODE_SNAPSHOT_COST_AUDIT_2026-11-06.md; private daemon stopped.
+
 ## Short built-in skill comparison 2026-11-06
 
 - On existing main 5545645, restored only f2cfdd9 path.mbt to reproduce the
