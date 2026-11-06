@@ -3,6 +3,22 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Interrupted real-repository comparison 2026-11-07
+
+- Two historical source-only reproductions on main 1e0d2dd, same assertions and
+  original prompt/model. First 636327/1670 input/output exposed unbounded Claw
+  error output; second 158159/2323 blocked on host disk space, not green tests.
+  Operator reclaimed owned diagnostic/readonly copies, kept all cost records,
+  then one explicit follow-up: 140645/2176, three additional model edits before
+  real Native pathx 12/12 and full 108/108. No manual business repair.
+- All 35 responses total 935131/6169; do not report this as lower cost or as an
+  unattended success. Independent Native 108/108 and JS 12/12. Final artifact
+  differs from accepted HEAD only by scan(trimmed.view()) -> scan(trimmed), a
+  redundant view removal, not a new functional repair or API change.
+- Logs, blockage, retry costs and rejected prompt tuning are in sibling
+  moondesk/docs/MOONCODE_SHELL_ROOT_CAUSE_AUDIT_2026-11-07.md. Daemon stopped;
+  raw journals remain excluded. Tests and original accepted source preserved.
+
 ## Snapshot/round-trip comparison 2026-11-06
 
 - Same historical source-only restoration on main be919a0, existing tests kept.

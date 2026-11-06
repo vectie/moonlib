@@ -58,7 +58,7 @@ pub fn basename(path : StringView) -> StringView {
       [.. view, _] => scan(view)
     }
   }
-  scan(trimmed.view())
+  scan(trimmed)
 }
 
 ///|
