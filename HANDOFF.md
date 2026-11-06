@@ -3,6 +3,26 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Basename peer-task comparison 2026-11-06
+
+- Coordinator added three failing assertions in the existing basename test:
+  docs/// -> docs, 资料/// -> 资料, / -> /. MoonCode on the complete main
+  repository authored the implementation, preserved empty/file/single-slash
+  and existing multi-root behavior, and kept replace_ext slash-only paths
+  unchanged. Three model edits and two post-edit regression failures, then
+  actual Native pathx 12/12 and full 108/108; no manual business rewrite.
+- First trial exposed opaque timeout-policy errors in Claw/Fort; one runtime
+  repair/restart resumed it. Cost 918024 input / 5404 output, 499.657 sec.
+  Saved that delivered file, restored only original implementation and reran
+  identical prompt/assertions after diagnostic fix. Final delivered file is
+  from this second run, not the saved first patch. No in-run intervention;
+  16 responses, 382588 input (cached 29568) / 2620 output, 235.327 sec.
+- Independent final Native 108/108 and pathx JS 12/12. Public API unchanged;
+  info/fmt/whitespace checked. Full audit, both costs and remaining snapshot
+  executable-mode noise are in sibling MoonDesk:
+  docs/MOONCODE_TOKEN_AUDIT_2026-11-06.md. The evaluation daemon is stopped;
+  .moonsuite evidence stays out of Git. Cash fees unknown.
+
 ## Actual MoonCode Native delivery 2026-11-06
 
 - MoonCode worked directly in this complete Git checkout, not a core package

@@ -47,18 +47,18 @@ pub fn dirname(path : StringView) -> StringView {
 /// This behavior is consistent with Posix convention basename command, but inconsistent with Python `os.path.basename`
 /// 
 pub fn basename(path : StringView) -> StringView {
-  let path = match path {
-    [.. path, '/'] => path
-    path => path
+  let trimmed = path.trim_end(chars="/")
+  if trimmed.is_empty() && !path.is_empty() {
+    return if path.length() == 1 { path } else { "" }
   }
   fn scan(current : StringView) -> StringView {
     match current {
-      [] => path
-      [.., '/'] as view => path.view(start_offset=view.end_offset())
+      [] => trimmed
+      [.., '/'] as view => trimmed.view(start_offset=view.end_offset())
       [.. view, _] => scan(view)
     }
   }
-  scan(path.view())
+  scan(trimmed.view())
 }
 
 ///|
@@ -86,6 +86,9 @@ pub fn ext(path : StringView) -> StringView {
 /// for other purpose, if return original path LLM can re-try to diagnostic the issue.
 /// 
 pub fn replace_ext(path : StringView, ext : StringView) -> String {
+  if !path.is_empty() && path.trim_end(chars="/").is_empty() {
+    return path.to_owned()
+  }
   let basename = basename(path)
   match basename {
     "" => return path.to_owned()

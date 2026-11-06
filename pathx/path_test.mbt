@@ -20,6 +20,9 @@ test "dirname" {
 
 ///|
 test "basename" {
+  assert_eq(@pathx.basename("docs///"), "docs")
+  assert_eq(@pathx.basename("资料///"), "资料")
+  assert_eq(@pathx.basename("/"), "/")
   json_inspect(@pathx.basename("a/b/c.jpg"), content="c.jpg")
   json_inspect(@pathx.basename("a/b/c/"), content="c")
   json_inspect(@pathx.basename("a"), content="a")
