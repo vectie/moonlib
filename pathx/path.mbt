@@ -93,7 +93,7 @@ pub fn replace_ext(path : StringView, ext : StringView) -> String {
     ".." => return path.to_owned()
     _ => {
       let old_ext_len = match basename.rev_find(".") {
-        None => 0
+        None | Some(0) => 0
         Some(idx) => basename.length() - idx
       }
       let directory_stem = path.view(

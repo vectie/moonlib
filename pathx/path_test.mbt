@@ -146,12 +146,22 @@ test "absolute join and trailing separator keep MoonLib path semantics" {
 
 ///|
 test "replace_ext" {
+  assert_eq(@pathx.replace_ext(".env", ".local"), ".env.local")
+  assert_eq(
+    @pathx.replace_ext("config/.gitignore", ".bak"),
+    "config/.gitignore.bak",
+  )
   let path = "main.mbt"
   inspect(@pathx.replace_ext(path, ".c"), content="main.c")
   let path = "main"
   inspect(@pathx.replace_ext(path, ".mbt"), content="main.mbt")
   let path = "main.com/file"
   inspect(@pathx.replace_ext(path, ".c"), content="main.com/file.c")
+  assert_eq(@pathx.replace_ext(".env.local", ".prod"), ".env.prod")
+  assert_eq(
+    @pathx.replace_ext("config/.gitignore.bak", ".old"),
+    "config/.gitignore.old",
+  )
 }
 
 ///|

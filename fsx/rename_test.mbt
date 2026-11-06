@@ -1,6 +1,8 @@
 ///|
 async test "atomic rename replaces destination content" {
-  let root = @fs.tmpdir(prefix="moonlib-atomic-rename")
+  let root = @fsx.mkdtemp(
+    @pathx.join(@os.tmpdir(), "moonlib-atomic-renameXXXXXX"),
+  )
   let source = root + "/source"
   let destination = root + "/destination"
   @fs.write_file(

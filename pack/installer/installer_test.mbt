@@ -1,4 +1,9 @@
 ///|
+fn fixture_tmpdir(prefix : String) -> String raise {
+  @fsx.mkdtemp(@os.tmpdir() + "/" + prefix + "XXXXXX")
+}
+
+///|
 fn fixture_manifest(version : String) -> @pack.MoonPackManifest {
   {
     id: "fixture",
@@ -82,9 +87,9 @@ test "authority and runtime dependency grants are explicit" {
 
 ///|
 async test "install verify rollback and deactivate preserve immutable versions" {
-  let source_v1 = @fs.tmpdir(prefix="moonpack-source-v1")
-  let source_v2 = @fs.tmpdir(prefix="moonpack-source-v2")
-  let workspace = @fs.tmpdir(prefix="moonpack-workspace")
+  let source_v1 = fixture_tmpdir("moonpack-source-v1")
+  let source_v2 = fixture_tmpdir("moonpack-source-v2")
+  let workspace = fixture_tmpdir("moonpack-workspace")
   write_fixture(source_v1, "1.0.0")
   write_fixture(source_v2, "2.0.0")
   let first = @installer.install(source_v1, workspace)
@@ -111,8 +116,8 @@ async test "install verify rollback and deactivate preserve immutable versions" 
 
 ///|
 async test "install preserves app runtime identity declaration" {
-  let source = @fs.tmpdir(prefix="moonpack-identity-source")
-  let workspace = @fs.tmpdir(prefix="moonpack-identity-workspace")
+  let source = fixture_tmpdir("moonpack-identity-source")
+  let workspace = fixture_tmpdir("moonpack-identity-workspace")
   write_fixture(source, "1.0.0")
   let manifest = {
     ..fixture_manifest("1.0.0"),
@@ -140,8 +145,8 @@ async test "install preserves app runtime identity declaration" {
 
 ///|
 async test "install keeps executable and ordinary artifact permissions" {
-  let source = @fs.tmpdir(prefix="moonpack-mode-source")
-  let workspace = @fs.tmpdir(prefix="moonpack-mode-workspace")
+  let source = fixture_tmpdir("moonpack-mode-source")
+  let workspace = fixture_tmpdir("moonpack-mode-workspace")
   write_fixture(source, "1.0.0")
   @fs.mkdir(source + "/bin", permission=0o755, recursive=true)
   let executable = source + "/bin/runner"
@@ -183,8 +188,8 @@ async test "install keeps executable and ordinary artifact permissions" {
 
 ///|
 async test "verification detects artifact tampering" {
-  let source = @fs.tmpdir(prefix="moonpack-source")
-  let workspace = @fs.tmpdir(prefix="moonpack-workspace")
+  let source = fixture_tmpdir("moonpack-source")
+  let workspace = fixture_tmpdir("moonpack-workspace")
   write_fixture(source, "1.0.0")
   let receipt = @installer.install(source, workspace)
   @fs.write_file(

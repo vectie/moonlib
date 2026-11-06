@@ -10,6 +10,9 @@
   package ownership, promotion rules, and consumer qualification seams.
 - [Root README](../README.md) — packages and integration guidance.
 - Generated `pkg.generated.mbti` files — authoritative public MoonBit APIs.
+- [Real-repository Native bug delivery](../../moondesk/docs/MOONCODE_LIVE_NATIVE_REPOSITORY_2026-11-06.md)
+  records the MoonCode run, independent acceptance and earlier failed-attempt
+  costs; [handoff notes](../HANDOFF.md) cover Native test/deployment pitfalls.
 
 MoonLib is a library. It intentionally has no operator, provider, deployment or
 domain-policy manual.
