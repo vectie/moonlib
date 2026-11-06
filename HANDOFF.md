@@ -3,6 +3,22 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Short built-in skill comparison 2026-11-06
+
+- On existing main 5545645, restored only f2cfdd9 path.mbt to reproduce the
+  same historical bug, retaining all current assertions including ///. One
+  real run, same prompt/model/executor config, no in-run intervention.
+  Result: 74750 input/1685 output, eight responses, 134.394 sec. A single edit
+  call made two atomic changes; no post-edit test failure. Final source exactly
+  matches already-accepted HEAD, so no new business patch is manufactured.
+- Model self-test Native 12/12 and 108/108; independent full Native 108/108 and
+  pathx JS 12/12. Missing AGENTS and original red test stay in the cost record.
+  Its final answer reported clean main without recounting initial repair;
+  journal shows the real red -> edit -> green work. Daemon stopped.
+- Report: ../moondesk/docs/MOONCODE_SKILL_COST_AUDIT_2026-11-06.md. Context
+  improvement came from maintained bundled skill content, not a new truncation
+  policy. Raw evidence remains excluded from Git.
+
 ## Same-bug cost follow-up 2026-11-06
 
 - Reproduced the historical basename bug by restoring only f2cfdd9's path.mbt
