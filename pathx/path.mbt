@@ -73,27 +73,15 @@ pub fn ext(path : StringView) -> StringView {
 /// replace extension name with `ext`, if basename exists.
 /// 
 /// failed cases: 
-///   1. if `basename(path)` is empty, return original path. 
-///   2. if `basename(path)` is `.` or `..`, return original path.
+/// If `basename(path)` is empty, `.`, `..`, or the root `/`, return the
+/// original path: none of these names has an extension to replace.
 /// 
 /// This API is not consistent with Python `pathlib.Path.with_suffix`, which would raise exception in failed cases.
 /// 
-/// Justification:
-/// 
-/// when `replace_ext` fails, returning original path is logging friendly behavior,
-/// by the way if `replace_ext` fails, user also hasn't good way to handle this error case.
-/// 
-/// for other purpose, if return original path LLM can re-try to diagnostic the issue.
-/// 
 pub fn replace_ext(path : StringView, ext : StringView) -> String {
-  if !path.is_empty() && path.trim_end(chars="/").is_empty() {
-    return path.to_owned()
-  }
   let basename = basename(path)
   match basename {
-    "" => return path.to_owned()
-    "." => return path.to_owned()
-    ".." => return path.to_owned()
+    "" | "." | ".." | "/" => path.to_owned()
     _ => {
       let old_ext_len = match basename.rev_find(".") {
         None | Some(0) => 0

@@ -3,6 +3,21 @@
 Work on main unless the user requests a branch. Keep public interfaces stable
 for a bug fix and preserve unrelated working-tree edits.
 
+## Offline caller-contract cleanup 2026-11-07
+
+- User paused paid reruns. No provider calls: existing journals reconstructed
+  twelve source revisions in a tracked-source archive, with original pathx JS
+  cases. Reproduced basename -> caller, type and root-scan errors; input contained
+  both replace_ext and tests for all nine historical edits. No new model inference.
+- replace_ext now dispatches empty/dot/dotdot/root from basename's result;
+  removes its duplicate trim/root scan and generic LLM retry prose. Existing
+  main was already functionally correct: this is behavior-preserving cleanup,
+  not proof the model will stop missing callers. Native 108/108 and JS 12/12,
+  public API unchanged, no added tests or states.
+- Full analysis and limits: ../moondesk/docs/
+  MOONCODE_OFFLINE_REPLAY_AUDIT_2026-11-07.md. Actual workspace was never restored
+  to the historical bug during this audit; original cost journals unchanged.
+
 ## Interrupted real-repository comparison 2026-11-07
 
 - Two historical source-only reproductions on main 1e0d2dd, same assertions and
